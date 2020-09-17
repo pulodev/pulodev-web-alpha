@@ -28,3 +28,11 @@ function generateSlug($title, $object)
 
     return $slug;
 }
+
+function getAvatar($user)
+{
+    if($user->avatar_url == '')
+        return "https://ui-avatars.com/api/?background=0D8ABC&color=fff&rounded=true&name=" . $user->username;
+    else
+        return '';
+}

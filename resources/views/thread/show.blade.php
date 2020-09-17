@@ -26,10 +26,16 @@
             <div class="card-content">
                 <div>{!! Purify::clean($thread->body) !!}</div>
 
-                <footer class="mt-2">
-                    <br>
-                    <p>Ditulis oleh {{'@'. $thread->user->username}}</p>
-                    <p class="is-size-7">Kategori: {{$thread->tags}}</p>
+                <footer class="media mt-2">
+                    <figure class="media-left">
+                        <p class="image">
+                        <img src="{{ getAvatar($thread->user) }}" alt="foto profil {{$thread->user->username}}" width="50">
+                        </p>
+                    </figure>
+                    <div>
+                        <p><a href="/{{'@'.$thread->user->username}}"> Ditulis oleh {{'@'. $thread->user->username}}</a></p>
+                        <p class="is-size-7">Kategori: {{$thread->tags}}</p>
+                    </div>
                 </footer>
             </div>
         </div>
@@ -71,14 +77,14 @@
         @foreach ($thread->comments as $comment)
             <article class="media">
             <figure class="media-left">
-                <p class="image is-64x64">
-                <img src="https://bulma.io/images/placeholders/128x128.png">
+                <p class="image">
+                 <img src="{{ getAvatar($comment->user) }}" alt="foto profil {{$comment->user->username}}" width="50">
                 </p>
             </figure>
                 <div class="media-content">
                     <div class="content">
                     <div>
-                        <strong>{{$comment->user->fullname}}</strong> <small>{{'@'.$comment->user->username}}</small> 
+                        <strong>{{$comment->user->fullname}}</strong> <small><a href="/{{'@'.$comment->user->username}}">{{'@'.$comment->user->username}}</a></small> 
                         <br>
                         <div>{!! Purify::clean($comment->body) !!}</div>
                     </div>

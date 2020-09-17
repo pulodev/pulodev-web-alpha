@@ -24,7 +24,7 @@
             <article class="media">
                 <div class="media-left">
                 <figure class="image is-64x64">
-                    <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+                     <img src="{{ getAvatar($thread->user) }}" alt="foto profil {{$thread->user->username}}" width="100">
                 </figure>
                 </div>
                 <div class="media-content">

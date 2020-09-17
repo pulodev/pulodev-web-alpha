@@ -17,10 +17,14 @@ Route::get('/', 'ThreadController@index');
 Route::get('/logout', 'UserController@logout');
 
 //User
-Route::get('/@{name}', 'UserController@show');
+Route::get('/@{user}', 'UserController@show');
 
 //User must verify email
 Route::group(['middleware' => 'verified'], function(){
+
+    //User
+    Route::get('/user/edit', 'UserController@edit');
+    Route::put('/user/update', 'UserController@update');
     
     //thread
     Route::get('tulis', 'ThreadController@create');

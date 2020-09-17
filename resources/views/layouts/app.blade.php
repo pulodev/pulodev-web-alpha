@@ -68,8 +68,9 @@ SELAMAT BELAJAR, JANGAN JADI ORANG BIASA !!! HUSST JANGAN BILANG BILANG UDAH LIA
             <a class="navbar-item" href="/register">Register</a>
             <a class="navbar-item" href="/login">Login</a>
         @else   
+            <a class="navbar-item" href="/{{'@'.Auth::user()->username}}">Profil</a>
             <a class="navbar-item" href="/logout">Logout</a>
-            <a class="button is-info mt-1" href='/tulis'>Thread Baru +</a>
+            <a class="navbar-item button is-info mt-1" href='/tulis'>Thread Baru +</a>
         @endif
     </div>
     </nav>
