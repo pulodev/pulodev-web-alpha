@@ -18,7 +18,12 @@
                     @endif
 
                     {{ __('Before proceeding, please check your email for a verification link.') }}
-                    {{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}">{{ __('click here to request another') }}</a>.
+                    {{ __('If you did not receive the email') }}, 
+
+                    <form action="/email/verification-notification" method="POST">
+                        {{ csrf_field() }}
+                        <input type="submit" value="Kirim Ulang">
+                    </form>
                 </div>
             </div>
         </div>

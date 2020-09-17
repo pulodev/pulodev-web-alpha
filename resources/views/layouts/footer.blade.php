@@ -1,3 +1,3 @@
 <footer>
-    <p>footer here</p>
+    {{-- <p>footer here</p> --}}
 </footer>

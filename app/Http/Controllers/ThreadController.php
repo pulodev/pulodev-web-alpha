@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use Carbon\Carbon;
 use App\Models\Thread;
+use App\Rules\MinimalWords;
 use Illuminate\Http\Request;
 
 class ThreadController extends Controller
@@ -14,7 +17,8 @@ class ThreadController extends Controller
      */
     public function index()
     {
-        //
+        $threads = Thread::with('user')->orderBy('last_activity_at', 'desc')->paginate(15);
+        return view('welcome', compact('threads'));
     }
 
     /**
@@ -24,7 +28,7 @@ class ThreadController extends Controller
      */
     public function create()
     {
-        //
+        return view('thread.create');
     }
 
     /**
@@ -35,7 +39,27 @@ class ThreadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => ['required', 'max:255', new MinimalWords(2)],
+            'body' => ['required', new MinimalWords(10)],
+            'tags' => 'required',
+        ]);
+
+
+        //logika tag. two words jadi satu dengan - . 
+        $user = Auth::user();    
+        
+        $thread = $user->threads()->create([
+            'title'   => $request->title,
+            'slug'    => generateSlug($request->title, new Thread),
+            'body' => $request->body,
+            'tags' => $request->tags,
+            'last_activity_at' => Carbon::now()
+        ]);  
+
+        //change session token
+        $request->session()->regenerateToken();
+        return redirect('/' . $thread->slug)->with('success', 'pertanyaan berhasil dibuat');
     }
 
     /**
@@ -46,7 +70,12 @@ class ThreadController extends Controller
      */
     public function show(Thread $thread)
     {
-        //
+        if(!$thread->exists())
+            abort(404);
+
+        $thread->load('comments', 'comments.user');
+
+        return view('thread.show', compact('thread'));
     }
 
     /**
@@ -57,7 +86,12 @@ class ThreadController extends Controller
      */
     public function edit(Thread $thread)
     {
-        //
+        if(!$thread->exists())
+            abort(404);
+
+        checkOwnership($thread->user->id);
+
+        return view('thread.edit', compact('thread'));
     }
 
     /**
@@ -69,7 +103,28 @@ class ThreadController extends Controller
      */
     public function update(Request $request, Thread $thread)
     {
-        //
+        if(!$thread->exists())
+            abort(404);
+        
+        $request->validate([
+            'title' => ['required', 'max:255', new MinimalWords(2)],
+            'body' => ['required', new MinimalWords(10)],
+            'tags' => 'required',
+        ]);
+
+
+        checkOwnership($thread->user->id);
+        
+        $thread->update([
+            'title'   => $request->title,
+            'body' => $request->body,
+            'tags' => $request->tags,
+            'last_activity_at' => Carbon::now()
+        ]);  
+
+        //change session token
+        $request->session()->regenerateToken();
+        return redirect('/' . $thread->slug)->with('success', 'pertanyaan berhasil doupdate');
     }
 
     /**

@@ -17,11 +17,12 @@ class CreateThreadsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
-            $table->text('subject');
+            $table->text('body');
             $table->string('tags');
             
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            
             $table->timestamp('last_activity_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
