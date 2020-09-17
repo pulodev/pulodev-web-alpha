@@ -40,7 +40,7 @@
                     <div class="field">
                         <label class="label">Fullname</label>
                         <div class="control">
-                            <input name="fullname" class="input" type="text" placeholder="" value={{$user->fullname}}>
+                            <input name="fullname" class="input" type="text" value="{{$user->fullname}}">
                         </div>
                          @if ($errors->has('fullname'))
                             <p class="help is-danger">
@@ -59,7 +59,7 @@
                     <div class="field">
                         <label class="label">Link websitemu</label> 
                         <div class="control">
-                            <input name="website_url" class="input" type="url" placeholder="https://web.kamu" value={{$user->website_url}}>
+                            <input name="website_url" class="input" type="url" placeholder="https://web.kamu" value="{{$user->website_url}}">
                         </div>
                     </div>
 

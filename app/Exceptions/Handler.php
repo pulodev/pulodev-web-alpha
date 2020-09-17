@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Exceptions;
-
+use Throwable;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -32,6 +32,18 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        //
+
+    }
+
+    public function render($request, Throwable $e)
+    {
+        //if token missmatch
+        if ($e instanceof \Illuminate\Session\TokenMismatchException) {
+              return redirect()
+                  ->back()
+                  ->withInput($request->input())->with('warning', 'mohon maaf, silahkan submit sekali lagi');
+        }
+
+        return parent::render($request, $e);
     }
 }
