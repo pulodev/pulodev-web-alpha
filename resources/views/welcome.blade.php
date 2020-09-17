@@ -34,7 +34,11 @@
                     <br>
                     {{$thread->title}}
                     </p>
-                    <p class="is-size-7">Kategori: {{$thread->tags}}</p>
+                    <p class="is-size-7">
+                        Komentar {{$thread->comments_count}} <br>
+                        Dibuat {{$thread->created_at->diffForHumans()}} <br>
+                        Kategori: {{$thread->tags}}
+                    </p>
                 </div>
                 </div>
             </article>
