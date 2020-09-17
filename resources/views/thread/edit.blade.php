@@ -53,6 +53,10 @@
                         </div>
                     </div>
 
+                    <label class="checkbox">
+                        <input type="checkbox" name="draft" @if($thread->draft) checked @endif> Draft
+                    </label>
+
                     <div class="buttons">
                       <button class="button is-primary is-fullwidth"">Submit</button>
                     </div>

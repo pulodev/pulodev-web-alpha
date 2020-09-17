@@ -17,7 +17,7 @@ class ThreadController extends Controller
      */
     public function index()
     {
-        $threads = Thread::with('user')->withCount('comments')
+        $threads = Thread::with('user')->withCount('comments')->where('draft', 0)
                         ->orderBy('last_activity_at', 'desc')->paginate(15);
         return view('welcome', compact('threads'));
     }
@@ -55,6 +55,7 @@ class ThreadController extends Controller
             'slug'    => generateSlug($request->title, new Thread),
             'body' => $request->body,
             'tags' => $request->tags,
+            'draft' => ($request->draft == true) ? true : false,
             'last_activity_at' => Carbon::now()
         ]);  
 
@@ -120,6 +121,7 @@ class ThreadController extends Controller
             'title'   => $request->title,
             'body' => $request->body,
             'tags' => $request->tags,
+            'draft' => ($request->draft == true) ? true : false,
             'last_activity_at' => Carbon::now()
         ]);  
 

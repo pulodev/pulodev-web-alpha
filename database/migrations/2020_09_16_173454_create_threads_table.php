@@ -19,6 +19,7 @@ class CreateThreadsTable extends Migration
             $table->string('slug');
             $table->text('body');
             $table->string('tags');
+            $table->boolean('draft')->default(0);
             
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
