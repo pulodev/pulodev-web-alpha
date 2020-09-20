@@ -17,9 +17,7 @@ class ThreadController extends Controller
      */
     public function index()
     {
-        $threads = Thread::with('user')->withCount('comments')->where('draft', 0)
-                        ->orderBy('last_activity_at', 'desc')->paginate(15);
-        return view('welcome', compact('threads'));
+        
     }
 
     /**

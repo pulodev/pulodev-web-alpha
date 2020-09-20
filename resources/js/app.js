@@ -1,6 +1,6 @@
 //custom selector
 window.$ = function $(el) {
-    return (el.charAt[0] == "#")
+    return (el.charAt(0) == "#")
         ? document.querySelector(el)
         : document.querySelectorAll(el)
 }

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'ThreadController@index');
+Route::get('/', 'PageController@index');
 Route::get('/logout', 'UserController@logout');
 
 //User
@@ -25,6 +25,14 @@ Route::group(['middleware' => 'verified'], function(){
     //User
     Route::get('/user/edit', 'UserController@edit');
     Route::put('/user/update', 'UserController@update');
+
+    //link
+    Route::get('link', 'LinkController@create');
+    Route::post('link', 'LinkController@store');
+    Route::get('link/{link}/edit', 'LinkController@edit');
+    Route::put('link/{link}', 'LinkController@update');
+
+    Route::post('scrape', 'LinkController@scrape');
     
     //thread
     Route::get('tulis', 'ThreadController@create');
@@ -40,7 +48,7 @@ Route::group(['middleware' => 'verified'], function(){
 
 });
 
-//Thread single page
+Route::get('/link/{link}', 'LinkController@show');
 Route::get('/{thread}', 'ThreadController@show');
 
 
