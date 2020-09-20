@@ -97,6 +97,14 @@ class LinkController extends Controller
         return view('link.show', compact('link'));
     }
 
+    public function search(Request $request)
+    {
+        $querySearch = $request->input('query');
+        $links = Link::with('user')->where('title', 'like', '%'.$querySearch.'%')
+                    ->orderBy('id', 'desc')->get();
+        return view('link.search', compact('links', 'querySearch'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

@@ -48,6 +48,7 @@ Route::group(['middleware' => 'verified'], function(){
 
 });
 
+Route::get('/search/', 'LinkController@search');
 Route::get('/link/{link}', 'LinkController@show');
 Route::get('/{thread}', 'ThreadController@show');
 

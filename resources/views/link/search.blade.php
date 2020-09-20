@@ -8,12 +8,8 @@
     <div class="hero-body">
         <div class="container">
             <h1 class="title">
-                Komunitas programmer Indonesia
+               Mencari {{$querySearch}}
             </h1>
-
-            @if (Auth::check())
-                <p class="subtitle">Halo {{Auth::user()->username}} </p>
-            @endif
             
             <form class="" action="/search" method="GET">
                 <input type="search" class="input" name="query" placeholder="cari...">
@@ -24,8 +20,6 @@
 </section>
 
 <div class="container">
-<div class="columns mt-2">
-    <div class="column">
         <h3 class="is-size-3">Link</h3>
         @foreach ($links as $link)
             <a class="box" href='/link/{{$link->slug}}'>
@@ -50,44 +44,6 @@
                 </article>
             </a>
         @endforeach
-
-        <div>
-            {{ $links->links() }}
-        </div>
-    </div>
-
-    <div class="column">
-        <h3 class="is-size-3">Thread</h3>
-        @foreach ($threads as $thread)
-            <a class="box" href='/{{$thread->slug}}'>
-                <article class="media">
-                    <div class="media-left">
-                    <figure class="image is-64x64">
-                        <img src="{{ getAvatar($thread->user) }}" alt="foto profil {{$thread->user->username}}" width="100">
-                    </figure>
-                    </div>
-                    <div class="media-content">
-                    <div class="content">
-                        <p>{{$thread->user->fullname}}<small>{{'@'.$thread->user->username}}</small> 
-                        <br>
-                        <strong>{{$thread->title}}</strong>
-                        </p>
-                        <p class="is-size-7">
-                            Komentar {{$thread->comments_count}} <br>
-                            Dibuat {{$thread->created_at->diffForHumans()}} <br>
-                            Kategori: {{$thread->tags}}
-                        </p>
-                    </div>
-                    </div>
-                </article>
-            </a>
-        @endforeach
-
-        <div>
-            {{ $threads->links() }}
-        </div>
-    </div>
-</div>
 </div>
 
 @endsection
