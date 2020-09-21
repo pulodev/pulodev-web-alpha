@@ -16,6 +16,9 @@
             <h1 class="title">
                 {{ $link->title }}
             </h1>
+            <div class="subtitle">
+                @if ($link->draft) [Status: draft - Tunggu konfirmasi] @endif
+            </div>
         </div>
     </div>
 </section>
