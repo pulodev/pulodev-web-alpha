@@ -85,6 +85,7 @@ class LinkController extends Controller
             'tags'  => $request->tags,
             'media'  => $request->media,
             'owner'  => $request->owner,
+            'draft' => Auth::user()->isAdmin() ? false : true, //if admin auto publish
             'original_published_at'  => $request->original_published_at ?? Carbon::now(),
         ]);  
 
@@ -94,15 +95,12 @@ class LinkController extends Controller
     }
 
     private function cleanUrl($url) {
-        //remove http or https for slug    
-        $cleanUrl = str_replace("http://", "", str_replace("https://","", $url));
-        
         //remove question mark like utm_soruce etc...
             //TODO::
             //remove question mark and ist value if source and utm_source
             //watchout like youtube : use quesiton mark in video and playlist
             // $cleanUrl = trim(strtok($cleanTitle));
-
+        $cleanUrl = $url;
         return $cleanUrl;
     }
 
@@ -136,7 +134,10 @@ class LinkController extends Controller
      */
     public function edit(Link $link)
     {
-        //
+        if(!$link->exists())
+            abort(404);
+
+        return view('link.edit', compact('link'));
     }
 
     /**
@@ -148,7 +149,34 @@ class LinkController extends Controller
      */
     public function update(Request $request, Link $link)
     {
-        //
+        if(!$link->exists())
+            abort(404);
+
+        $request->validate([
+            'url' => 'required',
+            'title' => ['required', 'max:255', new MinimalWords(2)],
+            'body' => ['required', new MinimalWords(5)],
+            'tags' => 'required',
+        ]);
+
+        checkOwnership($link->user->id);
+
+        $user = Auth::user();    
+        
+        $link->update([
+            'title' => $request->title,
+            'url'  => $this->cleanUrl($request->url),
+            'body'  => $request->body,
+            'tags'  => $request->tags,
+            'media'  => $request->media,
+            'owner'  => $request->owner,
+            'draft' => ($request->draft == true) ? true : false,
+            'original_published_at'  => $request->original_published_at ?? Carbon::now(),
+        ]);  
+
+        //change session token
+        $request->session()->regenerateToken();
+        return redirect('/link/' . $link->slug)->with('success', 'Link berhasil diedit');
     }
 
     /**

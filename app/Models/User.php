@@ -48,6 +48,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return 'username';
     }
 
+    public function isAdmin()
+    {
+        return ($this->role == 1) ? true : false;
+    }
+
     public function links()
     {
        return $this->hasMany('App\Models\Link')->orderBy('id', 'desc');

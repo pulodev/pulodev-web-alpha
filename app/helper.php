@@ -4,7 +4,8 @@
 
 function checkOwnership($user_id)
 {
-    if(Auth::user()->id != $user_id)
+    //if not owner AND not admin
+    if(Auth::user()->id != $user_id || !Auth::user()->isAdmin())
         abort(403);
 
     return;

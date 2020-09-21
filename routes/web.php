@@ -10,7 +10,6 @@ Route::get('/@{user}', 'UserController@show');
 
 //User must verify email
 Route::group(['middleware' => 'verified'], function(){
-
     //User
     Route::get('/user/edit', 'UserController@edit');
     Route::put('/user/update', 'UserController@update');
@@ -22,8 +21,10 @@ Route::group(['middleware' => 'verified'], function(){
     Route::put('link/{link}', 'LinkController@update');
 
     Route::post('scrape', 'LinkController@scrape');
+});
 
-
+Route::group(['middleware' => 'admin'], function(){
+    Route::get('/admin/dashboard', 'AdminController@dashboard');
 });
 
 Route::get('/search/', 'LinkController@search');
