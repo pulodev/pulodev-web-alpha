@@ -53,7 +53,11 @@
     @if (Auth::user()->id === $link->user->id)
         <div class="buttons">
              <a class="button is-primary is-light" href="/link/{{$link->slug}}/edit">Edit</a>
-             <a class="button is-danger is-light" href="/link/{{$link->slug}}/delete">Delete</a>
+             <form method="POST" action="/link/{{$link->slug}}">
+                @csrf
+                @method('DELETE')
+                <input type="submit" class="button is-danger is-light" href="/link/{{$link->slug}}/delete" value="Hapus">
+             </form>
         </div>
     @endif
 @endif

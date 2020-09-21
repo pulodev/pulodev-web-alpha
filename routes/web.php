@@ -14,12 +14,7 @@ Route::group(['middleware' => 'verified'], function(){
     Route::get('/user/edit', 'UserController@edit');
     Route::put('/user/update', 'UserController@update');
 
-    //link
-    Route::get('link', 'LinkController@create');
-    Route::post('link', 'LinkController@store');
-    Route::get('link/{link}/edit', 'LinkController@edit');
-    Route::get('link/{link}/delete', 'LinkController@destroy');
-    Route::put('link/{link}', 'LinkController@update');
+    Route::resource('link', 'LinkController')->except(['index', 'show' ]);
 
     Route::post('scrape', 'LinkController@scrape');
 });
