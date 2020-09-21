@@ -38,16 +38,9 @@
         <div class="card">
             <div class="card-content">
                 <ul>
-                    <h2>Daftar Thread</h2>
-                    @foreach ($user->threads as $thread)
-                        <a href="/{{$thread->slug}}"> {{$thread->title}} </a>
-                    @endforeach
-                </ul>
-
-                <ul>
-                    <h2>Daftar Komentar</h2>
-                    @foreach ($user->comments as $comment)
-                        <a href="/{{$comment->thread->slug}}"> {{cutText($comment->body, 50) }} </a>
+                    <h2>Daftar Link</h2>
+                    @foreach ($user->links as $link)
+                        <a href="/link/{{$link->slug}}"> {{$link->title}} </a>
                     @endforeach
                 </ul>
             </div>

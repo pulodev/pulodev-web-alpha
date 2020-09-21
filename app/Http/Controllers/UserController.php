@@ -13,7 +13,7 @@ class UserController extends Controller
         if(!$user->exists())
             abort(404);
 
-        $user->load('threads', 'comments.thread');
+        $user->load('links');
         
         return view('user.profile', compact('user'));
     }

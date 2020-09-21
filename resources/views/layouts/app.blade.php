@@ -70,8 +70,6 @@ SELAMAT BELAJAR, JANGAN JADI ORANG BIASA !!! HUSST JANGAN BILANG BILANG UDAH LIA
         @else   
             <a class="navbar-item" href="/{{'@'.Auth::user()->username}}">Profil</a>
             <a class="navbar-item" href="/logout">Logout</a>
-            <a class="navbar-item button is-info mt-1" href='/tulis'>Thread Baru +</a>
-            &nbsp;
             <a class="navbar-item button is-info mt-1" href='/link'>Link Baru +</a>
         @endif
     </div>

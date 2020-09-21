@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Link;
 use App\Rules\MinimalWords;
 use Illuminate\Http\Request;
@@ -34,7 +35,16 @@ class LinkController extends Controller
     {
         //check if include https. 
         //avoid broken link
-        
+
+        //check if exists
+        $link = Link::where('url', $this->cleanUrl($request->url))->first();
+        if($link) 
+            return response()->json([
+                'status' => 'EXISTS',
+                'msg' => 'link sudah ada'
+            ], 403);
+
+        //scrape content
         $response = Http::get($request->url);
         $htmlContent = $response->body();
         
@@ -45,7 +55,7 @@ class LinkController extends Controller
 
         return response()->json([
             'title' => end($matchTitle),
-            'description' => $tags['description'],
+            'description' => $tags['description'] ?? '',
             'author' => $tags['author'] ?? '',
         ]);
     }
@@ -65,22 +75,35 @@ class LinkController extends Controller
             'tags' => 'required',
         ]);
 
-
-        //logika tag. two words jadi satu dengan - . 
         $user = Auth::user();    
         
         $link = $user->links()->create([
             'title' => $request->title,
-            'url'  => $request->url,
+            'url'  => $this->cleanUrl($request->url),
             'slug'  => generateSlug($request->title, new Link),
             'body'  => $request->body,
             'tags'  => $request->tags,
-            'twitter_owner'  => $request->twitter_owner,
+            'media'  => $request->media,
+            'owner'  => $request->owner,
+            'original_published_at'  => $request->original_published_at ?? Carbon::now(),
         ]);  
 
         //change session token
         $request->session()->regenerateToken();
         return redirect('/link/' . $link->slug)->with('success', 'Link berhasil disubmit');
+    }
+
+    private function cleanUrl($url) {
+        //remove http or https for slug    
+        $cleanUrl = str_replace("http://", "", str_replace("https://","", $url));
+        
+        //remove question mark like utm_soruce etc...
+            //TODO::
+            //remove question mark and ist value if source and utm_source
+            //watchout like youtube : use quesiton mark in video and playlist
+            // $cleanUrl = trim(strtok($cleanTitle));
+
+        return $cleanUrl;
     }
 
     /**
