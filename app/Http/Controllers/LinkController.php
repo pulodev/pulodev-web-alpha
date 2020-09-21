@@ -187,6 +187,12 @@ class LinkController extends Controller
      */
     public function destroy(Link $link)
     {
-        //
+        if(!$link->exists())
+            abort(404);
+        
+        checkOwnership($link->user->id);
+
+        $link->delete();
+        return redirect('/')->with('success', 'Link berhasil dihapus');
     }
 }

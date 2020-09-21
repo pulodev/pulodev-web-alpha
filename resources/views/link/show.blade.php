@@ -53,6 +53,7 @@
     @if (Auth::user()->id === $link->user->id)
         <div class="buttons">
              <a class="button is-primary is-light" href="/link/{{$link->slug}}/edit">Edit</a>
+             <a class="button is-danger is-light" href="/link/{{$link->slug}}/delete">Delete</a>
         </div>
     @endif
 @endif
