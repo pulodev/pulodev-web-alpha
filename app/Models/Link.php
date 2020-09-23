@@ -11,6 +11,7 @@ class Link extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = ['id'];
+    protected $dates = ['original_published_at'];
 
     /**
      * Get the route key for the model.

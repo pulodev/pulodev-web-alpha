@@ -25,7 +25,13 @@ Route::group(['prefix' => 'admin',  'middleware' => 'admin'], function(){
     Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 });
 
+
+//Filter Content
 Route::get('/search/', 'LinkController@search');
+Route::get('/media/{query}', 'PageController@filterMedia');
+Route::get('/tag/{query}', 'PageController@filterTag');
+
+
 Route::get('/link/{link}', 'LinkController@show');
 
 
