@@ -20,9 +20,13 @@ Route::group(['middleware' => 'verified'], function(){
     Route::post('scrape', 'LinkController@scrape');
 });
 
+//Admin stuff
 Route::group(['prefix' => 'admin',  'middleware' => 'admin'], function(){
     Route::get('/dashboard', 'AdminController@dashboard');
     Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+
+    Route::delete('/link/bulk', 'AdminController@deleteBulk');
+    Route::put('/link/bulk/publish', 'AdminController@publishBulk');
 });
 
 

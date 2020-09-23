@@ -19,8 +19,8 @@ class CreateLinksTable extends Migration
             $table->string('url');
             $table->string('slug'); //in case there is "saved item" or "comment system" later.
             $table->text('body');
-            $table->string('tags');
-            $table->string('media');
+            $table->string('tags')->default('bebas');
+            $table->string('media')->default('tulisan');
             $table->string('thumbnail')->nullable();
             $table->string('owner')->nullable();
             $table->boolean('draft')->default(1);
