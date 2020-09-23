@@ -27,7 +27,7 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'username' => 'required|max:30',
+            'username' => ['required', 'max:10', 'alpha_dash', 'unique:users'],
         ]);
 
 
