@@ -4,6 +4,14 @@
 @section('desc', 'Welcome koding .club')
 @section('content')
 
+@if (Auth::user())
+    @if (Auth::user()->email_verified_at == NULL)
+    <div class="notification is-warning">
+        Kamu belum verifikasi email. Silahkan cek email dan verifikasi untuk bisa mulai memposting konten
+    </div>
+    @endif
+@endif
+
 <section class="hero is-primary">
     <div class="hero-body">
         <div class="container">
