@@ -37,12 +37,7 @@
 
                         <x-form.input label="Tag" name="tags" placeholder="php, javascript, html" required/>
                         
-                        <div class="control">
-                            <div class="label">Media</div>
-                            <label class="radio"> <input type="radio" name="media" value="tulisan" checked> Tulisan </label>
-                            <label class="radio"> <input type="radio" name="media" value="video"> Video </label>
-                            <label class="radio"> <input type="radio" name="media" value="podcast"> Podcast </label>
-                        </div>
+                        <x-form.media-choice />
                         
                         <p class="my-2">*Informasi opsional</p>
                         <x-form.input label="Pemilik Konten" name="owner" placeholder="Akun Twitter atau Nama"/>

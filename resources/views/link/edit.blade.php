@@ -38,14 +38,7 @@
 
                         <x-form.input :object="$link" label="Tag" name="tags" placeholder="php, javascript, html" required/>
                         
-                        <div class="control">
-                            <div class="label">Media</div>
-                            <label class="radio"> <input id="media-tulisan" type="radio" name="media" value="tulisan"> Tulisan </label>
-                            <label class="radio"> <input id="media-video" type="radio" name="media" value="video"> Video </label>
-                            <label class="radio"> <input id="media-podcast" type="radio" name="media" value="podcast"> Podcast </label>
-                        </div>
-                        {{-- check media from db --}}
-                        <script> $('#media-{{$link->media}}').checked = true </script>
+                         <x-form.media-choice :object="$link" />
                         
                         <p class="my-2">*Informasi opsional</p>
                         <x-form.input :object="$link" label="Pemilik Konten" name="owner" placeholder="Akun Twitter atau Nama"/>
