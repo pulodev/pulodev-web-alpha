@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         
         App\Providers\FortifyServiceProvider::class,
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
     ],
 
     /*

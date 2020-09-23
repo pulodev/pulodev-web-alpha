@@ -20,8 +20,9 @@ Route::group(['middleware' => 'verified'], function(){
     Route::post('scrape', 'LinkController@scrape');
 });
 
-Route::group(['middleware' => 'admin'], function(){
-    Route::get('/admin/dashboard', 'AdminController@dashboard');
+Route::group(['prefix' => 'admin',  'middleware' => 'admin'], function(){
+    Route::get('/dashboard', 'AdminController@dashboard');
+    Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 });
 
 Route::get('/search/', 'LinkController@search');
