@@ -27,11 +27,10 @@
                         </div>
                     @endif
 
-                    <form class="password-reset-form" method="POST" action="{{ route('password.request') }}">
+                    <form class="password-reset-form" method="POST" action="/reset-password">
+                        @csrf
 
-                        {{ csrf_field() }}
-
-                        <input type="hidden" name="token" value="{{ $token }}">
+                        <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
 
                         <div class="field is-horizontal">
