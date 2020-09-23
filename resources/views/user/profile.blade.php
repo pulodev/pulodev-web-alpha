@@ -41,8 +41,9 @@
                     <h2>Daftar Link</h2>
                     @foreach ($user->links as $link)
                         <a href="/link/{{$link->slug}}"> 
-                            {{$link->title}} 
+                            <li> {{$link->title}} 
                             @if ($link->draft) [draft - Tunggu konfirmasi] @endif
+                            </li>
                         </a>
                     @endforeach
                 </ul>

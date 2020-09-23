@@ -32,8 +32,7 @@ function generateSlug($title, $object)
 
 function getAvatar($user)
 {
-    if($user->avatar_url == '')
-        return "https://ui-avatars.com/api/?background=0D8ABC&color=fff&rounded=true&name=" . $user->username;
-    else
-        return '';
+    return ($user->avatar_url == '')
+        ? "https://ui-avatars.com/api/?background=0D8ABC&color=fff&rounded=true&size=100&name=" . $user->username
+        : 'https://kodingclub.s3.ap-southeast-1.amazonaws.com/avatar/' . $user->avatar_url;
 }

@@ -13,6 +13,7 @@ Route::group(['middleware' => 'verified'], function(){
     //User
     Route::get('/user/edit', 'UserController@edit');
     Route::put('/user/update', 'UserController@update');
+    Route::post('/user/upload/avatar', 'UserController@upload');
 
     Route::resource('link', 'LinkController')->except(['index', 'show' ]);
 

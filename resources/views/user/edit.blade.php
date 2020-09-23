@@ -25,14 +25,16 @@
                     <form method="POST" action="/user/update">
                     @csrf
                     @method('PUT')
+
+                    <x-form.input-image :object="$user" label="Avatar" type="file" name="avatar"/>
                     
                     <x-form.input :object="$user" label="Username" name="username" required/>
 
-                    <x-form.input :object="$user" label="Nama Lengkap" name="fullname" required/>
+                    <x-form.input :object="$user" label="Nama Lengkap" name="fullname" />
 
-                    <x-form.textarea :object="$user" label="Bio singkat" name="bio" required/>
+                    <x-form.textarea :object="$user" label="Bio singkat" name="bio"/>
 
-                    <x-form.input :object="$user" label="Website kamu" name="website_url" placeholder="contoh:https://webkamu.com" required/>
+                    <x-form.input :object="$user" label="Website kamu" name="website_url" placeholder="contoh:https://webkamu.com" />
 
                     <div class="buttons">
                       <button class="button is-primary is-fullwidth"">Update</button>
