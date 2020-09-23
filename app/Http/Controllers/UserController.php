@@ -26,12 +26,13 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        $request->validate([
-            'username' => ['required', 'max:10', 'alpha_dash', 'unique:users'],
-        ]);
-
-
         $user = Auth::user();
+        
+        $request->validate([
+            'username' => 'required|min:3|max:15|alpha_dash||unique:users,username,'.$user->id,
+            'fullname' => 'max:30',
+            'bio' => 'max:200'
+        ]);
         
         $user->update([
             'username' => $request->username, 

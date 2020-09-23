@@ -25,43 +25,14 @@
                     <form method="POST" action="/user/update">
                     @csrf
                     @method('PUT')
-                    <div class="field">
-                        <label class="label">Username</label>
-                        <div class="control">
-                            <input name="username" class="input" type="text" placeholder="" value={{$user->username}}>
-                        </div>
-                         @if ($errors->has('username'))
-                            <p class="help is-danger">
-                                {{ $errors->first('username') }}
-                            </p>
-                        @endif
-                    </div>
+                    
+                    <x-form.input :object="$user" label="Username" name="username" required/>
 
-                    <div class="field">
-                        <label class="label">Fullname</label>
-                        <div class="control">
-                            <input name="fullname" class="input" type="text" value="{{$user->fullname}}">
-                        </div>
-                         @if ($errors->has('fullname'))
-                            <p class="help is-danger">
-                                {{ $errors->first('fullname') }}
-                            </p>
-                        @endif
-                    </div>
+                    <x-form.input :object="$user" label="Nama Lengkap" name="fullname" required/>
 
-                    <div class="field">
-                        <label class="label">Bio</label>
-                        <div class="control">
-                            <textarea name="bio" class="textarea" placeholder="biodata singkat">{{$user->bio}}</textarea>
-                        </div>
-                    </div>
+                    <x-form.textarea :object="$user" label="Bio singkat" name="bio" required/>
 
-                    <div class="field">
-                        <label class="label">Link websitemu</label> 
-                        <div class="control">
-                            <input name="website_url" class="input" type="url" placeholder="https://web.kamu" value="{{$user->website_url}}">
-                        </div>
-                    </div>
+                    <x-form.input :object="$user" label="Website kamu" name="website_url" placeholder="contoh:https://webkamu.com" required/>
 
                     <div class="buttons">
                       <button class="button is-primary is-fullwidth"">Update</button>
