@@ -15,3 +15,19 @@ Baca di [trello](https://trello.com/b/jhDIV1CH/beta-dev)
 
 ## Informasi
 - Ada fungsi general di app/helper.php (untuk fungsi yang bisa diakses dari mana saja)
+
+## Petunjuk menguji API
+Api menggunakan laravel/passport
+- Jalankan ' php artisan passport:install ' 
+
+### Endpoint API
+- Login: [POST] URL/api/login
+- Link : [POST] /link
+
+### Testing manual Login API 
+Untuk mendapatkan token, akses via postman (atau yang lain) 
+- Metode POST : url/api/login
+- Di bagian 'body > x-www-form-urlencoded'
+- Masukkan credential yang sudah didaftarkan sebelumnya (username dan password) 
+- (opsional) jika error masalah keys, jalankan ' php artisan passport:keys '
+
