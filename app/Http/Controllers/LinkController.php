@@ -57,6 +57,7 @@ class LinkController extends Controller
             'title' => end($matchTitle),
             'description' => $tags['description'] ?? '',
             'author' => $tags['author'] ?? '',
+            'thumbnail' => $tags['twitter:image:src'] ?? '',
         ]);
     }
 
@@ -85,6 +86,7 @@ class LinkController extends Controller
             'tags'  => $request->tags,
             'media'  => $request->media,
             'owner'  => $request->owner,
+            'thumbnail' => $request->thumbnail,
             'draft' => Auth::user()->isAdmin() ? false : true, //if admin auto publish
             'original_published_at'  => $request->original_published_at ?? Carbon::now(),
         ]);  
