@@ -6,15 +6,23 @@ use App\Http\Controllers\Controller;
 
 class AbstractApiController extends Controller
 {
+    protected const MAX_PAGE_LIMIT = 90000;
+
     protected function responseOK() {
         return $this->sendResponse(['success' => true], 200);
     } 
 
-    protected function response($data) {
-        return $this->sendResponse([
+    protected function response($data, $pagination = []) {
+        $reponseData = [
             'success' => true,
             'data' => $data,
-        ], 200);
+        ];
+
+        if($pagination) {
+            $reponseData['pagination'] = $pagination;
+        }
+
+        return $this->sendResponse($reponseData, 200);
     }
 
     protected function responseNOK($errorMessage) {
