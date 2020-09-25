@@ -58,4 +58,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
        return $this->hasMany('App\Models\Link')->orderBy('id', 'desc');
     }
+
+    public function resources()
+    {
+       return $this->hasMany('App\Models\Resource')->orderBy('id', 'desc');
+    }
 }

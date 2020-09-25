@@ -16,6 +16,7 @@ Route::group(['middleware' => 'verified'], function(){
     Route::post('/user/upload/avatar', 'UserController@upload');
 
     Route::resource('link', 'LinkController')->except(['index', 'show' ]);
+    Route::resource('resource', 'ResourceController')->except(['index', 'show' ]);
 
     Route::post('scrape', 'LinkController@scrape');
 });
@@ -23,10 +24,12 @@ Route::group(['middleware' => 'verified'], function(){
 //Admin stuff
 Route::group(['prefix' => 'admin',  'middleware' => 'admin'], function(){
     Route::get('/dashboard', 'AdminController@dashboard');
+    Route::get('/dashboard/{type}', 'AdminController@show');
     Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
     Route::delete('/link/bulk', 'AdminController@deleteBulk');
     Route::put('/link/bulk/publish', 'AdminController@publishBulk');
+    Route::get('/rss/verify/{id}', 'AdminController@verifyRSS');
 });
 
 
