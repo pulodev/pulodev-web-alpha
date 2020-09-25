@@ -11,7 +11,7 @@
                 Link Baru
             </h1>
             <h2 class="subtitle">
-                Rekomendasikan link menarik seputar programming
+                Rekomendasikan link bahasa Indonesia menarik seputar programming
             </h2>
         </div>
     </div>
@@ -42,6 +42,8 @@
                         <p class="my-2">*Informasi opsional</p>
                         <x-form.input label="Pemilik Konten" name="owner" placeholder="Akun Twitter atau Nama"/>
                         <x-form.input label="Waktu publish konten" name="original_published_at" type="date" />
+
+                        <input type="hidden" name="thumbnail" id="thumbnail">
 
                         <div class="buttons">
                         <button class="button is-primary is-fullwidth"">Submit</button>
