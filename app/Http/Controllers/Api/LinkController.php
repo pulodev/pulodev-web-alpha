@@ -7,7 +7,6 @@ use App\Models\Link;
 use App\Rules\MinimalWords;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
 
 class LinkController extends AbstractApiController
 {
@@ -26,21 +25,27 @@ class LinkController extends AbstractApiController
             'tags' => 'required',
         ]);
 
-        $isUrlExist = Link::where('url', $request->link)->first();
-        if ($isUrlExist) {
+        if(!isValidUrl($request->link)) {
+            return $this->responseNOK('url is not valid. url should be like this "http://pulo.dev/content-page"');
+        }
+
+        $cleanedUrl = cleanUrl($request->link);
+        $existedUrl = Link::where('url', $cleanedUrl)->first();
+        if ($existedUrl) {
             return $this->responseNOK('link already exist');
         }
         
         $user = Auth::user();
         $link = $user->links()->create([
             'title' => $request->title,
-            'url'  => $request->link, //todo: clean up url first
+            'url'  => $cleanedUrl,
             'slug'  => generateSlug($request->title, new Link),
             'body'  => $request->description,
             'tags'  => $request->tags,
             'media'  => $request->media ?? '',
             'owner'  => $request->owner,
-            'draft' => $user->isAdmin() ? false : true, //if admin auto publish
+            'user_id' => $user->id,
+            'draft' => true,
             'original_published_at'  => $request->publishDate ?? Carbon::now(),
         ]);  
 

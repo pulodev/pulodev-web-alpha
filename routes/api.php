@@ -17,5 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', 'Api\AuthController@login');
 
 Route::middleware('auth:api')->group(function () {
+    Route::get('me', 'Api\AuthController@user');
     Route::resource('link', 'Api\LinkController');
 });

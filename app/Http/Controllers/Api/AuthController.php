@@ -7,6 +7,17 @@ use Illuminate\Http\Request;
 
 class AuthController extends AbstractApiController
 {
+    /*
+    * validate token, if valid return username
+    */
+    public function user() {
+        $user = auth()->user();
+
+        return $this->response([
+            'username' => $user->username
+        ]);
+    }
+
     /**
      * handle login request
      */
@@ -20,9 +31,12 @@ class AuthController extends AbstractApiController
         if (auth()->attempt($data)) {
             $user = auth()->user();
             if ($user->isAdmin()) {
-                $token = auth()->user()->createToken(Config::get("app.key"))->accessToken;
+                $objToken = auth()->user()->createToken(Config::get("app.key"));
 
-                return $this->response(['token' => $token]);
+                return $this->response([
+                    'token' => $objToken->accessToken,
+                    'expiresAt' => $objToken->token->expires_at
+                ]);
             }
         } 
         

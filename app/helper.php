@@ -36,3 +36,22 @@ function getAvatar($user)
         ? "https://ui-avatars.com/api/?background=0D8ABC&color=fff&rounded=true&size=100&name=" . $user->username
         : 'https://kodingclub.s3.ap-southeast-1.amazonaws.com/avatar/' . $user->avatar_url;
 }
+
+function isValidUrl($url)
+{
+    $neededKeys = ['scheme', 'host', 'path'];
+    $parsedUrl = parse_url($url);
+
+    $validKeys = array_filter($neededKeys, function($key) use ($parsedUrl){
+        return array_key_exists($key, $parsedUrl);
+    });
+
+    return sizeof($neededKeys) === sizeof($validKeys);
+}
+
+function cleanUrl($url) 
+{
+    $parsedUrl = parse_url($url);
+
+    return "{$parsedUrl['scheme']}://{$parsedUrl['host']}{$parsedUrl['path']}";
+}

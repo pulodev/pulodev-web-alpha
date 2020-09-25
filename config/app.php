@@ -124,6 +124,11 @@ return [
     'cipher' => 'AES-256-CBC',
 
     /*
+    | Token life time limit in days
+    */
+    'token_lifetime' => env('APP_TOKEN_EXPIRE_IN_DAYS'),
+
+    /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
