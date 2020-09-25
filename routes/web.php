@@ -3,7 +3,11 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'PageController@index');
+
+//Auth
 Route::get('/logout', 'UserController@logout');
+Route::get('login/{provider}', 'SocialLoginController@redirectToProvider');
+Route::get('login/{provider}/callback', 'SocialLoginController@handleProviderCallback');
 
 //User
 Route::get('/@{user}', 'UserController@show');

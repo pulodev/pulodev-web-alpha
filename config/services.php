@@ -30,4 +30,16 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'twitter' => [
+        'client_id' => env('TWITTER_ACCESS_KEY_ID'),
+        'client_secret' => env('TWITTER_SECRET_ACCESS_KEY'),
+        'redirect' => env('APP_URL') . '/login/twitter/callback',
+    ],
+
+    'github' => [
+        'client_id' => env('GITHUB_ACCESS_KEY_ID'),
+        'client_secret' => env('GITHUB_SECRET_ACCESS_KEY'),
+        'redirect' => env('APP_URL') . '/login/github/callback',
+    ],
+
 ];

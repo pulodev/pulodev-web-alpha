@@ -21,8 +21,8 @@ Api menggunakan laravel/passport
 - Jalankan ' php artisan passport:install ' 
 
 ### Endpoint API
-- Login: [POST] URL/api/login
-- Link : [POST] /link
+- Login: [POST] /api/login
+- Link : [POST] /api/link
 
 ### Testing manual Login API 
 Untuk mendapatkan token, akses via postman (atau yang lain) 

@@ -22,6 +22,12 @@
             </header>
 
             <div class="card-content">
+                {{-- Social Media Auth --}}
+                <div class="buttons">
+                    <a href='/login/twitter' class="button is-info">Masuk dengan Twitter</a>
+                    <a href='/login/github' class="button is-dark">Masuk dengan Github</a>
+                </div>  
+                
                 <form class="login-form" method="POST" action="{{ route('login') }}">
                     {{ csrf_field() }}
 

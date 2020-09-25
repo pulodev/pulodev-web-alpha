@@ -61,7 +61,7 @@ class UserController extends Controller
         
         //resize image using imageintervention
         $imgIntervention = Image::make(file_get_contents($request->image))
-                            ->resize(180, 180, function($constraint) {
+                            ->resize(350, 350, function($constraint) {
                                 $constraint->aspectRatio();
                                 $constraint->upsize();
                             })->stream();
