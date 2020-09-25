@@ -91,12 +91,8 @@ class SocialLoginController extends Controller
         if($avatar == '')
             return '';
 
-        //get image and resize
-        $imgIntervention = Image::make($avatar)
-                            ->resize(350, 350, function($constraint) {
-                                $constraint->aspectRatio();
-                                $constraint->upsize();
-                            })->stream();         
+        //get image
+        $imgIntervention = Image::make($avatar)->stream('jpg');         
 
         $imgName = time() .'-'. $username . '.jpg';
         Storage::put('avatar/'. $imgName, $imgIntervention, 'public');
