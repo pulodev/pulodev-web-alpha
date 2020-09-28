@@ -31,3 +31,23 @@ Untuk mendapatkan token, akses via postman (atau yang lain)
 - Masukkan credential yang sudah didaftarkan sebelumnya (username dan password) 
 - (opsional) jika error masalah keys, jalankan ' php artisan passport:keys '
 
+### Asumsi requestion dari agregator
+
+Saat post Link, sertakan rss_id dan bungkus konten di dalam "items"
+````
+{
+    "rss_id" : 1,
+    "items": [
+        {
+            "title": "konten satu",
+            "link": "google.com",
+            "description": "maju tak gentar"
+        },
+        {
+            "title": "konten dua",
+            "link": "dua.com",
+            "description": "dua tak gentar"
+        }
+    ]
+}
+```

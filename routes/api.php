@@ -18,6 +18,6 @@ Route::post('login', 'Api\AuthController@login');
 
 Route::middleware('auth:api')->group(function () {
     Route::get('me', 'Api\AuthController@user');
-    Route::resource('link', 'Api\LinkController');
+    Route::post('link', 'Api\LinkController@store');
     Route::get('resources', 'Api\ResourceController@get');
 });
