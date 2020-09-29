@@ -1,7 +1,7 @@
 
-## Proyek KodingCLub
+## Proyek PuloDev
 
-Baca di [trello](https://trello.com/b/jhDIV1CH/beta-dev)
+Baca di [trello](https://trello.com/b/7SI1Qe1T/version-1)
 
 ## Setup Project
 - download repository ini
