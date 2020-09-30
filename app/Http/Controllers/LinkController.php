@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Link;
 use App\Rules\MinimalWords;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
@@ -93,12 +94,14 @@ class LinkController extends Controller
 
     private function cleanUrl($url) {
         //remove question mark like utm_soruce etc...
-            //TODO::
-            //remove question mark and ist value if source and utm_source
-            //watchout like youtube : use quesiton mark in video and playlist
-            // $cleanUrl = trim(strtok($cleanTitle));
-        $cleanUrl = $url;
-        return $cleanUrl;
+
+        $parsedURL = parse_url($url);
+        
+        if(!Str::contains($parsedURL['host'], 'youtube')){
+            $url = $parsedURL['scheme']. '://'. $parsedURL['host']. $parsedURL['path'];
+        }
+
+        return $url;
     }
 
     /**
