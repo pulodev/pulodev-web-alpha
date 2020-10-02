@@ -5,6 +5,13 @@
 
 function scrape() {
     let url = document.getElementById('url').value
+
+    if(url.trim() == '') {
+        $('#check-btn').innerText = 'Tidak boleh kosong'
+        return
+    }
+
+
     $('#check-btn').innerText = 'Sedang mengecek link...'
     
     axios.post('/scrape/', {url : url})
@@ -22,8 +29,8 @@ function scrape() {
         })
         .catch(function (error) {
             console.log(error);
-            if(error.status = 'EXISTS')
-                $('#check-btn').innerText = 'Halo.. Link ini sudah pernah disubmit'
+            if(error.status == 'EXISTS')
+                $('#check-btn').innerText = 'oops.. Link ini sudah pernah disubmit'
             else
                 $('#check-btn').innerText = 'Mohon maaf, ada masalah'
         })

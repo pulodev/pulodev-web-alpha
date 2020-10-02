@@ -11,21 +11,7 @@ use Illuminate\Support\Facades\Http;
 
 class LinkController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        
-    }
     
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('link.create');
@@ -33,11 +19,14 @@ class LinkController extends Controller
 
     public function scrape(Request $request)
     {
-        //check if include https. 
-        //avoid broken link
+        //Todo:
+            //avoid broken link
+     
+        //add https if no prefix
+        $linkInput = $this->checkFullUrl($request->url);
 
         //check if exists
-        $link = Link::where('url', $this->cleanUrl($request->url))->first();
+        $link = Link::where('url', $this->cleanUrl($linkInput))->first();
         if($link) 
             return response()->json([
                 'status' => 'EXISTS',
@@ -45,13 +34,13 @@ class LinkController extends Controller
             ], 403);
 
         //scrape content
-        $response = Http::get($request->url);
+        $response = Http::get($linkInput);
         $htmlContent = $response->body();
         
         //Title Tag
         preg_match('/<title(.*?)>(.*?)<\/title>/s', $htmlContent, $matchTitle);
         //Meta Tag
-        $tags = get_meta_tags($request->url);
+        $tags = get_meta_tags($linkInput);
 
         return response()->json([
             'title' => end($matchTitle),
@@ -59,6 +48,12 @@ class LinkController extends Controller
             'author' => $tags['author'] ?? '',
             'thumbnail' => $tags['twitter:image:src'] ?? '',
         ]);
+    }
+
+    private function checkFullUrl($url)
+    {
+        return parse_url($url, PHP_URL_SCHEME) === null ?
+            'https://' . $url : $url;
     }
 
     /**
