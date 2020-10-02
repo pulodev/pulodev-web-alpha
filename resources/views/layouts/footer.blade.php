@@ -1,4 +1,6 @@
 <footer>
+    <a href="/info/about">Tentang Kami</a> - 
+    <a href="/info/faq">FAQ</a>
     <p>KodingClub</p>
 
     {{-- SweerAlert --}}

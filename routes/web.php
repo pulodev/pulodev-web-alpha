@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'PageController@index');
+Route::get('/info/{page}', 'PageController@info');
 
 //Auth
 Route::get('/logout', 'UserController@logout');

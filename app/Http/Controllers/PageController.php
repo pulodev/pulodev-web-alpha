@@ -40,4 +40,9 @@ class PageController extends Controller
         $links = $links->orderBy('original_published_at', 'desc')->paginate(15);
         return view('welcome', compact('links', 'type', 'query'));
     }
+
+    public function info($page)
+    {
+        return view('pages.' . $page);
+    }
 }
