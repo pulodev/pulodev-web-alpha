@@ -6,9 +6,7 @@
 <section class="hero is-primary">
     <div class="hero-body">
         <div class="container">
-            <h1 class="title">
-                Register
-            </h1>
+            <h1 class="title"> Daftar </h1>
         </div>
     </div>
 </section>
@@ -17,7 +15,7 @@
     <div class="column is-5">
         <div class="card">
             <header class="card-header">
-                <p class="card-header-title">Register</p>
+                <p class="card-header-title">Daftar</p>
             </header>
 
             <div class="card-content">
@@ -29,96 +27,18 @@
                 </div>  
 
                 <form class="register-form" method="POST" action="{{ route('register') }}">
+                    @csrf
 
-                    {{ csrf_field() }}
+                    <x-form.input label="Username" name="username" required/>
 
-                    <div class="field is-horizontal">
-                        <div class="field-label">
-                            <label>Username</label>
-                        </div>
+                    <x-form.input label="Email" name="email" type="email" required/>
 
-                        <div class="field-body">
-                            <div class="field">
-                                <p class="control">
-                                    <input class="input" id="username" type="text" name="username" value="{{ old('username') }}"
-                                           required autofocus>
-                                </p>
+                    <x-form.input label="Password" name="password" type="password" required/>
 
-                                @if ($errors->has('username'))
-                                    <p class="help is-danger">
-                                        {{ $errors->first('username') }}
-                                    </p>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
+                    <x-form.input label="Konfirmasi Password" name="password_confirmation" type="password" required/>
 
-                    <div class="field is-horizontal">
-                        <div class="field-label">
-                            <label>E-mail</label>
-                        </div>
-
-                        <div class="field-body">
-                            <div class="field">
-                                <p class="control">
-                                    <input class="input" id="email" type="email" name="email"
-                                           value="{{ old('email') }}" required autofocus>
-                                </p>
-
-                                @if ($errors->has('email'))
-                                    <p class="help is-danger">
-                                        {{ $errors->first('email') }}
-                                    </p>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="field is-horizontal">
-                        <div class="field-label">
-                            <label>Password</label>
-                        </div>
-
-                        <div class="field-body">
-                            <div class="field">
-                                <p class="control">
-                                    <input class="input" id="password" type="password" name="password" required>
-                                </p>
-
-                                @if ($errors->has('password'))
-                                    <p class="help is-danger">
-                                        {{ $errors->first('password') }}
-                                    </p>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="field is-horizontal">
-                        <div class="field-label">
-                            <label>Confirm Password</label>
-                        </div>
-
-                        <div class="field-body">
-                            <div class="field">
-                                <p class="control">
-                                    <input class="input" id="password-confirm" type="password"
-                                           name="password_confirmation" required>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="field is-horizontal">
-                        <div class="field-label"></div>
-
-                        <div class="field-body">
-                            <div class="field is-grouped">
-                                <div class="control">
-                                    <button type="submit" class="button is-primary">Register</button>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="buttons">
+                        <button class="button is-primary is-fullwidth">Daftar</button>
                     </div>
                 </form>
             </div>

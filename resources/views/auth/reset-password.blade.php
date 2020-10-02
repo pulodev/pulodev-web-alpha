@@ -29,77 +29,13 @@
 
                     <form class="password-reset-form" method="POST" action="/reset-password">
                         @csrf
-
                         <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
+                        <x-form.input label="Email" name="email" type="email" required/>
+                        <x-form.input label="Password" name="password" type="password" required/>
 
-                        <div class="field is-horizontal">
-                            <div class="field-label">
-                                <label class="label">E-Mail Address</label>
-                            </div>
-
-                            <div class="field-body">
-                                <div class="field">
-                                    <p class="control">
-                                        <input class="input" id="email" type="email" name="email"
-                                               value="{{ old('email') }}" required autofocus>
-                                    </p>
-
-                                    @if ($errors->has('email'))
-                                        <p class="help is-danger">
-                                            {{ $errors->first('email') }}
-                                        </p>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="field is-horizontal">
-                            <div class="field-label">
-                                <label class="label">Password</label>
-                            </div>
-
-                            <div class="field-body">
-                                <div class="field">
-                                    <p class="control">
-                                        <input class="input" id="password" type="password" name="password" required>
-                                    </p>
-
-                                    @if ($errors->has('password'))
-                                        <p class="help is-danger">
-                                            {{ $errors->first('password') }}
-                                        </p>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="field is-horizontal">
-                            <div class="field-label">
-                                <label class="label">Confirm Password</label>
-                            </div>
-
-                            <div class="field-body">
-                                <div class="field">
-                                    <p class="control">
-                                        <input class="input" id="password-confirm" type="password" name="password_confirmation" required>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="field is-horizontal">
-                            <div class="field-label"></div>
-
-                            <div class="field-body">
-                                <div class="field is-grouped">
-                                    <div class="control">
-                                        <button type="submit" class="button is-primary">Reset Password </button>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="buttons">
+                            <button class="button is-primary is-fullwidth">Reset Password</button>
                         </div>
                     </form>
                 </div>

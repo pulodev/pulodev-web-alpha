@@ -46,7 +46,7 @@
                         <input type="hidden" name="thumbnail" id="thumbnail">
 
                         <div class="buttons">
-                        <button class="button is-primary is-fullwidth"">Submit</button>
+                        <button class="button is-primary is-fullwidth">Submit</button>
                         </div>
                     </div>
 

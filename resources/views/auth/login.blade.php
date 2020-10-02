@@ -29,80 +29,21 @@
                 </div>  
                 
                 <form class="login-form" method="POST" action="{{ route('login') }}">
-                    {{ csrf_field() }}
+                    @csrf
+                    <x-form.input label="Username" name="username" required/>
+                    <x-form.input label="Password" name="password" type="password" required/>
 
-                    <div class="field is-horizontal">
-                        <div class="field-label">
-                            <label>Username</label>
-                        </div>
+                  <label class="checkbox">
+                    <input type="checkbox"
+                            name="remember" {{ old('remember') ? 'checked' : '' }}> Ingat Saya
+                   </label>
 
-                        <div class="field-body">
-                            <div class="field">
-                                <p class="control">
-                                    <input class="input" id="username" type="text" name="username"
-                                           value="{{ old('username') }}" required autofocus>
-                                </p>
-
-                                @if ($errors->has('username'))
-                                    <p class="help is-danger">
-                                        {{ $errors->first('username') }}
-                                    </p>
-                                @endif
-                            </div>
-                        </div>
+                    <div class="buttons">
+                        <button class="button is-primary is-fullwidth">Masuk</button>
                     </div>
 
-                    <div class="field is-horizontal">
-                        <div class="field-label">
-                            <label>Password</label>
-                        </div>
-
-                        <div class="field-body">
-                            <div class="field">
-                                <p class="control">
-                                    <input class="input" id="password" type="password" name="password" required>
-                                </p>
-
-                                @if ($errors->has('password'))
-                                    <p class="help is-danger">
-                                        {{ $errors->first('password') }}
-                                    </p>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="field is-horizontal">
-                        <div class="field-label"></div>
-
-                        <div class="field-body">
-                            <div class="field">
-                                <p class="control">
-                                    <label class="checkbox">
-                                        <input type="checkbox"
-                                               name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="field is-horizontal">
-                        <div class="field-label"></div>
-
-                        <div class="field-body">
-                            <div class="field is-grouped">
-                                <div class="control">
-                                    <button type="submit" class="button is-primary">Login</button>
-                                </div>
-
-                                <div class="control">
-                                    <a href="{{ route('password.request') }}">
-                                        Forgot Your Password?
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                     <div class="control">
+                        <a href="{{ route('password.request') }}"> Lupa Password Kamu? </a>
                     </div>
                 </form>
             </div>
