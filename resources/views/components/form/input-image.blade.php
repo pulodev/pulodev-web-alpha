@@ -18,6 +18,12 @@
          let avatar = el.files[0];
          axios.defaults.headers.common['Content-Type'] = 'multipart/form-data'
 
+
+        if((avatar.size/1024) > 1024){
+            swal.fire( 'Oops!', 'Ukuran avatar max 1 Mb', 'warning' );
+            return;
+        }
+
          const formData = new FormData();
                formData.append('image', avatar);
         
@@ -31,7 +37,6 @@
                 //swal?
             })
             .catch(function (error) {
-                // swal.fire( 'Oops!', 'Gagal upload avatar baru. ukuran max 1 mb', 'warning' )
                 console.log(error)
                 $('#upload_status').classList.toggle('is-hidden')
             });
