@@ -16,7 +16,6 @@ function scrape() {
     
     axios.post('/scrape/', {url : url})
         .then(function (response) {
-
             if(response.status == 403)
                 console.log(response.msg)
 
@@ -28,8 +27,7 @@ function scrape() {
             showCompleteForm()
         })
         .catch(function (error) {
-            console.log(error);
-            if(error.status == 'EXISTS')
+            if(error.status == 'EXISTS' || error.response.status == 403)
                 $('#check-btn').innerText = 'oops.. Link ini sudah pernah disubmit'
             else
                 $('#check-btn').innerText = 'Mohon maaf, ada masalah'
