@@ -37,6 +37,7 @@
                 //swal?
             })
             .catch(function (error) {
+                swal.fire( 'Oops!', 'Terjadi kesalahan, silahkan coba lagi', 'warning' );
                 console.log(error)
                 $('#upload_status').classList.toggle('is-hidden')
             });
