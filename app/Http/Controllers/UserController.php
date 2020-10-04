@@ -51,7 +51,7 @@ class UserController extends Controller
     public function upload(Request $request)
     {
         $request->validate([
-            'image' => 'required|file|image|max:512',
+            'image' => 'required|file|image|max:1024',
         ]);
         
         $user = Auth::user();

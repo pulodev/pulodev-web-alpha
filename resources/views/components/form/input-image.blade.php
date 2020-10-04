@@ -18,31 +18,21 @@
          let avatar = el.files[0];
          let avatarFileName = avatar.name;
          let avatarFileExtension = avatarFileName.substring(avatarFileName.lastIndexOf('.') + 1).toLowerCase();
+         const allowedExtenstions = ["jpg", "jpeg", "png", "gif", "JPEG", "jpg"]
 
+         //Validate Avatar
+        if((avatar.size/1024) > 1024){
+            swal.fire( 'Oops!', 'Ukuran avatar max 1 Mb', 'warning');
+            return;
+        }
+
+        if(!allowedExtenstions.includes(avatarFileExtension)) {
+            swal.fire( 'Oops!', 'File yang diperbolehkan hanya jpg/jpeg/png/gif', 'warning');
+            return;
+        }
+
+        //Upload Avatar
          axios.defaults.headers.common['Content-Type'] = 'multipart/form-data'
-
-        if((avatar.size/1024) > 1024){
-            swal.fire( 'Oops!', 'Ukuran avatar max 1 Mb', 'warning' );
-            return;
-        }
-
-        switch (avatarFileExtension) {
-            case "jpg":
-            case "jpeg":
-            case "png":
-            case "gif":
-                break;
-            default:
-                swal.fire( 'Oops!', 'File yang diperbolehkan hanya jpg/jpeg/png/gif', 'warning' );
-                return;
-                break;
-        }
-
-        if((avatar.size/1024) > 1024){
-            swal.fire( 'Oops!', 'Ukuran avatar max 1 Mb', 'warning' );
-            return;
-        }
-
          const formData = new FormData();
                formData.append('image', avatar);
         
