@@ -3,12 +3,11 @@
 @section('content')
 
 
-    <section class="hero is-primary">
+    <section class="hero">
         <div class="hero-body">
-            <div class="container">
-                <h1 class="title">
-                    Lupa Password
-                </h1>
+            <div class="container  has-text-centered">
+                <h1 class="title">  Lupa Password </h1>
+                <h2 class="subtitle">Kamu Lupa password? masukkan emailmu</h2>
             </div>
         </div>
     </section>
@@ -16,10 +15,6 @@
     <div class="columns is-marginless is-centered">
         <div class="column is-5">
             <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">Lupa Password</p>
-                </header>
-
                 <div class="card-content">
                     @if (session('status'))
                         <div class="notification">

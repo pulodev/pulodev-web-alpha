@@ -6,56 +6,46 @@
 
 @if (Auth::user())
     @if (Auth::user()->email_verified_at == NULL)
-    <div class="notification is-warning">
+    <div class="notification is-warning has-text-centered">
         Kamu belum verifikasi email. Silahkan cek email dan verifikasi untuk bisa mulai memposting konten
     </div>
     @endif
 @endif
 
-<section class="hero is-primary">
+<section class="hero">
     <div class="hero-body">
-        <div class="container">
-            <h1 class="title">
-                Komunitas programmer Indonesia
-            </h1>
-
-            @if (Auth::check())
-                <p class="subtitle">Halo {{Auth::user()->username}} </p>
-            @endif
-
-            @isset($type) <p>Filter {{$type}} : {{$query}} </p> @endisset
-            
-            
-            <form class="" action="/search" method="GET">
-                <input type="search" class="input" name="query" placeholder="cari...">
-            </form>
-
+        <div class="container has-text-centered">
+            <h1 class="title"> @if (Auth::check()) Halo {{Auth::user()->username}}, @endif 
+                Kenalkan PuloDev! </h1>
+            <h2 class="subtitle">Tempat berkumpul programmer Indonesia</h2>
         </div>
     </div>
 </section>
 
 <div class="container">
     <div class="columns mt-1">
-        <div class="column is-two-thirds">
+        <div class="column is-four-fifths">
             @forelse ($links as $link)
                 <a class="box" href='/link/{{$link->slug}}'>
                     <article class="media">
                         <div class="media-left">
-                        <figure class="image is-64x64">
-                            <img src="{{ getAvatar($link->user) }}" alt="foto profil {{$link->user->username}}" width="100">
-                        </figure>
+                            <x-avatar :user="$link->user"/>
                         </div>
+                        
                         <div class="media-content">
-                        <div class="content">
-                            <p>Dimasukkan oleh {{$link->user->fullname .' @'.$link->user->username }}</small> 
-                            <br>
-                            <strong> {{$link->title}}</strong>
-                            </p>
-                            <p class="is-size-7">
-                                Dipublish {{$link->original_published_at->diffForHumans()}} <br>
-                                Tag: {{$link->tags}}, Media: {{$link->media}}
-                            </p>
-                        </div>
+                            <div class="content">
+                                <small> {{$link->user->fullname .' @'.$link->user->username }}
+                                        - {{$link->original_published_at->diffForHumans()}}
+                                </small> 
+                                <br>
+                                
+                                <p><strong> {{$link->title}}</strong></p>
+
+                                <p class="is-size-7">
+                                    <span class="tag is-info is-light"> {{$link->media}} </span>
+                                    <x-tags :tags="$link->tags" /> 
+                                </p>
+                            </div>
                         </div>
                     </article>
                 </a>
@@ -69,19 +59,29 @@
         </div>
 
         <div class="column">
-            <p>Filter Media</p>
-            <a href='/' class="button">Semua</a>
-            <a href='/media/tulisan' class="button">Tulisan</a>
-            <a href='/media/video' class="button">Video</a>
-            <a href='/media/web' class="button">Web</a>
-            <a href='/media/podcast' class="button">Podcast</a>
-            <a href='/media/komunitas' class="button">Komunitas</a> 
+            @isset($type) <p>Filter {{$type}} : {{$query}} </p> @endisset
+            
+            <form class="" action="/search" method="GET">
+                <input type="search" class="input" name="query" placeholder="berdasrakan judul">
+                <input type="submit" value="Cari" class="button is-small">
+            </form>
+
+            <br>
+
+            <p>Pilih Tag/Kategori</p>
+            <input type="search" class="input" id="tag-query" placeholder="contoh: javascript">
+            <div class="button is-small" onclick="filterTag()">Submit</div>
 
             <br><br>
 
-            <p>Filter Tag</p>
-            <input type="search" class="input" id="tag-query" placeholder="contoh: javascript">
-            <div class="button" onclick="filterTag()">Submit</div>
+            <p>Pilih Media</p>
+            <a href='/' class="tag">Semua</a>
+            <a href='/media/tulisan' class="tag">Tulisan</a>
+            <a href='/media/video' class="tag">Video</a> <br>
+            <a href='/media/web' class="tag">Web</a>
+            <a href='/media/podcast' class="tag">Podcast</a>
+            <a href='/media/komunitas' class="tag">Komunitas</a> 
+
 
             <script>
                 function filterTag() { window.location.href = "/tag/" + $('#tag-query').value  }

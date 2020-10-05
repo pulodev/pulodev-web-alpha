@@ -4,16 +4,16 @@
 @section('desc', 'Tetang PuloDev')
 @section('content')
 
-<section class="hero is-primary">
+<section class="hero">
     <div class="hero-body">
-        <div class="container">
+        <div class="container has-text-centered">
             <h1 class="title">Tentang PuloDev</h1>
         </div>
     </div>
 </section>
 
-<div class="columns is-marginless is-centered">
-    <div class="column is-5">
+<div class="columns is-centered">
+    <div class="column is-half">
         <div class="card">
             <div class="card-content">
                 <p> 
@@ -30,11 +30,11 @@
 
                 <h3 class="subtitle mt-5">Tim PuloDev</h3>
                 <p>Kami tersebar di beberapa pulau, ada:</p>
-                <a href="https://github.com/jeins">Juan Akbar</a>,
-                <a href="http://tyohan.me/">Yohan Totting</a>,
-                <a href="http://github.com/chaidiryahya">Chaidir Yahya</a>,
-                <a href="https://github.com/fauxxi">Fauzi Sanjaya</a>, dan
-                <a href="https://hilman.space">Hilman Ramadhan</a>
+                <a target="_blank" href="https://github.com/jeins">Juan Akbar</a>,
+                <a target="_blank" href="http://tyohan.me/">Yohan Totting</a>,
+                <a target="_blank" href="http://github.com/chaidiryahya">Chaidir Yahya</a>,
+                <a target="_blank" href="https://github.com/fauxxi">Fauzi Sanjaya</a>, dan
+                <a target="_blank" href="https://hilman.space">Hilman Ramadhan</a>
             </div>
         </div>
     </div>

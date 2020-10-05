@@ -10,16 +10,16 @@
 
 @section('content')
 
-<section class="hero is-info">
+<section class="hero">
     <div class="hero-body">
-        <div class="container">
+        <div class="container has-text-centered">
             <h1 class="title">Edit profile {{ '@'.$user->username }}</h1>
         </div>
     </div>
 </section>
 
-<div class="columns is-marginless">
-    <div class="column is-two-thirds">
+<div class="columns is-marginless is-centered">
+    <div class="column is-half">
         <div class="card">
             <div class="card-content">
                     <form method="POST" action="/user/update">

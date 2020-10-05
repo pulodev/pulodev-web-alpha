@@ -4,21 +4,17 @@
 @section('desc', 'Link baru koding .club')
 @section('content')
 
-<section class="hero is-info">
+<section class="hero">
     <div class="hero-body">
-        <div class="container">
-            <h1 class="title">
-                Link Baru
-            </h1>
-            <h2 class="subtitle">
-                Rekomendasikan link bahasa Indonesia menarik seputar programming
-            </h2>
+        <div class="container has-text-centered">
+            <h1 class="title"> Link Baru </h1>
+            <h2 class="subtitle"> Rekomendasikan link bahasa Indonesia menarik seputar programming </h2>
         </div>
     </div>
 </section>
 
-<div class="columns is-marginless">
-    <div class="column is-two-thirds">
+<div class="columns is-marginless is-centered">
+    <div class="column is-half">
         <div class="card">
 
             <div class="card-content">

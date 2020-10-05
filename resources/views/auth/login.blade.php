@@ -4,12 +4,10 @@
 @section('desc', 'Login koding .club')
 @section('content')
 
-<section class="hero is-primary">
+<section class="hero">
     <div class="hero-body">
-        <div class="container">
-            <h1 class="title">
-                Login
-            </h1>
+        <div class="container has-text-centered">
+            <h1 class="title"> Masuk Ke Pulo </h1>
         </div>
     </div>
 </section>
@@ -17,16 +15,16 @@
 <div class="columns is-marginless is-centered">
     <div class="column is-5">
         <div class="card">
-            <header class="card-header">
-                <p class="card-header-title">Login</p>
-            </header>
 
             <div class="card-content">
                 {{-- Social Media Auth --}}
-                <div class="buttons">
+                <div class="buttons is-centered">
                     <a href='/login/twitter' class="button is-info">Masuk dengan Twitter</a>
                     <a href='/login/github' class="button is-dark">Masuk dengan Github</a>
                 </div>  
+
+                <p class="has-text-centered"> atau dengan username dan password </p>
+                <br>
                 
                 <form class="login-form" method="POST" action="{{ route('login') }}">
                     @csrf
@@ -37,6 +35,7 @@
                     <input type="checkbox"
                             name="remember" {{ old('remember') ? 'checked' : '' }}> Ingat Saya
                    </label>
+                   <br><br>
 
                     <div class="buttons">
                         <button class="button is-primary is-fullwidth">Masuk</button>

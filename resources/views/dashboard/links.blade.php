@@ -4,16 +4,16 @@
 @section('desc', 'Welcome koding .club')
 @section('content')
 
-<section class="hero is-primary">
+<section class="hero">
     <div class="hero-body">
-        <div class="container">
-            <h1 class="title">
-                Dashboard Admin
-            </h1>
+        <div class="container has-text-centered">
+            <h1 class="title"> Dashboard Admin </h1>
 
             @if (Auth::check())
                 <p class="subtitle">Halo {{Auth::user()->username}} </p>
             @endif
+
+            <a href="/admin/dashboard" class="button"> << Kembali ke Admin </a>
         </div>
     </div>
 </section>

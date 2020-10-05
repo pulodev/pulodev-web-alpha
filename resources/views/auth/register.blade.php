@@ -3,10 +3,11 @@
 @section('title', 'Register')
 @section('desc', 'Register koding .club')
 @section('content')
-<section class="hero is-primary">
+
+<section class="hero">
     <div class="hero-body">
-        <div class="container">
-            <h1 class="title"> Daftar </h1>
+        <div class="container  has-text-centered">
+            <h1 class="title"> Daftar Masuk Pulo </h1>
         </div>
     </div>
 </section>
@@ -14,17 +15,17 @@
 <div class="columns is-marginless is-centered">
     <div class="column is-5">
         <div class="card">
-            <header class="card-header">
-                <p class="card-header-title">Daftar</p>
-            </header>
 
             <div class="card-content">
 
                 {{-- Social Media Auth --}}
-                <div class="buttons">
+                <div class="buttons is-centered">
                     <a href='/login/twitter' class="button is-info">Masuk dengan Twitter</a>
                     <a href='/login/github' class="button is-dark">Masuk dengan Github</a>
                 </div>  
+
+                <p class="has-text-centered"> atau dengan username dan password </p>
+                <br>
 
                 <form class="register-form" method="POST" action="{{ route('register') }}">
                     @csrf
