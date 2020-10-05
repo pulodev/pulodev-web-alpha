@@ -181,7 +181,7 @@ class LinkController extends Controller
             'media'  => $request->media,
             'owner'  => $request->owner,
             'draft' => ($request->draft == true) ? true : false,
-            'original_published_at'  => $request->original_published_at ?? Carbon::now(),
+            'original_published_at'  => $request->original_published_at ?? $link->original_published_at,
         ]);  
 
         //change session token
