@@ -23,6 +23,8 @@ Api menggunakan laravel/passport
 ### Endpoint API
 - Login: [POST] /api/login
 - Link : [POST] /api/link
+- RSS List: [get] /api/resources ==> semua data akan diambil, limit akan diset 90000
+- RSS List with limit: [get] /api/resources?limit=10&page=1 ==> 10 data pertama akan ditampilkan, untuk mengambil data berikutnya cukup menganti page. exp 'page=2'
 
 ### Testing manual Login API 
 Untuk mendapatkan token, akses via postman (atau yang lain) 
@@ -40,12 +42,12 @@ Saat post Link, sertakan rss_id dan bungkus konten di dalam "items"
     "items": [
         {
             "title": "konten satu",
-            "link": "google.com",
+            "link": "google.com/blog/satu",
             "description": "maju tak gentar"
         },
         {
             "title": "konten dua",
-            "link": "dua.com",
+            "link": "dua.com/blog/dua",
             "description": "dua tak gentar"
         }
     ]
