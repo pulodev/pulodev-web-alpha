@@ -1,4 +1,3 @@
-
 ## Proyek PuloDev
 
 Baca di [trello](https://trello.com/b/7SI1Qe1T/version-1)
@@ -16,11 +15,19 @@ Baca di [trello](https://trello.com/b/7SI1Qe1T/version-1)
 ## Informasi
 - Ada fungsi general di app/helper.php (untuk fungsi yang bisa diakses dari mana saja)
 
+## Admin
+Di app ini ada user biasa, ada admin. Admin bisa mengakses API dan juga dashboard
+
+### Dashboard admin
+Di dashboard ini, admin bisa melihat list link yang menjadi draft. Bisa dipublish atau dihapus jika tidak memenuhi syarat
+- /admin/dashboard
+
 ## Petunjuk menguji API
 Api menggunakan laravel/passport
 - Jalankan ' php artisan passport:install ' 
 
 ### Endpoint API
+Perlu menjadi admin untuk mengakses ini. Cara jadi admin via Database. Table users -> role = 1
 - Login: [POST] /api/login
 - Link : [POST] /api/link
 - RSS List: [get] /api/resources ==> semua data akan diambil, limit akan diset 90000

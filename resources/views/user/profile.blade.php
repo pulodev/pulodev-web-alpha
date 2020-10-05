@@ -1,12 +1,7 @@
 @extends('layouts.app')
 
-@section('title')
-  Profile {{ $user->username }} di Koding.club
-@endsection
-
-@section('desc')
-    Profile {{ $user->username }} di Koding.club, komunitas online untuk programmer
-@endsection
+@section('title') Profile {{ $user->username }} di pulo.dev @endsection
+@section('desc') Profile {{ $user->username }} di pulodev, komunitas online untuk programmer @endsection
 
 @section('content')
 

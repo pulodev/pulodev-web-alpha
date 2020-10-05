@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Welcome')
-@section('desc', 'Welcome koding .club')
+@section('title', 'PuloDev - Selamat Datang!')
+@section('desc', 'PuloDev adalah komunitas online programmer Indonesia. Tempat berkumpul terlepas dari bahasa program atau asal kota kamu.')
 @section('content')
 
 @if (Auth::user())

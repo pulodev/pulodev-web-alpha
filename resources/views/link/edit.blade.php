@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('title', 'Link edit')
-@section('desc', 'Link edit koding .club')
+@section('desc', 'Link edit pulo.dev')
+@section('metaextra') <meta name="robots" content="noindex" /> @endsection
+
 @section('content')
 
 <section class="hero">

@@ -1,23 +1,3 @@
-<!-- =====================================================================================================
-============================== Halooo !!! ngintip aja nih ================================================
-==========================================================================================================
-
-NYARI APA NIH? HEHE...
-SELAMAT BELAJAR, JANGAN JADI ORANG BIASA !!! HUSST JANGAN BILANG BILANG UDAH LIAT INI !
-
-.-')      ('-.  .-. .-')                            ('-.     ('-. .-.      .-. .-')               _ .-') _                .-') _
-( OO ).  _(  OO) \  ( OO )                          ( OO ).-.( OO )  /      \  ( OO )             ( (  OO) )              ( OO ) )
-(_)---\_)(,------.,--. ,--.  .-'),-----.  ,--.       / . --. /,--. ,--.      ,--. ,--.  .-'),-----. \     .'_   ,-.-') ,--./ ,--,'  ,----.
-/    _ |  |  .---'|  .'   / ( OO'  .-.  ' |  |.-')   | \-.  \ |  | |  |      |  .'   / ( OO'  .-.  ',`'--..._)  |  |OO)|   \ |  |\ '  .-./-')
-\  :` `.  |  |    |      /, /   |  | |  | |  | OO ).-'-'  |  ||   .|  |      |      /, /   |  | |  ||  |  \  '  |  |  \|    \|  | )|  |_( O- )
-'..`''.)(|  '--. |     ' _)\_) |  |\|  | |  |`-' | \| |_.'  ||       |      |     ' _)\_) |  |\|  ||  |   ' |  |  |(_/|  .     |/ |  | .--, \
-.-._)   \ |  .--' |  .   \    \ |  | |  |(|  '---.'  |  .-.  ||  .-.  |      |  .   \    \ |  | |  ||  |   / : ,|  |_.'|  |\    | (|  | '. (_/
-\       / |  `---.|  |\   \    `'  '-'  ' |      |   |  | |  ||  | |  |      |  |\   \    `'  '-'  '|  '--'  /(_|  |   |  | \   |  |  '--'  |
-`-----'  `------'`--' '--'      `-----'  `------'   `--' `--'`--' `--'      `--' '--'      `-----' `-------'   `--'   `--'  `--'   `------'
-
-==========================================================================================================
-==========================================================================================================
-=======================================================================================================-->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -28,22 +8,26 @@ SELAMAT BELAJAR, JANGAN JADI ORANG BIASA !!! HUSST JANGAN BILANG BILANG UDAH LIA
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title')</title>
-    <meta name="author" content="@yield('author', '@kodingclub')">
+    <meta name="author" content="@yield('author', '@pulodev')">
     <meta name="description" content="@yield('desc')">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@kodingclub">
-    <meta name="twitter:creator" content="@yield('author', '@kodingclub')">
+    <meta name="twitter:site" content="@pulodev">
+    <meta name="twitter:creator" content="@yield('author', '@pulodev')">
     <meta name="twitter:title" content="@yield('title')">
-    <meta name="twitter:url" content="https://koding.club">
+    <meta name="twitter:url" content="https://pulo.dev">
     <meta name="twitter:description" content="@yield('desc')">
-    <meta name="twitter:image:src" content="@yield('img')">
+    <meta name="twitter:image:src" content="@yield('img', '/img/pulodev-card.png')">
 
     <meta property="og:title" content="@yield('title')" />
     <meta property="og:description" content="@yield('desc')" />
-    <meta property="og:image" content="@yield('img')">
+    <meta property="og:image" content="@yield('img', '/img/pulodev-card.png')">
 
     @yield("metaextra")
+
+    @if (App::environment('local') || App::environment('testing'))
+        <meta name="robots" content="noindex" /> 
+    @endif
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>

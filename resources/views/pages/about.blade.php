@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Tetang PuloDev')
-@section('desc', 'Tetang PuloDev')
+@section('title', 'Tentang PuloDev')
+@section('desc', 'Apa itu PuloDev? apa tujuan atau misi dari puloDev, temukan jawabannya di sini')
 @section('content')
 
 <section class="hero">
@@ -17,16 +17,21 @@
         <div class="card">
             <div class="card-content">
                 <p> 
-                Terus munculnya startup digital dan UKM yang mulai melihat dunia online membuat programming bukan lagi hal aneh.
-                Sudah banyak tempat berkumpul dan berdiskusi, ada yang membuat blog sendiri, ada yang membuat channel youtube, grup facebook, telegram dan masih banyak media lainnya.
-                Sering kali komunitas tersebut terbatas untuk satu daerah atau bahasa tertentu.</p>
+                Terus munculnya startup digital dan UKM yang mulai melihat dunia online, membuat programming bukan lagi hal aneh.
+                Sudah banyak tempat berkumpul dan berdiskusi untuk programming, ada yang membuat blog sendiri, ada yang membuat channel youtube, grup facebook, telegram dan masih banyak media lainnya.
+                </p>
+
+                <br>
+                <p>Sering kali komunitas atau konten ini terbatas untuk satu daerah atau bahasa tertentu. Sering juga tidak diketahui oleh banyak orang.</p>
 
                 <br>
                 <p>
                     Karena itu kami ingin membuat satu tempat berkumpul yang nyaman, untuk orang orang yang tertarik di dunia programming ini.
                     Kami ingin kamu semua saling mengenal satu sama lain, tanpa batasan bahasa program atau asal kota.
-                    PuloDev akan menjadi pulau yang nyaman untuk kita have fun dan saling berbagi.
                 </p>
+
+                <br>
+                <p>PuloDev akan menjadi pulau yang nyaman untuk kita have fun dan saling berbagi.</p>
 
                 <h3 class="subtitle mt-5">Tim PuloDev</h3>
                 <p>Kami tersebar di beberapa pulau, ada:</p>

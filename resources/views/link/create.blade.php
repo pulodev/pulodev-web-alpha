@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
 @section('title', 'Link baru')
-@section('desc', 'Link baru koding .club')
-@section('content')
+@section('desc', 'Link baru pulo.dev')
+@section('metaextra') <meta name="robots" content="noindex" /> @endsection
 
+@section('content')
 <section class="hero">
     <div class="hero-body">
         <div class="container has-text-centered">

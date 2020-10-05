@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Faq PuloDev')
-@section('desc', 'Faq PuloDev')
+@section('title', 'FAQ PuloDev')
+@section('desc', 'Kumpulan pertanyaan tentang PuloDev')
+
 @section('content')
 
 <section class="hero">

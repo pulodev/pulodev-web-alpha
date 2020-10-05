@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title')
-  {{ $link->title }}
-@endsection
+@section('title') {{ $link->title }} @endsection
 
-@section('desc')
-    {{ cutText($link->title, 150) }}
-@endsection
+@section('desc') {{ cutText($link->title, 150) }} @endsection
+
+@isset($link->thumbnail)
+    @section('img') {{ $link->thumbnail }} @endsection
+@endisset
 
 @section('content')
 <section class="hero">

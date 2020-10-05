@@ -1,19 +1,15 @@
 @extends('layouts.app')
 
-@section('title')
-  Edit Profile {{ $user->username }} 
-@endsection
-
-@section('desc')
-    Edit Profile {{ $user->username }} di Koding.club, komunitas online untuk programmer
-@endsection
+@section('title') Edit Profil {{ $user->username }}  @endsection
+@section('desc') Edit Profil {{ $user->username }} di Koding.club, komunitas online untuk programmer @endsection
+@section('metaextra') <meta name="robots" content="noindex" /> @endsection
 
 @section('content')
 
 <section class="hero">
     <div class="hero-body">
         <div class="container has-text-centered">
-            <h1 class="title">Edit profile {{ '@'.$user->username }}</h1>
+            <h1 class="title">Edit profil {{ '@'.$user->username }}</h1>
         </div>
     </div>
 </section>
