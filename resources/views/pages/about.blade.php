@@ -17,12 +17,12 @@
         <div class="card">
             <div class="card-content">
                 <p> 
-                Terus munculnya startup digital dan UKM yang mulai melihat dunia online, membuat programming bukan lagi hal aneh.
-                Sudah banyak tempat berkumpul dan berdiskusi untuk programming, ada yang membuat blog sendiri, ada yang membuat channel youtube, grup facebook, telegram dan masih banyak media lainnya.
+                Terus munculnya startup digital dan UKM yang mulai melihat dunia online, membuat programming menjadi salah satu pekerjaan terpenting saat ini.
+                Sudah banyak tempat berkumpul dan berdiskusi untuk programming, ada blog sendiri, ada channel youtube, grup facebook, telegram dan masih banyak media lainnya.
                 </p>
 
                 <br>
-                <p>Sering kali komunitas atau konten ini terbatas untuk satu daerah atau bahasa tertentu. Sering juga tidak diketahui oleh banyak orang.</p>
+                <p>Sering kali komunitas atau konten ini terbatas untuk satu daerah atau bahasa tertentu. Sehingga tidak diketahui oleh banyak orang.</p>
 
                 <br>
                 <p>
@@ -31,15 +31,15 @@
                 </p>
 
                 <br>
-                <p>PuloDev akan menjadi pulau yang nyaman untuk kita have fun dan saling berbagi.</p>
+                <p>PuloDev akan menjadi pulau yang nyaman untuk kita berbagi dan bersenang-senang.</p>
 
                 <h3 class="subtitle mt-5">Tim PuloDev</h3>
                 <p>Kami tersebar di beberapa pulau, ada:</p>
-                <a target="_blank" href="https://github.com/jeins">Juan Akbar</a>,
-                <a target="_blank" href="http://tyohan.me/">Yohan Totting</a>,
-                <a target="_blank" href="http://github.com/chaidiryahya">Chaidir Yahya</a>,
-                <a target="_blank" href="https://github.com/fauxxi">Fauzi Sanjaya</a>, dan
-                <a target="_blank" href="https://hilman.space">Hilman Ramadhan</a>
+                <a class="has-text-info" target="_blank" href="https://github.com/jeins">Juan Akbar</a>,
+                <a class="has-text-info" target="_blank" href="http://tyohan.me/">Yohan Totting</a>,
+                <a class="has-text-info" target="_blank" href="http://github.com/chaidiryahya">Chaidir Yahya</a>,
+                <a class="has-text-info" target="_blank" href="https://github.com/fauxxi">Fauzi Sanjaya</a>, dan
+                <a class="has-text-info" target="_blank" href="https://hilman.space">Hilman Ramadhan</a>
             </div>
         </div>
     </div>

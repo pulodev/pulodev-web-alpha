@@ -9,17 +9,16 @@
 @endisset
 
 @section('content')
-<section class="hero">
-    <div class="hero-body">
-        <div class="container has-text-centered">
+<div class="columns is-marginless is-centered">
+    <div class="column is-half">
+
+        <br>
+        <div class="has-text-centered">
             <h1 class="title">{{ $link->title }} </h1>
             <h2 class="subtitle"> @if ($link->draft) [Status: draft - Tunggu konfirmasi] @endif </h2>
         </div>
-    </div>
-</section>
+        <br>
 
-<div class="columns is-marginless is-centered">
-    <div class="column is-half">
         <div class="card">
             <div class="card-content">
                 <div>
