@@ -10,10 +10,10 @@ jobs:
   laravel-setup:
     runs-on: ubuntu-latest
     env:
+      DB_CONNECTION: mysql
       DB_DATABASE: pulodev
       DB_USERNAME: pulodev
-      DB_PASSWORD: pulodev
-      BROADCAST_DRIVER: log   
+      DB_PASSWORD: pulodev 
     services:
       mysql:
         image: mysql:5.7
