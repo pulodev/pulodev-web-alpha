@@ -7,7 +7,6 @@ use App\Models\Link;
 use App\Models\Resource;
 use App\Rules\MinimalWords;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class LinkController extends AbstractApiController
 {
@@ -48,8 +47,7 @@ class LinkController extends AbstractApiController
             }
             
             if($isAllowedToSave) {
-                $user = Auth::user();
-                $link = $user->links()->create([
+                $link = Link::create([
                     'title' => $item['title'],
                     'url'  => $cleanedUrl,
                     'slug'  => generateSlug($item['title'], new Link),
