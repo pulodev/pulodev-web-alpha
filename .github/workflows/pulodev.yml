@@ -14,15 +14,18 @@ jobs:
       DB_DATABASE: pulodev
       DB_USERNAME: pulodev
       DB_PASSWORD: pulodev 
+      DB_PORT: 33306
     services:
       mysql:
         image: mysql:5.7
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: false
           MYSQL_ROOT_PASSWORD: pulodev
+          MYSQL_PASSWORD: pulodev
           MYSQL_DATABASE: pulodev
+          MYSQL_USER: pulodev
         ports:
-          - 3306/tcp
+          - 33306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
   
     steps:
