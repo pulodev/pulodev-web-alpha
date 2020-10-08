@@ -43,7 +43,7 @@ Untuk mendapatkan token, akses via postman (atau yang lain)
 ### Asumsi requestion dari agregator
 
 Saat post Link, sertakan rss_id dan bungkus konten di dalam "items"
-````
+```
 {
     "rss_id" : 1,
     "items": [
