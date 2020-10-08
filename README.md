@@ -60,3 +60,13 @@ Saat post Link, sertakan rss_id dan bungkus konten di dalam "items"
     ]
 }
 ```
+
+## Testing Manual
+Testing using phpunit. Location: /tests
+
+### SetUp Test
+- copy .env to .env.testing
+(sediakan DB baru)
+- php artisan --env=testing migrate
+migrate table di DB baru untuk testing
+- jalankan "vendor/bin/phpunit" atau "phpunit" untuk testing
