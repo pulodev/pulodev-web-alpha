@@ -147,6 +147,8 @@ class LinkController extends Controller
         if(!$link->exists())
             abort(404);
 
+        checkOwnership($link->user_id);
+
         return view('link.edit', compact('link'));
     }
 
