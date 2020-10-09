@@ -56,7 +56,7 @@ class LinkController extends AbstractApiController
                     'owner'  => $item['owner'] ?? '',
                     'media'  => $rss->media,
                     'user_id' => $rss->user_id,
-                    'original_published_at'  => $item['publishDate'] ?? Carbon::now(),
+                    'original_published_at'  => $item['pubDate'] ?? Carbon::now(),
                 ]);  
 
                 if ($link) {
