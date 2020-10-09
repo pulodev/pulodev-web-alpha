@@ -24,6 +24,24 @@ class LinkTest extends TestCase
         $this->get('/')->assertDontSee($link->title);
     }
 
+    /** @test */
+    public function unverified_user_cannot_submit_link()
+    {
+        $newUser = [
+            'username'              => 'mynewusername',
+            'email'                 => 'username@example.net',
+            'password'              => 'secret',
+            'password_confirmation' => 'secret',
+        ];
+
+        $this->post('/register', $newUser);
+ 
+        $res = $this->actingAs(User::first())
+             ->from('/')
+             ->get('/link/create')
+             ->assertRedirect('/email/verify');
+    }
+
     private function create_link() 
     {
         $this->signIn();
