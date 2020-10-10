@@ -30,8 +30,8 @@ Api menggunakan laravel/passport
 Perlu menjadi admin untuk mengakses ini. Cara jadi admin via Database. Table users -> role = 1
 - Login: [POST] /api/login
 - Link : [POST] /api/link
-- RSS List: [get] /api/resources ==> semua data akan diambil, limit akan diset 90000
-- RSS List with limit: [get] /api/resources?limit=10&page=1 ==> 10 data pertama akan ditampilkan, untuk mengambil data berikutnya cukup menganti page. exp 'page=2'
+- RSS List: [GET] /api/resources ==> semua data akan diambil, limit akan diset 90000
+- RSS List with limit: [GET] /api/resources?limit=10&page=1 ==> 10 data pertama akan ditampilkan, untuk mengambil data berikutnya cukup menganti page. exp 'page=2'
 
 ### Testing manual Login API 
 Untuk mendapatkan token, akses via postman (atau yang lain) 
@@ -43,7 +43,7 @@ Untuk mendapatkan token, akses via postman (atau yang lain)
 ### Asumsi requestion dari agregator
 
 Saat post Link, sertakan rss_id dan bungkus konten di dalam "items"
-````
+```
 {
     "rss_id" : 1,
     "items": [
@@ -60,3 +60,15 @@ Saat post Link, sertakan rss_id dan bungkus konten di dalam "items"
     ]
 }
 ```
+
+## Testing Manual
+Testing using phpunit. Location: /tests
+
+### SetUp Test
+- copy .env to .env.testing
+(sediakan Database baru)
+-  migrate table di DB baru untuk testing
+```
+php artisan --env=testing migrate
+```
+- jalankan "vendor/bin/phpunit" atau "phpunit" untuk testing

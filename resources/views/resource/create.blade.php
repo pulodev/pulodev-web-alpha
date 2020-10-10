@@ -29,6 +29,7 @@
                     
                     <x-form.media-choice />
 
+                    <br>
                     <div class="buttons">
                     <button class="button is-primary is-fullwidth">Submit</button>
                     </div>

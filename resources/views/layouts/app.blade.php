@@ -72,8 +72,8 @@
                 </div>
             @else
                 <div class="navbar-end">
-                    <a class="navbar-item" href="/register">Register</a>
-                    <a class="navbar-item" href="/login">Login</a>
+                    <a class="navbar-item" href="/register">Daftar</a>
+                    <a class="navbar-item" href="/login">Masuk</a>
                 </div>
             @endif
         </div>

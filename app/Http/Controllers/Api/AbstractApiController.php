@@ -25,10 +25,10 @@ class AbstractApiController extends Controller
         return $this->sendResponse($reponseData, 200);
     }
 
-    protected function responseNOK($errorMessage) {
+    protected function responseNOK($errorMessage, $data = []) {
         return $this->sendResponse([
             'success' => false,
-            'data' => [],
+            'data' => $data,
             'message' => $errorMessage
         ], 401);
     }

@@ -132,7 +132,7 @@ class LinkController extends Controller
     {
         $querySearch = $request->input('query');
         $links = Link::with('user')->where('title', 'like', '%'.$querySearch.'%')
-                    ->orderBy('id', 'desc')->get();
+                    ->where('draft', 0)->orderBy('id', 'desc')->get();
         return view('link.search', compact('links', 'querySearch'));
     }
 
@@ -146,6 +146,8 @@ class LinkController extends Controller
     {
         if(!$link->exists())
             abort(404);
+
+        checkOwnership($link->user_id);
 
         return view('link.edit', compact('link'));
     }

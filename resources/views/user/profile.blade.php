@@ -32,12 +32,13 @@
         <div class="card">
             <div class="card-content">
                 <ul>
-                    <h2>Daftar Link</h2>
+                    <h2> <strong> Daftar Link</strong></h2>
+                    <br>
                     @foreach ($user->links as $link)
-                        <a href="/link/{{$link->slug}}"> 
+                        <a class="has-text-dark" href="/link/{{$link->slug}}"> 
                             <li> {{$link->title}} 
                             @if ($link->draft) [draft - Tunggu konfirmasi] @endif
-                            </li>
+                            </li> <hr>
                         </a>
                     @endforeach
                 </ul>

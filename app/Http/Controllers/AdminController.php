@@ -23,8 +23,9 @@ class AdminController extends Controller
 
     public function showRSS()
     {
-        $resources = Resource::where('draft', 1)->paginate(30);
-        return view('dashboard.resource', compact('resources'));
+        $resources = Resource::where('draft', 0)->paginate(30);
+        $draftResources = Resource::where('draft', 1)->paginate(30);
+        return view('dashboard.resource', compact('draftResources', 'resources'));
     }
 
     public function showLink()
