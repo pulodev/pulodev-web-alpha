@@ -34,12 +34,13 @@
                         
                         <div class="media-content">
                             <div class="content">
-                                <small> {{$link->user->fullname .' @'.$link->user->username }}
+                                <small class="is-size-7"> @if(!empty($link->owner)) <p>Oleh: {{$link->owner}}</p> @endif
+                                        dimasukkan oleh: {{$link->user->fullname .' @'.$link->user->username }}
                                         - {{$link->original_published_at->diffForHumans()}}
                                 </small> 
                                 <br>
                                 
-                                <p><strong> {{$link->title}}</strong></p>
+                                <p class="is-size-4"><strong> {{$link->title}}</strong></p>
 
                                 <p class="is-size-7">
                                     <span class="tag is-info is-light"> {{$link->media}} </span>

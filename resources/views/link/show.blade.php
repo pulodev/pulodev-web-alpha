@@ -28,7 +28,7 @@
             <div class="card-content">
                 <div>
                     <strong>Ringkasan:</strong> <br>
-                    {!! Purify::clean($link->body) !!}
+                    {!! cutText(Purify::clean($link->body), 255) !!}
                 </div>
                 
                 <p class="my-2">
