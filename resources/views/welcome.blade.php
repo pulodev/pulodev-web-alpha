@@ -80,8 +80,6 @@
             <a href='/media/video' class="tag">Video</a> <br>
             <a href='/media/web' class="tag">Web</a>
             <a href='/media/podcast' class="tag">Podcast</a>
-            <a href='/media/komunitas' class="tag">Komunitas</a> 
-
 
             <script>
                 function filterTag() { window.location.href = "/tag/" + $('#tag-query').value  }

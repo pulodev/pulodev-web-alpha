@@ -18,17 +18,17 @@
             <div class="card-content">
                 <p> 
                 Programming sudah menjadi salah satu pekerjaan terpenting saat ini.
-                Sudah banyak tempat berkumpul dan berdiskusi untuk programming, ada blog pribadi, channel youtube, grup facebook, telegram dan masih banyak media lainnya.
+                Sudah banyak tempat berbagi dan berdiskusi seputar programming, ada blog pribadi, channel youtube, grup facebook, telegram dan masih banyak media lainnya.
                 </p>
 
                 <br>
-                <p>Sering kali komunitas atau konten ini terbatas untuk satu daerah atau bahasa tertentu. Sehingga tidak diketahui oleh banyak orang.
+                <p>Sering kali komunitas atau konten ini terbatas untuk satu daerah atau bahasa tertentu, sehingga tidak diketahui oleh banyak orang.
                     Padahal ada banyak konten menarik di dalamnya.
                 </p>
 
                 <br>
                 <p>
-                    Karena itu kami ingin membuat satu tempat berkumpul yang nyaman, untuk orang orang yang tertarik di dunia programming ini.
+                    Karena itu kami ingin membuat satu tempat berkumpul yang nyaman, untuk orang-orang yang tertarik di dunia programming ini.
                     Kami ingin kamu semua saling mengenal satu sama lain, tanpa batasan bahasa program atau asal kota.
                 </p>
 

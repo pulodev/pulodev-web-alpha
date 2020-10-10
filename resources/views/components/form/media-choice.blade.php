@@ -4,7 +4,6 @@
     <label class="radio"> <input type="radio" name="media" id="media-video" value="video"> Video </label>
     <label class="radio"> <input type="radio" name="media" id="media-podcast" value="podcast"> Podcast </label>
     <label class="radio"> <input type="radio" name="media" id="media-web" value="web"> Web </label>
-    <label class="radio"> <input type="radio" name="media" id="media-komunitas" value="komunitas"> Komunitas </label>
 </div>
 
 {{-- check media from db --}}

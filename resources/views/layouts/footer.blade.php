@@ -1,8 +1,8 @@
 <footer class="container my-4 py-4 has-text-centered">
     <a href="/info/about">Tentang Kami</a> - 
-    <a href="/info/faq">FAQ</a> - 
-    <a href="https://twitter.com/pulodev" target="_blank"> @pulodev</a>
-    <p>PuloDev</p>
+    <a href="/info/faq">FAQ</a>
+    <p>Berikan kami saran dan kritik <a href="https://twitter.com/pulodev" target="_blank"> @pulodev</a></p> 
+    <p>©PuloDev</p>
 
     {{-- SweerAlert --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

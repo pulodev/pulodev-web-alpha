@@ -28,7 +28,7 @@
               <br>
 
               <p><strong>Apa yang bisa dilakukan di PuloDev</strong></p>
-              <p>Saat ini kami mengumpulkan konten konten berbahasa Indonesia, ada tulisan, podcast, video dan lainnya. Kamu juga bisa memasukkan RSS konten kamu sendiri atau link ketika menemukan konten berbahasa Indonesia menarik</p>
+              <p>Saat ini kami mengumpulkan konten-konten berbahasa Indonesia atau dari orang Indonesia, ada tulisan, podcast, video dan lainnya. Kamu juga bisa memasukkan RSS konten kamu sendiri atau link ketika menemukan konten berbahasa Indonesia menarik</p>
 
               <br>
 
