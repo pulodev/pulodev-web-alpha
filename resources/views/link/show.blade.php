@@ -2,7 +2,12 @@
 
 @section('title') {{ $link->title }} @endsection
 
-@section('desc') {{ cutText($link->title, 150) }} @endsection
+@if ($link->body != '' || $link->body != '-')
+@section('desc') Ringkasan: {{ cutText($link->body, 150) }} @endsection    
+@else
+@section('desc') Ringkasan: {{ cutText($link->title, 150) }} @endsection    
+@endif
+
 
 @isset($link->thumbnail)
     @section('img') {{ $link->thumbnail }} @endsection
@@ -28,10 +33,14 @@
                 
                 <p class="my-2">
                     <strong> Link: </strong> <br>
-                    <a href="{{$link->url}}" target="_blank">{{$link->url}}</a>
+                    <a href="{{$link->url}}" target="_blank" style="word-break: break-word;">{{$link->url}}</a>
                 </p>
 
-                <footer class="media mt-2">
+                <div class="buttons">
+                    <a class="button is-fullwidth is-info" target="_blank" href="{{$link->url}}">Kunjungi Link</a>
+                </div>    
+
+                <footer class="media mt-2 mb-1">
                     <figure class="media-left">
                         <x-avatar :user="$link->user"/>
                     </figure>
@@ -42,12 +51,13 @@
                             <br>
                             {{$link->original_published_at->diffForHumans()}} 
                         </p>
-                        <p class="is-size-7"><x-tags :tags="$link->tags" /> </p>
                     </div>
                 </footer>
+                <p class="is-size-7"><x-tags :tags="$link->tags" /> </p>
+                <br>
 
                 @if (Auth::user())
-                <div class="card-footer">
+                <div class="">
                     @if (Auth::user()->id === $link->user->id)
                         <div class="buttons">
                             <a class="button is-primary is-light" href="/link/{{$link->slug}}/edit">Edit</a>
@@ -85,6 +95,9 @@
             </div>
         </div>
 
+        <div class="buttons mt-2">
+            <a class="button" href="/"> << Kembali Ke Pulau</a>
+        </div>      
     </div>
 </div>
 
