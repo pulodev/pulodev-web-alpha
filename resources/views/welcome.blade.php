@@ -17,7 +17,7 @@
         <div class="container has-text-centered">
             <h1 class="title"> @if (Auth::check()) Halo {{Auth::user()->username}}, @endif 
                 Kenalkan PuloDev! </h1>
-            <h2 class="subtitle">Tempat berkumpul programmer Indonesia</h2>
+            <h2 class="subtitle">Tempat berkumpul programmer Indonesia. Baca <a href="/info/about"> tentang kami</a></h2>
         </div>
     </div>
 </section>

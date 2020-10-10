@@ -17,12 +17,14 @@
         <div class="card">
             <div class="card-content">
                 <p> 
-                Terus munculnya startup digital dan UKM yang mulai melihat dunia online, membuat programming menjadi salah satu pekerjaan terpenting saat ini.
-                Sudah banyak tempat berkumpul dan berdiskusi untuk programming, ada blog sendiri, ada channel youtube, grup facebook, telegram dan masih banyak media lainnya.
+                Programming sudah menjadi salah satu pekerjaan terpenting saat ini.
+                Sudah banyak tempat berkumpul dan berdiskusi untuk programming, ada blog pribadi, channel youtube, grup facebook, telegram dan masih banyak media lainnya.
                 </p>
 
                 <br>
-                <p>Sering kali komunitas atau konten ini terbatas untuk satu daerah atau bahasa tertentu. Sehingga tidak diketahui oleh banyak orang.</p>
+                <p>Sering kali komunitas atau konten ini terbatas untuk satu daerah atau bahasa tertentu. Sehingga tidak diketahui oleh banyak orang.
+                    Padahal ada banyak konten menarik di dalamnya.
+                </p>
 
                 <br>
                 <p>

@@ -1,6 +1,7 @@
 <footer class="container my-4 py-4 has-text-centered">
     <a href="/info/about">Tentang Kami</a> - 
-    <a href="/info/faq">FAQ</a>
+    <a href="/info/faq">FAQ</a> - 
+    <a href="https://twitter.com/pulodev" target="_blank"> @pulodev</a>
     <p>PuloDev</p>
 
     {{-- SweerAlert --}}
