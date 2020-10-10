@@ -34,15 +34,16 @@
                         
                         <div class="media-content">
                             <div class="content">
-                                <small class="is-size-7"> @if(!empty($link->owner)) <p>Oleh: {{$link->owner}}</p> @endif
-                                        dimasukkan oleh: {{$link->user->fullname .' @'.$link->user->username }}
-                                        - {{$link->original_published_at->diffForHumans()}}
-                                </small> 
-                                <br>
-                                
-                                <p class="is-size-4"><strong> {{$link->title}}</strong></p>
+                                @if(!empty($link->owner) && $link->owner != '-') 
+                                    <small class="is-size-7">{{$link->owner}} </small> <br>
+                                @endif
+
+                                <p class="is-size-4 mb-1"><strong> {{$link->title}}</strong></p>
 
                                 <p class="is-size-7">
+                                    <span>Dimasukkan oleh: {{$link->user->fullname .' @'.$link->user->username }}
+                                        - {{$link->original_published_at->diffForHumans()}}</span>
+                                        <br><br>
                                     <span class="tag is-info is-light"> {{$link->media}} </span>
                                     <x-tags :tags="$link->tags" /> 
                                 </p>
