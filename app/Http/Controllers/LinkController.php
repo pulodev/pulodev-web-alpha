@@ -132,7 +132,7 @@ class LinkController extends Controller
     {
         $querySearch = $request->input('query');
         $links = Link::with('user')->where('title', 'like', '%'.$querySearch.'%')
-                    ->orderBy('id', 'desc')->get();
+                    ->where('draft', 0)->orderBy('id', 'desc')->get();
         return view('link.search', compact('links', 'querySearch'));
     }
 
