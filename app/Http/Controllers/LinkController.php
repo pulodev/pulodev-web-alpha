@@ -131,8 +131,10 @@ class LinkController extends Controller
     public function search(Request $request)
     {
         $querySearch = $request->input('query');
-        $links = Link::with('user')->where('title', 'like', '%'.$querySearch.'%')
-                    ->where('draft', 0)->orderBy('id', 'desc')->get();
+
+        $links = Link::whereRaw('MATCH (title, body) AGAINST (?)' , array($querySearch))
+                     ->where('draft', 0)->orderBy('id', 'desc')->get();
+
         return view('link.search', compact('links', 'querySearch'));
     }
 
