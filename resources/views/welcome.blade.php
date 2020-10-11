@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'PuloDev - Selamat Datang!')
-@section('desc', 'PuloDev adalah komunitas online programmer Indonesia. Tempat berkumpul terlepas dari bahasa program atau asal kota kamu.')
+@section('desc', 'PuloDev adalah kumpulan konten developer Indonesia. Tempat berkumpul terlepas dari bahasa program atau asal kota kamu, komunitas programmer Indonesia')
 @section('content')
 
 @if (Auth::user())
@@ -17,7 +17,7 @@
         <div class="container has-text-centered">
             <h1 class="title"> @if (Auth::check()) Halo {{Auth::user()->username}}, @endif 
                 Kenalkan PuloDev! </h1>
-            <h2 class="subtitle">Tempat berkumpul programmer Indonesia. Baca <a href="/info/about"> tentang kami</a></h2>
+            <h2 class="subtitle">Kumpulan konten developer Indonesia. Baca <a href="/info/about"> tentang kami</a></h2>
         </div>
     </div>
 </section>

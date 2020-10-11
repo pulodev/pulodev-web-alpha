@@ -18,7 +18,7 @@
         <div class="card">
             <div class="card-content">
               <p><strong>Apa itu PuloDev</strong></p>
-              <p>Tempat berkumpul orang yang senang programming. Selengkapnya baca <a class="has-text-info" href="/info/about"> tentang kami</a></p>
+              <p>Kumpulan konten developer Indonesia. Selengkapnya baca <a class="has-text-info" href="/info/about"> tentang kami</a></p>
 
               <br>
 
