@@ -45,10 +45,15 @@ class LinkController extends AbstractApiController
                 $isAllowedToSave = false;
                 $report[$item['link']] = 'link already exist';
             }
+
+            //add pretext from rss
+            $title = ($rss->pretext != '') 
+                        ? $item['title'] . ' - ' . $rss->pretext
+                        : $item['title'];
             
             if($isAllowedToSave) {
                 $link = Link::create([
-                    'title' => $item['title'],
+                    'title' => $title,
                     'url'  => $cleanedUrl,
                     'slug'  => generateSlug($item['title'], new Link),
                     'body'  => $item['description'],

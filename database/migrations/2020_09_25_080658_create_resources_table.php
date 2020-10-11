@@ -20,6 +20,7 @@ class CreateResourcesTable extends Migration
             $table->boolean('draft')->default(1);
             $table->string('type')->default('RSS');
             $table->string('media')->default('tulisan');
+            $table->string('pretext')->nullable();
 
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
