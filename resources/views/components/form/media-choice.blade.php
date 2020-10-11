@@ -3,7 +3,10 @@
     <label class="radio"> <input type="radio" name="media" id="media-tulisan" value="tulisan" checked> Tulisan </label>
     <label class="radio"> <input type="radio" name="media" id="media-video" value="video"> Video </label>
     <label class="radio"> <input type="radio" name="media" id="media-podcast" value="podcast"> Podcast </label>
-    <label class="radio"> <input type="radio" name="media" id="media-web" value="web"> Web </label>
+     @isset($resource)
+     @else
+        <label class="radio"> <input type="radio" name="media" id="media-web" value="web"> Web </label>
+     @endisset   
 </div>
 
 {{-- check media from db --}}

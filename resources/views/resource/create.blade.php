@@ -27,7 +27,7 @@
                     
                     <x-form.input label="Judul" name="title" required/>
                     
-                    <x-form.media-choice />
+                    <x-form.media-choice resource="true" />
 
                     <br>
                     <div class="buttons">
