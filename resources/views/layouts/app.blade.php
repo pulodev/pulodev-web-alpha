@@ -17,11 +17,11 @@
     <meta name="twitter:title" content="@yield('title')">
     <meta name="twitter:url" content="https://pulo.dev">
     <meta name="twitter:description" content="@yield('desc')">
-    <meta name="twitter:image:src" content="@yield('img', '/img/pulodev-card.png')">
+    <meta name="twitter:image:src" content="@yield('img', 'https://pulo.dev/img/pulodev-card.png')">
 
     <meta property="og:title" content="@yield('title')" />
     <meta property="og:description" content="@yield('desc')" />
-    <meta property="og:image" content="@yield('img', '/img/pulodev-card.png')">
+    <meta property="og:image" content="@yield('img', 'https://pulo.dev/img/pulodev-card.png')">
 
     @yield("metaextra")
 
