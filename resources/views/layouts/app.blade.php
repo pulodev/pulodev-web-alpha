@@ -27,6 +27,16 @@
 
     @if (App::environment('local') || App::environment('testing'))
         <meta name="robots" content="noindex" /> 
+    @else
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-180312472-1"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-180312472-1');
+        </script>
     @endif
 
     <!-- Scripts -->
