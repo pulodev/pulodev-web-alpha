@@ -24,9 +24,7 @@
                     @csrf
                    
                     <x-form.input label="URL RSS" name="url" type="url" placeholder="Masukkan URL di sini" required/>
-                    
                     <x-form.input label="Judul" name="title" required/>
-                    
                     <x-form.media-choice resource="true" />
 
                     <br>

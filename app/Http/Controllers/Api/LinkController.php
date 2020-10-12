@@ -46,19 +46,14 @@ class LinkController extends AbstractApiController
                 $report[$item['link']] = 'link already exist';
             }
 
-            //add pretext from rss
-            $title = ($rss->pretext != '') 
-                        ? $item['title'] . ' - ' . $rss->pretext
-                        : $item['title'];
-            
             if($isAllowedToSave) {
                 $link = Link::create([
-                    'title' => $title,
+                    'title' => $item['title'],
                     'url'  => $cleanedUrl,
                     'slug'  => generateSlug($item['title'], new Link),
                     'body'  => $item['description'],
                     'tags'  => $item['tags'] ?? '',
-                    'owner'  => $item['owner'] ?? '',
+                    'owner'  => ($item['owner'] != '' && $item['owner'] != '-' ) ? $item['owner'] : $rss->title,
                     'media'  => $rss->media,
                     'user_id' => $rss->user_id,
                     'original_published_at'  => $item['pubDate'] ?? Carbon::now(),
