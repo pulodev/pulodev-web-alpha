@@ -14,6 +14,7 @@
             <h2 class="subtitle">{{ '@'.$user->username }}</h2>
 
             @isset($user->bio) <p>{{$user->bio}}</p>@endisset
+            @isset($user->website_url) <a href="{{$user->website_url}}" target="_blank" rel='noreferrer'>Website</p>@endisset
             <a rel="nofollow ugc" href="{{$user->website_url}}" class="has-text-white">Link: {{$user->website_url}} </a>
 
             @if (Auth::user())
@@ -31,6 +32,7 @@
     <div class="column is-half">
         <div class="card">
             <div class="card-content">
+                @if(count($user->resources) > 0)
                 <ul>
                     <h2> <strong> Daftar RSS</strong></h2>
                     <br>
@@ -41,6 +43,7 @@
                     @endforeach
                 </ul>
                 <hr>
+                @endif
                 <ul>
                     <h2> <strong> Daftar Link</strong></h2>
                     <br>
