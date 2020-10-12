@@ -89,7 +89,7 @@ class LinkController extends Controller
 
         //change session token
         $request->session()->regenerateToken();
-        return redirect('/link/' . $link->slug)->with('success', 'Link berhasil disubmit');
+        return redirect('/link/' . $link->slug)->with('success', 'Link berhasil disubmit. Akan kami review');
     }
 
     private function cleanUrl($url) {

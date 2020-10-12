@@ -52,7 +52,7 @@ class ResourceController extends Controller
 
         //change session token
         $request->session()->regenerateToken();
-        return redirect('/')->with('success', 'RSS berhasil disubmit');
+        return redirect('/')->with('success', 'RSS berhasil disubmit. Akan kami review');
     }
 
     /**
