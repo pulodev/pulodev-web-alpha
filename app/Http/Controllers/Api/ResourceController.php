@@ -21,8 +21,9 @@ class ResourceController extends AbstractApiController
     {
         $limit = $request->has('limit') && is_numeric($request->get('limit')) ? $request->get('limit') : self::MAX_PAGE_LIMIT;
 
-        $resources = Resource::whereRaw('DATE(last_checked_at) < DATE(NOW())')
-            ->orWhereNull('last_checked_at')->paginate($limit);
+        $resources = Resource::where('draft', 0)
+                            ->whereRaw('DATE(last_checked_at) < DATE(NOW())')
+                            ->orWhereNull('last_checked_at')->paginate($limit);
 
         $data = [];
         foreach($resources as $resource) {
