@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('title')
-PuloDev - @isset($type) {{$type}} {{$query}} @else Selamat Datang! @endisset
+PuloDev -@if($type != '') {{$type}} {{$query}}@else Selamat Datang @endif
 @endsection
 
 @section('desc')
-PuloDev @isset($type){{$type}} {{$query}}@endisset adalah kumpulan konten @isset($type){{$type}} {{$query}}@endisset developer Indonesia. Tempat berkumpul terlepas dari bahasa program atau asal kota kamu, komunitas programmer Indonesia
+PuloDev @if($type != ''){{$type}} {{$query}}@endif adalah kumpulan konten @if($type != ''){{$type}} {{$query}}@endif developer Indonesia. Tempat berkumpul terlepas dari bahasa program atau asal kota kamu, komunitas programmer Indonesia
 @endsection
 
 @section('content')
