@@ -1,7 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'PuloDev - Selamat Datang!')
-@section('desc', 'PuloDev adalah kumpulan konten developer Indonesia. Tempat berkumpul terlepas dari bahasa program atau asal kota kamu, komunitas programmer Indonesia')
+@section('title')
+PuloDev - @isset($type) {{$type}} {{$query}} @else Selamat Datang! @endisset
+@endsection
+
+@section('desc')
+PuloDev @isset($type){{$type}} {{$query}}@endisset adalah kumpulan konten @isset($type){{$type}} {{$query}}@endisset developer Indonesia. Tempat berkumpul terlepas dari bahasa program atau asal kota kamu, komunitas programmer Indonesia
+@endsection
+
 @section('content')
 
 @if (Auth::user())
@@ -40,6 +46,7 @@
         <div class="column">
             @isset($type) <p>Filter {{$type}} : {{$query}} </p> @endisset
             
+            <br>
             <form class="" action="/search" method="GET">
                 <input type="search" class="input" name="query" placeholder="berdasrakan judul">
                 <input type="submit" value="Cari" class="button is-small">
