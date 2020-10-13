@@ -31,7 +31,8 @@ class PageController extends Controller
                 $links = $links->where('media', $query);
                 break;     
             case 'tag':
-                $links = $links->where('tags', 'like' , '%'.$query.'%');
+                $tag = str_replace('-', ' ', $query); //denormalize tag
+                $links = $links->where('tags', 'like' , '%'.$tag.'%');
                 break;         
             default: 
                 break;

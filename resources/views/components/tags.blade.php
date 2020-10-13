@@ -1,8 +1,12 @@
-<?php
+@php
 $tags = explode(',', $tags);
-?>
+@endphp
 
 @foreach ($tags as $tag)
+    @php
+        $tag = strtolower(str_replace(' ', '-', ltrim($tag))); //normalize tag 
+    @endphp
+ 
     @if(trim($tag) != '')
         @isset($asLink) 
             <a href='/tag/{{$tag}}' class="tag"> #{{$tag}}</span> </a>
