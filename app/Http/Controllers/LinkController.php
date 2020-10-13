@@ -102,11 +102,11 @@ class LinkController extends Controller
             parse_str($parsedURL["query"], $param);
         
             switch (true) {
-                case Str::contains($parsedURL['path'], 'playlist'):
+                case Str::contains($parsedURL['path'], '/playlist'):
                     $url    = "https://www.youtube.com/playlist?list=" . $param["list"];
                     break;
 
-                case Str::contains($parsedURL['path'], 'watch'):
+                case Str::contains($parsedURL['path'], '/watch'):
                     $url    = "https://youtube.com/watch?v=" . $param["v"];
                     break;
             }
