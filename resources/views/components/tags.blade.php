@@ -4,6 +4,10 @@ $tags = explode(',', $tags);
 
 @foreach ($tags as $tag)
     @if(trim($tag) != '')
-    <span class="tag"> #{{$tag}}</span>
+        @isset($asLink) 
+            <a href='/tag/{{$tag}}' class="tag"> #{{$tag}}</span> </a>
+        @else
+            <span class="tag"> #{{$tag}}</span>
+        @endisset
     @endif
 @endforeach
