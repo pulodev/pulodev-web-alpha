@@ -31,6 +31,7 @@ class LinkController extends Controller
         $data =  OpenGraph::fetch($linkInput, true);
 
         //get thumbnail
+        $thumbnail = '';
         $thumbnailPossibleMeta = ['image', 'twitter:image', 'twitter:image:src'];
         foreach($thumbnailPossibleMeta as $meta) {
             if(isset($data[$meta]) && $data[$meta] != ''){
@@ -40,10 +41,10 @@ class LinkController extends Controller
         }
 
         return response()->json([
-            'title' => $data['title'],
+            'title' => $data['title'] ?? '',
             'description' => $data['description'] ?? '',
             'author' => $data['author'] ?? '',
-            'thumbnail' => $data['image'] ?? $data['twitter:image'] ?? '',
+            'thumbnail' => $thumbnail,
             'original_published_at' => (isset($data['article:published_time'])) ? Carbon::parse($data['article:published_time'])->format('Y-m-d') : Carbon::now()
         ]);
     }
