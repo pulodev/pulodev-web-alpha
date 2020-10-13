@@ -148,7 +148,7 @@ class LinkController extends Controller
             abort(404);
 
         $request->validate([
-            'url' => ['required', 'unique:links'],
+            'url' => 'required|unique:links,url,'.$link->id,
             'title' => ['required', 'max:255', new MinimalWords(2)],
             'body' => ['required', new MinimalWords(5)],
             'tags' => 'required',
