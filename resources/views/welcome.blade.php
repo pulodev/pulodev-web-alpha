@@ -50,7 +50,7 @@ PuloDev @if($type != ''){{$type}} {{$query}}@endif adalah kumpulan konten @if($t
         </div>
 
         <div class="column">
-            @isset($type) <p>Filter {{$type}} : {{$query}} </p> @endisset
+            @if($type != '') <p>Filter {{$type}} : {{$query}} </p> @endisset
             
             <br>
             <form class="" action="/search" method="GET">
