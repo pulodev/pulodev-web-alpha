@@ -62,13 +62,18 @@ class LinkController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {        
         $request->validate([
-            'url' => 'required',
+            'url' => ['required', 'unique:links'],
             'title' => ['required', 'max:255', new MinimalWords(2)],
             'body' => ['required', new MinimalWords(5)],
             'tags' => 'required',
         ]);
+
+        //check if exists
+        if(Link::where('url', cleanUrl($request->url))->exists()) 
+            return redirect()->back()->withErrors(['url' => 'url sudah disubmit'])
+                                     ->withInput();
 
         $user = Auth::user();    
         
@@ -143,7 +148,7 @@ class LinkController extends Controller
             abort(404);
 
         $request->validate([
-            'url' => 'required',
+            'url' => ['required', 'unique:links'],
             'title' => ['required', 'max:255', new MinimalWords(2)],
             'body' => ['required', new MinimalWords(5)],
             'tags' => 'required',
