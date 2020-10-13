@@ -51,7 +51,23 @@ function isValidUrl($url)
 
 function cleanUrl($url) 
 {
-    $parsedUrl = parse_url($url);
+    //remove question mark like utm_soruce etc...
+    $parsedURL = parse_url($url);
 
-    return "{$parsedUrl['scheme']}://{$parsedUrl['host']}{$parsedUrl['path']}";
+    //For Youtube Only
+    if(Str::contains($parsedURL['host'], 'youtube.com')){
+        //exclude &feature and &t
+        $url = preg_replace( '/&?feature=.+?(&|$)$/', '', $url );
+        $url = preg_replace( '/&?t=.+?(&|$)$/', '', $url );
+
+    }else if(Str::contains($parsedURL['host'], 'youtu.be')){
+        
+        $param  = str_replace("/","",$parsedURL['path']);
+        $url    = "https://youtube.com/watch?v=" . $param;
+
+    }else{
+        $url = strtok($url, '?');
+    }
+
+    return $url;
 }

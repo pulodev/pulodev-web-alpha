@@ -25,7 +25,7 @@ class LinkController extends Controller
         $linkInput = $this->checkFullUrl($request->url);
 
         //check if exists
-        if(Link::where('url', $this->cleanUrl($linkInput))->exists()) 
+        if(Link::where('url', cleanUrl($linkInput))->exists()) 
             return response()->json(['status' => 'EXISTS', 'msg' => 'link sudah ada'], 403);
 
         $data =  OpenGraph::fetch($linkInput, true);
@@ -74,7 +74,7 @@ class LinkController extends Controller
         
         $link = $user->links()->create([
             'title' => $request->title,
-            'url'  => $this->cleanUrl($request->url),
+            'url'  => cleanUrl($request->url),
             'slug'  => generateSlug($request->title, new Link),
             'body'  => $request->body,
             'tags'  => $request->tags,
@@ -88,28 +88,6 @@ class LinkController extends Controller
         //change session token
         $request->session()->regenerateToken();
         return redirect('/link/' . $link->slug)->with('success', 'Link berhasil disubmit. Akan kami review');
-    }
-
-    private function cleanUrl($url) {
-        
-        //remove question mark like utm_soruce etc...
-        $parsedURL = parse_url($url);
-
-        if(Str::contains($parsedURL['host'], 'youtube.com')){
-            //exclude &feature and &t
-            $url = preg_replace( '/&?feature=.+?(&|$)$/', '', $url );
-            $url = preg_replace( '/&?t=.+?(&|$)$/', '', $url );
-
-        }else if(Str::contains($parsedURL['host'], 'youtu.be')){
-            
-            $param  = str_replace("/","",$parsedURL['path']);
-            $url    = "https://youtube.com/watch?v=" . $param;
-
-        }else{
-            $url = strtok($url, '?');
-        }
-
-        return $url;
     }
 
     /**
@@ -177,7 +155,7 @@ class LinkController extends Controller
         
         $link->update([
             'title' => $request->title,
-            'url'  => $this->cleanUrl($request->url),
+            'url'  => cleanUrl($request->url),
             'body'  => $request->body,
             'tags'  => $request->tags,
             'media'  => $request->media,
