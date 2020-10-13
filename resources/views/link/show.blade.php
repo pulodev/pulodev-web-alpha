@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title') {{ $link->title }} @endsection
+@section('title') {{ $link->title }} - PuloDev @endsection
 
 @if ($link->body != '' || $link->body != '-')
 @section('desc') Ringkasan: {{ cutText($link->body, 150) }} @endsection    
