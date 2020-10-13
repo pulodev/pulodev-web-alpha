@@ -56,7 +56,11 @@
                         </p>
                     </div>
                 </footer>
-                <p class="is-size-7"><x-tags :tags="$link->tags" asLink="true" /> </p>
+                
+                <p class="is-size-7">
+                    <span class="tag is-info is-light"> {{$link->media}} </span>
+                    <x-tags :tags="$link->tags" asLink="true" /> 
+                </p>
                 <br>
 
                 @if (Auth::user())

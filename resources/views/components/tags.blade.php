@@ -4,7 +4,7 @@ $tags = explode(',', $tags);
 
 @foreach ($tags as $tag)
     @php
-        $tag = strtolower(str_replace(' ', '-', ltrim($tag))); //normalize tag 
+        $tag = strtolower(str_replace(' ', '-', preg_replace('!\s+!', ' ', trim($tag)))); //normalize tag 
     @endphp
  
     @if(trim($tag) != '')
