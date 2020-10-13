@@ -45,8 +45,11 @@
                         <x-avatar :user="$link->user"/>
                     </figure>
                     <div>
-                        <p class="is-size-7"><a class="has-text-dark" href="/{{'@'.$link->user->username}}">
-                            {{$link->user->fullname .' @'.$link->user->username }}</a>
+                        <p class="is-size-7">
+                            {{$link->user->fullname }}
+                            <a class="has-text-light-blue" href="/{{'@'.$link->user->username}}">
+                                {{'@'.$link->user->username }}
+                            </a>
                             @if(!empty($link->owner)) <br>Milik {{$link->owner}} @endif
                             <br>
                             {{$link->original_published_at->diffForHumans()}} 
