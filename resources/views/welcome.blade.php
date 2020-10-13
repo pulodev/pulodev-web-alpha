@@ -31,7 +31,13 @@ PuloDev @if($type != ''){{$type}} {{$query}}@endif adalah kumpulan konten @if($t
 <div class="container">
     <div class="columns mt-1">
         <div class="column is-four-fifths">
-           
+            
+            <p> 
+                Urut berdasarkan:
+                <a href="/order/original-time">waktu asli konten</a> |
+                <a href="/">waktu submit</a>
+            </p> <br>
+
             @forelse ($links as $link)
                 <x-linkCard :link="$link" />
             @empty

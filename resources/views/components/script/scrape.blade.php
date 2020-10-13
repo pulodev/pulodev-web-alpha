@@ -23,6 +23,7 @@ function scrape() {
             addToInputBox('body', response.data.description)
             addToInputBox('owner', response.data.author)
             addToInputBox('thumbnail', response.data.thumbnail)
+            addToInputBox('original_published_at', response.data.original_published_at)
 
             showCompleteForm()
         })

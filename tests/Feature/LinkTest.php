@@ -142,10 +142,8 @@ class LinkTest extends TestCase
     public function user_can_scrape_url()
     {
         $this->signIn();
-        $this->post('/scrape', ['url' => 'https://google.com'])
-            ->assertJson([
-                'title' => 'Google',
-            ]);
+        $this->post('/scrape', ['url' => 'https://stackoverflow.com'])
+            ->assertJsonStructure(['title', 'description', 'author', 'thumbnail', 'original_published_at']);
     }
 
 }
