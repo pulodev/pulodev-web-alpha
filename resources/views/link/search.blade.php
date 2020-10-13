@@ -18,31 +18,9 @@
 
 <div class="container">
     @forelse ($links as $link)
-        <a class="box" href='/link/{{$link->slug}}'>
-            <article class="media">
-                <div class="media-left">
-                    <x-avatar :user="$link->user"/>
-                </div>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <small> {{$link->user->fullname .' @'.$link->user->username }}
-                                - {{$link->original_published_at->diffForHumans()}}
-                        </small> 
-                        <br>
-                        
-                        <p><strong> {{$link->title}}</strong></p>
-
-                        <p class="is-size-7">
-                            <span class="tag is-info is-light"> {{$link->media}} </span>
-                            <x-tags :tags="$link->tags" /> 
-                        </p>
-                    </div>
-                </div>
-            </article>
-        </a>
+        <x-linkCard :link="$link" />
     @empty
-        <p>Oops. Mohon maaf konten ini masih kosong</p>    
+        <p>Oops. Mohon maaf pencarian ini tidak ditemukan</p>    
     @endforelse
 </div>
 
