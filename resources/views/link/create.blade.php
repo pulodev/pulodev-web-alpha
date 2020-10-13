@@ -19,7 +19,7 @@
         <div class="card">
 
             <div class="card-content">
-                <form method="POST" action="/link">
+                <form method="POST" action="/link" onsubmit="event.preventDefault();submitForm();" id="new-link-form">
                     @csrf
                    
                     <x-form.input label="URL" name="url" type="url" placeholder="Masukkan URL di sini" required/>
@@ -42,6 +42,7 @@
                         <x-form.input label="Pemilik Konten" name="owner" placeholder="Akun Twitter atau Nama"/>
 
                         <input type="hidden" name="thumbnail" id="thumbnail">
+                        <input type="hidden" name="thumbnail" id="already-scraping" value="0">
 
                         <div class="buttons">
                         <button class="button is-primary is-fullwidth">Submit</button>
