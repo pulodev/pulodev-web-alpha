@@ -26,6 +26,7 @@ function scrape() {
             addToInputBox('original_published_at', response.data.original_published_at)
 
             showCompleteForm()
+            $('#already-scraping').value = 1;
         })
         .catch(function (error) {
             if(error.status == 'EXISTS' || error.response.status == 403)
@@ -33,6 +34,16 @@ function scrape() {
             else
                 $('#check-btn').innerText = 'Mohon maaf, ada masalah'
         })
+}
+
+function submitForm(){
+    let alreadyScraping = $('#already-scraping').value;
+
+    if (alreadyScraping == 0){
+        scrape();
+    }else{
+        $("#new-link-form").submit();
+    }
 }
 
 function addToInputBox(id, text) {
