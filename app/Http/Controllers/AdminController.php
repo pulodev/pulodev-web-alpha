@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Link;
 use App\Models\Resource;
 use Illuminate\Http\Request;
@@ -15,10 +16,19 @@ class AdminController extends Controller
 
     public function show($type)
     {
-        if($type == 'rss')
-            return $this->showRSS();
-        else
-            return $this->showLink();
+        switch($type) {
+            case 'rss':
+                return $this->showRSS();
+                break;
+            case 'link':
+                return $this->showLink();
+                break;
+            case 'stats':
+                return $this->showStats();
+                break;    
+            default:
+                break;
+        }
     }
 
     public function showRSS()
@@ -32,6 +42,15 @@ class AdminController extends Controller
     {
         $links = Link::where('draft', 1)->paginate(30);
         return view('dashboard.links', compact('links'));
+    }
+
+    public function showStats()
+    {
+        $linksCount = Link::count();
+        $usersCount = User::count();
+        $users = User::orderBy('created_at', 'desc')->paginate(30);
+
+        return view('dashboard.stats', compact('linksCount', 'usersCount', 'users'));
     }
 
     public function deleteBulk(Request $request)

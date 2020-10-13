@@ -123,7 +123,7 @@
         @endforeach
 
         <div>
-            {{ $links->links() }}
+            {{ $links->links('pagination.default') }}
         </div>
 </div>
 </div>

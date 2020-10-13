@@ -79,7 +79,7 @@
                 </table>
         </div>
          <div>
-            {{ $resources->links() }}
+            {{ $resources->links('pagination.default') }}
         </div>
 
 </div>
