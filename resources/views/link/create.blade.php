@@ -31,6 +31,8 @@
                         <x-form.input label="Judul" name="title" required/>
 
                         <x-form.textarea label="Ringkasan" name="body"/>
+                        
+                        <x-form.input label="Waktu publish konten" name="original_published_at" type="date" />
 
                         <x-form.input label="Tag" name="tags" placeholder="php, javascript, html" required/>
                         
@@ -38,7 +40,6 @@
                         
                         <p class="my-2">*Informasi opsional</p>
                         <x-form.input label="Pemilik Konten" name="owner" placeholder="Akun Twitter atau Nama"/>
-                        <x-form.input label="Waktu publish konten" name="original_published_at" type="date" />
 
                         <input type="hidden" name="thumbnail" id="thumbnail">
 
