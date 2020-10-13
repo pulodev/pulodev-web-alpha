@@ -22,6 +22,11 @@ class PageController extends Controller
         return $this->renderLinkView('tag', $tag);
     }
 
+    public function filterTime($query)
+    {
+        return $this->renderLinkView('order', $query);
+    }
+
     public function renderLinkView($type = '', $query = '')
     {
         $links = Link::with('user')->where('draft', 0);
@@ -33,12 +38,15 @@ class PageController extends Controller
             case 'tag':
                 $links = $links->where('tags', 'like' , '%'.str_replace('-', ' ', $query).'%')
                                ->orWhere('tags', 'like' , '%'.$query.'%');
-                break;         
+                break;     
+            case 'order':
+                $links = $links->orderBy('original_published_at', 'desc');
+                break;             
             default: 
                 break;
         }
         
-        $links = $links->orderBy('original_published_at', 'desc')->paginate(15);
+        $links = $links->orderBy('created_at', 'desc')->paginate(15);
         return view('welcome', compact('links', 'type', 'query'));
     }
 
