@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use OpenGraph;
 use Carbon\Carbon;
 use App\Models\Link;
 use App\Rules\MinimalWords;
@@ -20,34 +21,30 @@ class LinkController extends Controller
 
     public function scrape(Request $request)
     {
-        //Todo:
-            //avoid broken link
-     
         //add https if no prefix
         $linkInput = $this->checkFullUrl($request->url);
 
         //check if exists
-        $link = Link::where('url', $this->cleanUrl($linkInput))->first();
-        if($link) 
-            return response()->json([
-                'status' => 'EXISTS',
-                'msg' => 'link sudah ada'
-            ], 403);
+        if(Link::where('url', $this->cleanUrl($linkInput))->exists()) 
+            return response()->json(['status' => 'EXISTS', 'msg' => 'link sudah ada'], 403);
 
-        //scrape content
-        $response = Http::get($linkInput);
-        $htmlContent = $response->body();
-        
-        //Title Tag
-        preg_match('/<title(.*?)>(.*?)<\/title>/s', $htmlContent, $matchTitle);
-        //Meta Tag
-        $tags = get_meta_tags($linkInput);
+        $data =  OpenGraph::fetch($linkInput, true);
+
+        //get thumbnail
+        $thumbnailPossibleMeta = ['image', 'twitter:image', 'twitter:image:src'];
+        foreach($thumbnailPossibleMeta as $meta) {
+            if(isset($data[$meta]) && $data[$meta] != ''){
+                $thumbnail = $data[$meta];
+                break;
+            }
+        }
 
         return response()->json([
-            'title' => end($matchTitle),
-            'description' => $tags['description'] ?? '',
-            'author' => $tags['author'] ?? '',
-            'thumbnail' => $tags['twitter:image:src'] ?? '',
+            'title' => $data['title'],
+            'description' => $data['description'] ?? '',
+            'author' => $data['author'] ?? '',
+            'thumbnail' => $data['image'] ?? $data['twitter:image'] ?? '',
+            'original_published_at' => (isset($data['article:published_time'])) ? Carbon::parse($data['article:published_time'])->format('Y-m-d') : Carbon::now()
         ]);
     }
 
