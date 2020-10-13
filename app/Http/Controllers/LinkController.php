@@ -96,9 +96,18 @@ class LinkController extends Controller
         $parsedURL = parse_url($url);
 
         if(Str::contains($parsedURL['host'], 'youtube.com')){
-            //exclude &feature and &t
-            $url = preg_replace( '/&?feature=.+?(&|$)$/', '', $url );
-            $url = preg_replace( '/&?t=.+?(&|$)$/', '', $url );
+            
+            parse_str($parsedURL["query"], $param);
+        
+            switch (true) {
+                case Str::contains($parsedURL['path'], '/playlist'):
+                    $url    = "https://www.youtube.com/playlist?list=" . $param["list"];
+                    break;
+
+                case Str::contains($parsedURL['path'], '/watch'):
+                    $url    = "https://youtube.com/watch?v=" . $param["v"];
+                    break;
+            }
 
         }else if(Str::contains($parsedURL['host'], 'youtu.be')){
             
