@@ -53,7 +53,7 @@
                         @endif
 
                         <div class="buttons">
-                        <button class="button is-primary is-fullwidth"">Submit</button>
+                        <button class="button is-primary is-fullwidth">Update</button>
                         </div>
                     </div>
 

@@ -15,7 +15,6 @@
 
             @isset($user->bio) <p>{{$user->bio}}</p>@endisset
             @isset($user->website_url) <a href="{{$user->website_url}}" target="_blank" rel='noreferrer'>Website</p>@endisset
-            <a rel="nofollow ugc" href="{{$user->website_url}}" class="has-text-white">Link: {{$user->website_url}} </a>
 
             @if (Auth::user())
                 @if (Auth::user()->id === $user->id)

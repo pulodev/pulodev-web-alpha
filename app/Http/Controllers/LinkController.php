@@ -21,7 +21,6 @@ class LinkController extends Controller
 
     public function scrape(Request $request)
     {
-        //add https if no prefix
         $linkInput = $this->checkFullUrl($request->url);
 
         //check if exists
@@ -64,16 +63,11 @@ class LinkController extends Controller
     public function store(Request $request)
     {        
         $request->validate([
-            'url' => ['required', 'unique:links'],
+            'url' => 'required|unique:links,url,NULL,id,deleted_at,NULL',
             'title' => ['required', 'max:255', new MinimalWords(2)],
             'body' => ['required', new MinimalWords(5)],
             'tags' => 'required',
         ]);
-
-        //check if exists
-        if(Link::where('url', cleanUrl($request->url))->exists()) 
-            return redirect()->back()->withErrors(['url' => 'url sudah disubmit'])
-                                     ->withInput();
 
         $user = Auth::user();    
         
@@ -148,7 +142,7 @@ class LinkController extends Controller
             abort(404);
 
         $request->validate([
-            'url' => 'required|unique:links,url,'.$link->id,
+            'url' => 'required|unique:links,url,'.$link->id.',id,deleted_at,NULL',
             'title' => ['required', 'max:255', new MinimalWords(2)],
             'body' => ['required', new MinimalWords(5)],
             'tags' => 'required',

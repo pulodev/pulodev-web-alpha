@@ -1,7 +1,12 @@
 <script>
+
+let scraped = false
+
 //if edit page show complete form automatically
-@isset($link) showCompleteForm() @endif
-@if(old('url')) showCompleteForm() @endif
+@if(isset($link) || old('url')) 
+    showCompleteForm() 
+    scraped = true
+@endif
 
 function scrape() {
     let url = document.getElementById('url').value
@@ -10,7 +15,6 @@ function scrape() {
         $('#check-btn').innerText = 'Tidak boleh kosong'
         return
     }
-
 
     $('#check-btn').innerText = 'Sedang mengecek link...'
     
@@ -26,7 +30,7 @@ function scrape() {
             addToInputBox('original_published_at', response.data.original_published_at)
 
             showCompleteForm()
-            $('#already-scraping').value = 1;
+            scraped = true
         })
         .catch(function (error) {
             if(error.status == 'EXISTS' || error.response.status == 403)
@@ -36,24 +40,24 @@ function scrape() {
         })
 }
 
-function submitForm(){
-    let alreadyScraping = $('#already-scraping').value;
-
-    if (alreadyScraping == 0){
-        scrape();
-    }else{
-        $("#new-link-form").submit();
-    }
-}
-
 function addToInputBox(id, text) {
     if(text != null || text != '') {
         $('#'+id).value =  `${text}`
-        }   
+    }   
 }
 
 function showCompleteForm() {
     $('#complete-form').classList.remove('is-hidden')
     $('#check-btn').remove()
 }
+
+
+$('form')[0].addEventListener('submit', function(evt){
+    evt.preventDefault()
+
+    if (scraped == false)
+        scrape()
+    else
+        $('form')[0].submit()
+})
 </script>
