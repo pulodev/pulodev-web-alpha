@@ -24,6 +24,20 @@ PuloDev @if($type != ''){{$type}} {{$query}}@endif adalah kumpulan konten @if($t
             <h1 class="title"> @if (Auth::check()) Halo {{Auth::user()->username}}, @endif 
                 Kenalkan PuloDev! </h1>
             <h2 class="subtitle">Kumpulan konten developer Indonesia. Baca <a href="/info/about"> tentang kami</a></h2>
+            
+            <div class="columns is-centered">
+                <div class="column is-half">
+                <form class="columns is-mobile is-gapless" action="/search" method="GET">
+                    <div class="column is-four-fifths">
+                        <input class="input" type="text" placeholder="Cari Konten.." name="query">
+                    </div>
+                    <div class="column is-one-fifth">
+                        <input type="submit" class="button is-info is-fullwidth" value="Cari">
+                    </div>
+                </form>
+                </div>
+            </div>    
+
         </div>
     </div>
 </section>
@@ -32,11 +46,13 @@ PuloDev @if($type != ''){{$type}} {{$query}}@endif adalah kumpulan konten @if($t
     <div class="columns mt-1">
         <div class="column is-four-fifths">
             
+            @if($type != 'tag' && $type != 'media')
             <p> 
                 Urut berdasarkan:
                 <a href="/order/original-time">waktu asli konten</a> |
                 <a href="/">waktu submit</a>
             </p> <br>
+            @endif
 
             @forelse ($links as $link)
                 <x-linkCard :link="$link" />
@@ -51,12 +67,6 @@ PuloDev @if($type != ''){{$type}} {{$query}}@endif adalah kumpulan konten @if($t
 
         <div class="column">
             @if($type != '') <p>Filter {{$type}} : {{$query}} </p> @endisset
-            
-            <br>
-            <form class="" action="/search" method="GET">
-                <input type="search" class="input" name="query" placeholder="berdasrakan judul">
-                <input type="submit" value="Cari" class="button is-small">
-            </form>
 
             <br>
 

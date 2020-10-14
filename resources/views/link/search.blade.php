@@ -9,9 +9,18 @@
         <div class="container has-text-centered">
             <h1 class="title"> Mencari "{{$querySearch}}" </h1>
             
-            <form class="" action="/search" method="GET">
-                <input type="search" class="input" name="query" placeholder="cari...">
-            </form>
+             <div class="columns is-centered">
+                <div class="column is-half">
+                <form class="columns is-mobile is-gapless" action="/search" method="GET">
+                    <div class="column is-four-fifths">
+                        <input class="input" type="text" placeholder="Cari Konten.." name="query">
+                    </div>
+                    <div class="column is-one-fifth">
+                        <input type="submit" class="button is-info is-fullwidth" value="Cari">
+                    </div>
+                </form>
+                </div>
+            </div>      
         </div>
     </div>
 </section>
