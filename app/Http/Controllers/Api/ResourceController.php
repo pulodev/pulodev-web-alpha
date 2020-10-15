@@ -26,6 +26,9 @@ class ResourceController extends AbstractApiController
 
         $data = [];
         foreach($resources as $resource) {
+            $latestLink = $resource->links()
+                ->orderBy('original_published_at', 'desc')
+                ->first();
              $data[] = [
                 'id' => $resource->id,
                 'name' => $resource->title,
@@ -33,7 +36,8 @@ class ResourceController extends AbstractApiController
                 'type' => $resource->type,
                 'media' => $resource->media,
                 'user_id' => $resource->user_id,
-                'last_update' => $resource->last_checked_at ? (new Carbon($resource->last_checked_at))->toDateTimeString() : '-',
+                'last_update' => $resource->last_checked_at ? (new Carbon($resource->last_checked_at))->toDateTimeString() : NULL,
+                'latest_published' => $latestLink !== null ? $latestLink->original_published_at : null
             ];
         }
 

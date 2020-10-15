@@ -27,4 +27,9 @@ class Link extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    public function resource()
+    {
+        return $this->belongsTo('App\Models\Resource');
+    }
 }

@@ -29,37 +29,59 @@ class LinkController extends AbstractApiController
 
         //check rss_id to get value of "media" and "user_id"
         $rss = Resource::findOrFail($request->rss_id);
-        
+        $status = null;
+        $linksStatus = [];
         foreach($request->items as $item) {
-            if(!isValidUrl($item['link'])) 
-                return $this->responseNOK('url is not valid. url should be like this "https://pulo.dev/content-page"');
-            
-            $cleanedUrl = cleanUrl($item['link']);
-            $existedUrl = Link::where('url', $cleanedUrl)->first();
-            if ($existedUrl) 
-                return $this->responseNOK('link already exist');
-            
-            $user = Auth::user();
-            $link = $user->links()->create([
-                'title' => $item['title'],
-                'url'  => $cleanedUrl,
-                'slug'  => generateSlug($item['title'], new Link),
-                'body'  => $item['description'],
-                'tags'  => $item['tags'] ?? '',
-                'owner'  => $item['owner'] ?? '',
-                'media'  => $rss->media,
-                'user_id' => $rss->user_id,
-                'original_published_at'  => $item['publishDate'] ?? Carbon::now(),
-            ]);  
-            
-            $status = true;
-            if (!$link)
-                $status = false;
+            if(!isValidUrl($item['link'])) {
+                $status = [
+                    'link'=>$item['link'],
+                    'status'=> 'invalid'
+                ];
+            } else {
+                $cleanedUrl = cleanUrl($item['link']);
+                $existedUrl = Link::where('url', $cleanedUrl)->first();
+
+                if ($existedUrl){
+                    if(is_null($existedUrl->resource_id))
+                        $this->updateLinkResource($existedUrl, $request->rss_id);
+
+                    $status = [
+                        'link'=>$item['link'],
+                        'status'=> 'exist'
+                    ];
+                } else {
+                    $user = Auth::user();
+                    $link = $user->links()->create([
+                        'title' => $item['title'],
+                        'url'  => $cleanedUrl,
+                        'slug'  => generateSlug($item['title'], new Link),
+                        'body'  => $item['description'],
+                        'tags'  => $item['tags'] ?? '',
+                        'owner'  => $item['owner'] ?? '',
+                        'media'  => $rss->media,
+                        'user_id' => $rss->user_id,
+                        'resource_id' => $rss->id,
+                        'original_published_at'  => $item['publishDate'] ?? Carbon::now(),
+                    ]);
+
+                    $status = !$link ? [
+                        'link'=>$item['link'],
+                        'status'=> 'failed'
+                    ] : [
+                        'link'=>$item['link'],
+                        'status'=> 'success'
+                    ];
+                }
+            }
+            array_push($linksStatus,$status);
         }
 
-        if ($status)
-            return $this->responseOK();
+        return $this->responseOK($linksStatus);
+    }
 
-        return $this->responseNOK('input link failed!');
+    private function updateLinkResource(Link $link, $resource_id)
+    {
+        $link->resource_id = $resource_id;
+        $link->save();
     }
 }
