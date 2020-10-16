@@ -9,7 +9,7 @@ class Resource extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    protected $dates = ['last_checked_at','latest_publised_at'];
+    protected $dates = ['last_checked_at','latest_published_at'];
 
     public function user()
     {
