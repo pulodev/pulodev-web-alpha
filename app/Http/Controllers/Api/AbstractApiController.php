@@ -8,8 +8,12 @@ class AbstractApiController extends Controller
 {
     protected const MAX_PAGE_LIMIT = 90000;
 
-    protected function responseOK() {
-        return $this->sendResponse(['success' => true], 200);
+    protected function responseOK($data = null) {
+        $dataResp = ['success' => true];
+        if($data!==null)
+            $dataResp['data'] = $data;
+
+        return $this->sendResponse($dataResp, 200);
     } 
 
     protected function response($data, $pagination = []) {

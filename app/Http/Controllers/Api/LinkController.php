@@ -28,59 +28,76 @@ class LinkController extends AbstractApiController
 
         //check rss_id to get value of "media" and "user_id"
         $rss = Resource::findOrFail($request->rss_id);
-        $report = [];
-        $anyDataAdded = false;
-        
+
+        $status = null;
+        $linksStatus = [];
+        $lastCheckedUpdated = false;
         foreach($request->items as $item) {
-            $isAllowedToSave = true;
-
             if(!isValidUrl($item['link'])) {
-                $isAllowedToSave = false;
-                $report[$item['link']] = 'url is not valid. url should be like this "https://pulo.dev/content-page"';
-            }
-            
-            $cleanedUrl = cleanUrl($item['link']);
-            $existedUrl = Link::where('url', $cleanedUrl)->first();
-            if ($existedUrl) {
-                $isAllowedToSave = false;
-                $report[$item['link']] = 'link already exist';
-            }
+                $status = [
+                    'link'=>$item['link'],
+                    'status'=> 'invalid'
+                ];
+            } else {
+                $cleanedUrl = cleanUrl($item['link']);
+                $existedUrl = Link::where('url', $cleanedUrl)->first();
 
-            if($isAllowedToSave) {
-                $link = Link::create([
-                    'title' => $item['title'],
-                    'url'  => $cleanedUrl,
-                    'slug'  => generateSlug($item['title'], new Link),
-                    'body'  => $item['description'],
-                    'tags'  => $item['tags'] ?? '',
-                    'owner'  => ($item['owner'] != '' && $item['owner'] != '-' ) ? $item['owner'] : $rss->title,
-                    'media'  => $rss->media,
-                    'user_id' => $rss->user_id,
-                    'original_published_at'  => $item['pubDate'] ?? Carbon::now(),
-                ]);  
+                if ($existedUrl){
+                    if(is_null($existedUrl->resource_id))
+                        $this->updateLinkResource($existedUrl, $request->rss_id);
 
-                if ($link) {
-                    $anyDataAdded = true;
+                    $status = [
+                        'link'=>$item['link'],
+                        'status'=> 'exist'
+                    ];
                 } else {
-                    $report[$item['link']] = 'failed on saving data';
-                }
-
-                //TODO: write to logfile if add link failed
-            }
-        }
-
-        if ($anyDataAdded) {
-            $rssUpdate = $rss->update([
-                'last_checked_at' => Carbon::now()
-            ]);
-
-            //TODO: write to logfile if rss update failed
-        }
         
-        if (sizeof($report) !== 0 ) {
-            return $this->responseNOK('there is some error on add link!', $report);
-        } else {
-            return $this->responseOK();
+                    $link = Link::create([
+                        'title' => $item['title'],
+                        'url'  => $cleanedUrl,
+                        'slug'  => generateSlug($item['title'], new Link),
+                        'body'  => $item['description'],
+                        'tags'  => $item['tags'] ?? '',
+                        'owner'  => ($item['owner'] != '' && $item['owner'] != '-' ) ? $item['owner'] : $rss->title,
+                        'media'  => $rss->media,
+                        'user_id' => $rss->user_id,
+                        'resource_id' => $rss->id,
+                        'original_published_at'  => $item['pubDate'] ?? Carbon::now(),
+                    ]);  
+                  
+                    if($link){
+                        $status = [
+                            'link'=>$item['link'],
+                            'status'=> 'success'
+                        ];
+                        if($lastCheckedUpdated===false){
+                          
+                            $rssUpdate = $rss->update([
+                                'last_checked_at' => Carbon::now()
+                            ]);
+                            $lastCheckedUpdated = true;
+                        }
+                        //TODO: write to logfile if rss update failed
+                      
+                    } else {
+                        $status = [
+                        'link'=>$item['link'],
+                        'status'=> 'failed'
+                        ];
+                    }
+
+                    
+                }
+            }
+            array_push($linksStatus,$status);
         }
+
+        return $this->responseOK($linksStatus);
+    }
+
+    private function updateLinkResource(Link $link, $resource_id)
+    {
+        $link->resource_id = $resource_id;
+        $link->save();
     }
 }
