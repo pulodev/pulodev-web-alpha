@@ -19,6 +19,7 @@
 
             <a href="/admin/dashboard/link" class="button">Link</a>
             <a href="/admin/dashboard/rss" class="button">RSS</a>
+            <a href="/admin/dashboard/stats" class="button">Stats</a>
         </div>
     </div>
 </section>

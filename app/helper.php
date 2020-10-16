@@ -5,7 +5,7 @@
 function checkOwnership($user_id)
 {
     //if not owner AND not admin
-    if(Auth::user()->id != $user_id || !Auth::user()->isAdmin())
+    if(Auth::user()->id != $user_id && !Auth::user()->isAdmin())
         abort(403);
 
     return;
@@ -51,7 +51,33 @@ function isValidUrl($url)
 
 function cleanUrl($url) 
 {
-    $parsedUrl = parse_url($url);
+    //remove question mark like utm_soruce etc...
+    $parsedURL = parse_url($url);
 
-    return "{$parsedUrl['scheme']}://{$parsedUrl['host']}{$parsedUrl['path']}";
+    //For Youtube Only
+    if(Str::contains($parsedURL['host'], 'youtube.com')){
+
+        parse_str($parsedURL["query"], $param);
+
+        switch (true) {
+            case Str::contains($parsedURL['path'], '/playlist'):
+                $url    = "https://www.youtube.com/playlist?list=" . $param["list"];
+                break;
+
+            case Str::contains($parsedURL['path'], '/watch'):
+                $url    = "https://youtube.com/watch?v=" . $param["v"];
+                break;
+        }
+
+    }else if(Str::contains($parsedURL['host'], 'youtu.be')){
+        
+        $param  = str_replace("/","",$parsedURL['path']);
+        $url    = "https://youtube.com/watch?v=" . $param;
+
+    }else{
+        $url = strtok($url, '?');
+        $url = rtrim($url, '/');
+    }
+
+    return $url;
 }

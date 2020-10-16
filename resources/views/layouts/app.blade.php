@@ -17,16 +17,26 @@
     <meta name="twitter:title" content="@yield('title')">
     <meta name="twitter:url" content="https://pulo.dev">
     <meta name="twitter:description" content="@yield('desc')">
-    <meta name="twitter:image:src" content="@yield('img', '/img/pulodev-card.png')">
+    <meta name="twitter:image:src" content="@yield('img', 'https://pulo.dev/img/pulodev-card.png')">
 
     <meta property="og:title" content="@yield('title')" />
     <meta property="og:description" content="@yield('desc')" />
-    <meta property="og:image" content="@yield('img', '/img/pulodev-card.png')">
+    <meta property="og:image" content="@yield('img', 'https://pulo.dev/img/pulodev-card.png')">
 
     @yield("metaextra")
 
     @if (App::environment('local') || App::environment('testing'))
         <meta name="robots" content="noindex" /> 
+    @else
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-180312472-1"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-180312472-1');
+        </script>
     @endif
 
     <!-- Scripts -->
@@ -72,8 +82,8 @@
                 </div>
             @else
                 <div class="navbar-end">
-                    <a class="navbar-item" href="/register">Register</a>
-                    <a class="navbar-item" href="/login">Login</a>
+                    <a class="navbar-item" href="/register">Daftar</a>
+                    <a class="navbar-item" href="/login">Masuk</a>
                 </div>
             @endif
         </div>

@@ -117,35 +117,13 @@
 
         @foreach ($links as $link)
         <div class="columns mt-1">
-            
             <input type="checkbox" class="column is-1" data-id="{{$link->id}}" onclick="toggleItem(this)">
-
-            <a class="box column" href='/link/{{$link->slug}}/edit'>
-                <article class="media">
-                    <div class="media-left">
-                    <figure class="image is-64x64">
-                        <img src="{{ getAvatar($link->user) }}" alt="foto profil {{$link->user->username}}" width="100">
-                    </figure>
-                    </div>
-                    <div class="media-content">
-                     <div class="content">
-                        <p>Dimasukkan oleh {{$link->user->fullname .' @'.$link->user->username }}</small> 
-                        <br>
-                        <strong> {{$link->title}}</strong>
-                        </p>
-                        <p class="is-size-7">
-                            Dipublish {{$link->original_published_at->diffForHumans()}} <br>
-                            Tag: {{$link->tags}}, Media: {{$link->media}}
-                        </p>
-                    </div>
-                    </div>
-                </article>
-            </a>
+            <x-linkCard :link="$link" />
         </div>    
         @endforeach
 
         <div>
-            {{ $links->links() }}
+            {{ $links->links('pagination.default') }}
         </div>
 </div>
 </div>

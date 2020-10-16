@@ -10,7 +10,7 @@
     <div class="hero-body">
         <div class="container has-text-centered">
             <h1 class="title">Resource Baru</h1>
-            <h2 class="subtitle">Masukkan RSS untuk menambakan konten seacara otomatis</h2>
+            <h2 class="subtitle">Masukkan RSS untuk menambahkan konten secara otomatis</h2>
         </div>
     </div>
 </section>
@@ -24,11 +24,10 @@
                     @csrf
                    
                     <x-form.input label="URL RSS" name="url" type="url" placeholder="Masukkan URL di sini" required/>
-                    
                     <x-form.input label="Judul" name="title" required/>
-                    
-                    <x-form.media-choice />
+                    <x-form.media-choice resource="true" />
 
+                    <br>
                     <div class="buttons">
                     <button class="button is-primary is-fullwidth">Submit</button>
                     </div>

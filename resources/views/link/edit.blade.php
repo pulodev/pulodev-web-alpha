@@ -34,13 +34,17 @@
 
                         <x-form.textarea :object="$link" label="Ringkasan" name="body"/>
 
+                        <x-form.input :object="$link" label="Waktu publish konten" name="original_published_at" type="date" />
+                        <script>
+                            $('#original_published_at').value = "{{ \Carbon\Carbon::parse($link->original_published_at)->format('Y-m-d') }}"
+                        </script>
+
                         <x-form.input :object="$link" label="Tag" name="tags" placeholder="php, javascript, html" required/>
                         
                          <x-form.media-choice :object="$link" />
                         
                         <p class="my-2">*Informasi opsional</p>
                         <x-form.input :object="$link" label="Pemilik Konten" name="owner" placeholder="Akun Twitter atau Nama"/>
-                        <x-form.input :object="$link" label="Waktu publish konten" name="original_published_at" type="date" />
                          
                         @if (Auth::user()->isAdmin())
                             <label class="checkbox">
@@ -49,7 +53,7 @@
                         @endif
 
                         <div class="buttons">
-                        <button class="button is-primary is-fullwidth"">Submit</button>
+                        <button class="button is-primary is-fullwidth">Update</button>
                         </div>
                     </div>
 

@@ -15,7 +15,7 @@
 </section>
 
 <div class="container">
-        <h3 class="is-size-3">Masih Draft({{count($resources)}})</h3>
+        <h3 class="is-size-3">Masih Draft({{count($draftResources)}})</h3>
 
         <hr>
         <script>
@@ -28,24 +28,24 @@
             }
         </script>
 
-        @foreach ($resources as $resource)
+        @foreach ($draftResources as $draftResource)
         <div class="columns mt-1">
             <div class="box column" href='#'>
-                <a href="#" onclick="accept({{$resource->id}})" class="button">Terima RSS</a>
+                <a href="#" onclick="accept({{$draftResource->id}})" class="button">Terima RSS</a>
                 <article class="media">
                     <div class="media-left">
                     <figure class="image is-64x64">
-                        <img src="{{ getAvatar($resource->user) }}" alt="foto profil {{$resource->user->username}}" width="100">
+                        <img src="{{ getAvatar($draftResource->user) }}" alt="foto profil {{$draftResource->user->username}}" width="100">
                     </figure>
                     </div>
                     <div class="media-content">
                      <div class="content">
-                        <p>Dimasukkan oleh {{$resource->user->fullname .' @'.$resource->user->username }}</small> 
+                        <p>Dimasukkan oleh {{$draftResource->user->fullname .' @'.$draftResource->user->username }}</small> 
                         <br>
-                        <strong> {{$resource->title}}</strong>
-                        <strong> {{$resource->url}}</strong>
+                        <strong> {{$draftResource->title}}</strong>
+                        <strong> {{$draftResource->url}}</strong>
                         </p>
-                        <p class="is-size-7"> Media: {{$resource->media}}</p>
+                        <p class="is-size-7"> Media: {{$draftResource->media}}</p>
                     </div>
                     </div>
                 </article>
@@ -54,8 +54,34 @@
         @endforeach
 
         <div>
-            {{ $resources->links() }}
+            {{ $draftResources->links() }}
         </div>
+
+        {{-- Daftar Semua Resource --}}
+
+        <div>
+            <h3 class="is-size-3">Daftar RSS ({{count($resources)}})</h3>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Title</th>
+                            <th>URL</th>
+                            <th>Last Update</th>
+                        </tr>
+                        @foreach ($resources as $resource)
+                        <tr>
+                            <td> {{$resource->title }} </td>
+                            <td> {{$resource->url }} </td>
+                            <td> {{$resource->last_checked_at }} </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+        </div>
+         <div>
+            {{ $resources->links('pagination.default') }}
+        </div>
+
 </div>
 </div>
 

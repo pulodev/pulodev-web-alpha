@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title') Verifikasi email kamu di pulo.dev @endsection
+@section('desc') Verifikasi email kamu di pulodev, komunitas online untuk programmer @endsection
+
 @section('content')
 <div class="container py-5">
     <div class="columns is-marginless is-centered">

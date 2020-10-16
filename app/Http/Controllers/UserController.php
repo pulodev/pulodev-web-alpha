@@ -15,7 +15,7 @@ class UserController extends Controller
         if(!$user->exists())
             abort(404);
 
-        $user->load('links');
+        $user->load('links', 'resources');
         
         return view('user.profile', compact('user'));
     }

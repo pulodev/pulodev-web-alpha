@@ -14,7 +14,7 @@
             <h2 class="subtitle">{{ '@'.$user->username }}</h2>
 
             @isset($user->bio) <p>{{$user->bio}}</p>@endisset
-            <a rel="nofollow ugc" href="{{$user->website_url}}" class="has-text-white">Link: {{$user->website_url}} </a>
+            @isset($user->website_url) <a href="{{$user->website_url}}" target="_blank" rel='noreferrer'>Website</p>@endisset
 
             @if (Auth::user())
                 @if (Auth::user()->id === $user->id)
@@ -31,13 +31,26 @@
     <div class="column is-half">
         <div class="card">
             <div class="card-content">
+                @if(count($user->resources) > 0)
                 <ul>
-                    <h2>Daftar Link</h2>
+                    <h2> <strong> Daftar RSS</strong></h2>
+                    <br>
+                    @foreach ($user->resources as $resource)
+                            <li> {{$resource->title}} 
+                            @if ($resource->draft) [Tunggu konfirmasi] @endif
+                            </li> 
+                    @endforeach
+                </ul>
+                <hr>
+                @endif
+                <ul>
+                    <h2> <strong> Daftar Link</strong></h2>
+                    <br>
                     @foreach ($user->links as $link)
-                        <a href="/link/{{$link->slug}}"> 
+                        <a class="has-text-dark" href="/link/{{$link->slug}}"> 
                             <li> {{$link->title}} 
-                            @if ($link->draft) [draft - Tunggu konfirmasi] @endif
-                            </li>
+                            @if ($link->draft) [Tunggu konfirmasi] @endif
+                            </li> <hr>
                         </a>
                     @endforeach
                 </ul>

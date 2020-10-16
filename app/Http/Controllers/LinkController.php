@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use OpenGraph;
 use Carbon\Carbon;
 use App\Models\Link;
 use App\Rules\MinimalWords;
@@ -20,34 +21,30 @@ class LinkController extends Controller
 
     public function scrape(Request $request)
     {
-        //Todo:
-            //avoid broken link
-     
-        //add https if no prefix
         $linkInput = $this->checkFullUrl($request->url);
 
         //check if exists
-        $link = Link::where('url', $this->cleanUrl($linkInput))->first();
-        if($link) 
-            return response()->json([
-                'status' => 'EXISTS',
-                'msg' => 'link sudah ada'
-            ], 403);
+        if(Link::where('url', cleanUrl($linkInput))->exists()) 
+            return response()->json(['status' => 'EXISTS', 'msg' => 'link sudah ada'], 403);
 
-        //scrape content
-        $response = Http::get($linkInput);
-        $htmlContent = $response->body();
-        
-        //Title Tag
-        preg_match('/<title(.*?)>(.*?)<\/title>/s', $htmlContent, $matchTitle);
-        //Meta Tag
-        $tags = get_meta_tags($linkInput);
+        $data =  OpenGraph::fetch($linkInput, true);
+
+        //get thumbnail
+        $thumbnail = '';
+        $thumbnailPossibleMeta = ['image', 'twitter:image', 'twitter:image:src'];
+        foreach($thumbnailPossibleMeta as $meta) {
+            if(isset($data[$meta]) && $data[$meta] != ''){
+                $thumbnail = $data[$meta];
+                break;
+            }
+        }
 
         return response()->json([
-            'title' => end($matchTitle),
-            'description' => $tags['description'] ?? '',
-            'author' => $tags['author'] ?? '',
-            'thumbnail' => $tags['twitter:image:src'] ?? '',
+            'title' => $data['title'] ?? '',
+            'description' => $data['description'] ?? '',
+            'author' => $data['author'] ?? '',
+            'thumbnail' => $thumbnail,
+            'original_published_at' => (isset($data['article:published_time'])) ? Carbon::parse($data['article:published_time'])->format('Y-m-d') : Carbon::now()
         ]);
     }
 
@@ -64,9 +61,9 @@ class LinkController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {        
         $request->validate([
-            'url' => 'required',
+            'url' => 'required|unique:links,url,NULL,id,deleted_at,NULL',
             'title' => ['required', 'max:255', new MinimalWords(2)],
             'body' => ['required', new MinimalWords(5)],
             'tags' => 'required',
@@ -76,7 +73,7 @@ class LinkController extends Controller
         
         $link = $user->links()->create([
             'title' => $request->title,
-            'url'  => $this->cleanUrl($request->url),
+            'url'  => cleanUrl($request->url),
             'slug'  => generateSlug($request->title, new Link),
             'body'  => $request->body,
             'tags'  => $request->tags,
@@ -89,29 +86,7 @@ class LinkController extends Controller
 
         //change session token
         $request->session()->regenerateToken();
-        return redirect('/link/' . $link->slug)->with('success', 'Link berhasil disubmit');
-    }
-
-    private function cleanUrl($url) {
-        
-        //remove question mark like utm_soruce etc...
-        $parsedURL = parse_url($url);
-
-        if(Str::contains($parsedURL['host'], 'youtube.com')){
-            //exclude &feature and &t
-            $url = preg_replace( '/&?feature=.+?(&|$)$/', '', $url );
-            $url = preg_replace( '/&?t=.+?(&|$)$/', '', $url );
-
-        }else if(Str::contains($parsedURL['host'], 'youtu.be')){
-            
-            $param  = str_replace("/","",$parsedURL['path']);
-            $url    = "https://youtube.com/watch?v=" . $param;
-
-        }else{
-            $url = strtok($url, '?');
-        }
-
-        return $url;
+        return redirect('/link/' . $link->slug)->with('success', 'Link berhasil disubmit. Akan kami review');
     }
 
     /**
@@ -131,8 +106,10 @@ class LinkController extends Controller
     public function search(Request $request)
     {
         $querySearch = $request->input('query');
-        $links = Link::with('user')->where('title', 'like', '%'.$querySearch.'%')
-                    ->orderBy('id', 'desc')->get();
+
+        $links = Link::whereRaw('MATCH (title, body) AGAINST (?)' , array($querySearch))
+                     ->where('draft', 0)->orderBy('id', 'desc')->get();
+
         return view('link.search', compact('links', 'querySearch'));
     }
 
@@ -146,6 +123,8 @@ class LinkController extends Controller
     {
         if(!$link->exists())
             abort(404);
+
+        checkOwnership($link->user_id);
 
         return view('link.edit', compact('link'));
     }
@@ -163,7 +142,7 @@ class LinkController extends Controller
             abort(404);
 
         $request->validate([
-            'url' => 'required',
+            'url' => 'required|unique:links,url,'.$link->id.',id,deleted_at,NULL',
             'title' => ['required', 'max:255', new MinimalWords(2)],
             'body' => ['required', new MinimalWords(5)],
             'tags' => 'required',
@@ -175,7 +154,7 @@ class LinkController extends Controller
         
         $link->update([
             'title' => $request->title,
-            'url'  => $this->cleanUrl($request->url),
+            'url'  => cleanUrl($request->url),
             'body'  => $request->body,
             'tags'  => $request->tags,
             'media'  => $request->media,

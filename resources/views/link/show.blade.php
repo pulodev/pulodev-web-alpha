@@ -1,54 +1,70 @@
 @extends('layouts.app')
 
-@section('title') {{ $link->title }} @endsection
+@section('title') {{ $link->title }} - PuloDev @endsection
 
-@section('desc') {{ cutText($link->title, 150) }} @endsection
+@if ($link->body != '' || $link->body != '-')
+@section('desc') Ringkasan: {{ cutText($link->body, 150) }} @endsection    
+@else
+@section('desc') Ringkasan: {{ cutText($link->title, 150) }} @endsection    
+@endif
+
 
 @isset($link->thumbnail)
     @section('img') {{ $link->thumbnail }} @endsection
 @endisset
 
 @section('content')
-<section class="hero">
-    <div class="hero-body">
-        <div class="container has-text-centered">
+<div class="columns is-marginless is-centered">
+    <div class="column is-half">
+
+        <br>
+        <div class="has-text-centered">
             <h1 class="title">{{ $link->title }} </h1>
             <h2 class="subtitle"> @if ($link->draft) [Status: draft - Tunggu konfirmasi] @endif </h2>
         </div>
-    </div>
-</section>
+        <br>
 
-<div class="columns is-marginless is-centered">
-    <div class="column is-half">
         <div class="card">
             <div class="card-content">
                 <div>
                     <strong>Ringkasan:</strong> <br>
-                    {!! Purify::clean($link->body) !!}
+                    {!! cutText(Purify::clean($link->body), 255) !!}
                 </div>
                 
                 <p class="my-2">
                     <strong> Link: </strong> <br>
-                    <a href="{{$link->url}}" target="_blank">{{$link->url}}</a>
+                    <a href="{{$link->url}}" target="_blank" style="word-break: break-word;">{{$link->url}}</a>
                 </p>
 
-                <footer class="media mt-2">
+                <div class="buttons">
+                    <a class="button is-fullwidth is-info" target="_blank" href="{{$link->url}}">Kunjungi Link</a>
+                </div>    
+
+                <footer class="media mt-2 mb-1">
                     <figure class="media-left">
                         <x-avatar :user="$link->user"/>
                     </figure>
                     <div>
-                        <p class="is-size-7"><a class="has-text-dark" href="/{{'@'.$link->user->username}}">
-                            {{$link->user->fullname .' @'.$link->user->username }}</a>
-                            @isset($link->owner) <br>Milik {{$link->owner}} @endisset
+                        <p class="is-size-7">
+                            {{$link->user->fullname }}
+                            <a class="has-text-light-blue" href="/{{'@'.$link->user->username}}">
+                                {{'@'.$link->user->username }}
+                            </a>
+                            @if(!empty($link->owner)) <br>Milik {{$link->owner}} @endif
                             <br>
                             {{$link->original_published_at->diffForHumans()}} 
                         </p>
-                        <p class="is-size-7"><x-tags :tags="$link->tags" /> </p>
                     </div>
                 </footer>
+                
+                <p class="is-size-7">
+                    <span class="tag is-info is-light"> {{$link->media}} </span>
+                    <x-tags :tags="$link->tags" asLink="true" /> 
+                </p>
+                <br>
 
                 @if (Auth::user())
-                <div class="card-footer">
+                <div class="">
                     @if (Auth::user()->id === $link->user->id)
                         <div class="buttons">
                             <a class="button is-primary is-light" href="/link/{{$link->slug}}/edit">Edit</a>
@@ -86,6 +102,9 @@
             </div>
         </div>
 
+        <div class="buttons mt-2">
+            <a class="button" href="/"> << Kembali Ke Pulau</a>
+        </div>      
     </div>
 </div>
 

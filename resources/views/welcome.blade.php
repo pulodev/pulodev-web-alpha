@@ -1,7 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'PuloDev - Selamat Datang!')
-@section('desc', 'PuloDev adalah komunitas online programmer Indonesia. Tempat berkumpul terlepas dari bahasa program atau asal kota kamu.')
+@section('title')
+PuloDev -@if($type != '') {{$type}} {{$query}}@else Selamat Datang @endif
+@endsection
+
+@section('desc')
+PuloDev @if($type != ''){{$type}} {{$query}}@endif adalah kumpulan konten @if($type != ''){{$type}} {{$query}}@endif developer Indonesia. Tempat berkumpul terlepas dari bahasa program atau asal kota kamu, komunitas programmer Indonesia
+@endsection
+
 @section('content')
 
 @if (Auth::user())
@@ -17,7 +23,21 @@
         <div class="container has-text-centered">
             <h1 class="title"> @if (Auth::check()) Halo {{Auth::user()->username}}, @endif 
                 Kenalkan PuloDev! </h1>
-            <h2 class="subtitle">Tempat berkumpul programmer Indonesia</h2>
+            <h2 class="subtitle">Kumpulan konten developer Indonesia. Baca <a href="/info/about"> tentang kami</a></h2>
+            
+            <div class="columns is-centered">
+                <div class="column is-half">
+                <form class="columns is-mobile is-gapless" action="/search" method="GET">
+                    <div class="column is-four-fifths">
+                        <input class="input" type="text" placeholder="Cari Konten.." name="query">
+                    </div>
+                    <div class="column is-one-fifth">
+                        <input type="submit" class="button is-info is-fullwidth" value="Cari">
+                    </div>
+                </form>
+                </div>
+            </div>    
+
         </div>
     </div>
 </section>
@@ -25,30 +45,17 @@
 <div class="container">
     <div class="columns mt-1">
         <div class="column is-four-fifths">
-            @forelse ($links as $link)
-                <a class="box" href='/link/{{$link->slug}}'>
-                    <article class="media">
-                        <div class="media-left">
-                            <x-avatar :user="$link->user"/>
-                        </div>
-                        
-                        <div class="media-content">
-                            <div class="content">
-                                <small> {{$link->user->fullname .' @'.$link->user->username }}
-                                        - {{$link->original_published_at->diffForHumans()}}
-                                </small> 
-                                <br>
-                                
-                                <p><strong> {{$link->title}}</strong></p>
+            
+            @if($type != 'tag' && $type != 'media')
+            <p> 
+                Urut berdasarkan:
+                <a href="/order/original-time">waktu asli konten</a> |
+                <a href="/">waktu submit</a>
+            </p> <br>
+            @endif
 
-                                <p class="is-size-7">
-                                    <span class="tag is-info is-light"> {{$link->media}} </span>
-                                    <x-tags :tags="$link->tags" /> 
-                                </p>
-                            </div>
-                        </div>
-                    </article>
-                </a>
+            @forelse ($links as $link)
+                <x-linkCard :link="$link" />
             @empty
                 <p>Oops. Mohon maaf konten ini masih kosong</p>    
             @endforelse
@@ -59,12 +66,7 @@
         </div>
 
         <div class="column">
-            @isset($type) <p>Filter {{$type}} : {{$query}} </p> @endisset
-            
-            <form class="" action="/search" method="GET">
-                <input type="search" class="input" name="query" placeholder="berdasrakan judul">
-                <input type="submit" value="Cari" class="button is-small">
-            </form>
+            @if($type != '') <p>Filter {{$type}} : {{$query}} </p> @endisset
 
             <br>
 
@@ -80,8 +82,6 @@
             <a href='/media/video' class="tag">Video</a> <br>
             <a href='/media/web' class="tag">Web</a>
             <a href='/media/podcast' class="tag">Podcast</a>
-            <a href='/media/komunitas' class="tag">Komunitas</a> 
-
 
             <script>
                 function filterTag() { window.location.href = "/tag/" + $('#tag-query').value  }

@@ -7,7 +7,6 @@ use App\Models\Link;
 use App\Models\Resource;
 use App\Rules\MinimalWords;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class LinkController extends AbstractApiController
 {
@@ -29,8 +28,10 @@ class LinkController extends AbstractApiController
 
         //check rss_id to get value of "media" and "user_id"
         $rss = Resource::findOrFail($request->rss_id);
+
         $status = null;
         $linksStatus = [];
+        $lastCheckedUpdated = false;
         foreach($request->items as $item) {
             if(!isValidUrl($item['link'])) {
                 $status = [
@@ -63,14 +64,29 @@ class LinkController extends AbstractApiController
                         'resource_id' => $rss->id,
                         'original_published_at'  => $item['publishDate'] ?? Carbon::now(),
                     ]);
-
-                    $status = !$link ? [
+                  
+                    if($link &&){
+                        $status = [
+                            'link'=>$item['link'],
+                            'status'=> 'success'
+                        ];
+                        if($lastCheckedUpdated===false){
+                          
+                            $rssUpdate = $rss->update([
+                                'last_checked_at' => Carbon::now()
+                            ]);
+                            $lastCheckedUpdated = true;
+                        }
+                        //TODO: write to logfile if rss update failed
+                      
+                    } else {
+                        $status = [
                         'link'=>$item['link'],
                         'status'=> 'failed'
-                    ] : [
-                        'link'=>$item['link'],
-                        'status'=> 'success'
-                    ];
+                        ];
+                    }
+
+                    
                 }
             }
             array_push($linksStatus,$status);

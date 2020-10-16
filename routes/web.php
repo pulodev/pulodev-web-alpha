@@ -42,6 +42,7 @@ Route::group(['prefix' => 'admin',  'middleware' => 'admin'], function(){
 Route::get('/search/', 'LinkController@search');
 Route::get('/media/{query}', 'PageController@filterMedia');
 Route::get('/tag/{query}', 'PageController@filterTag');
+Route::get('/order/{query}', 'PageController@filterTime');
 
 
 Route::get('/link/{link}', 'LinkController@show');
