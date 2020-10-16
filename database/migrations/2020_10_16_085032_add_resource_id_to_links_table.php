@@ -14,7 +14,8 @@ class AddResourceIdToLinksTable extends Migration
     public function up()
     {
         Schema::table('links', function (Blueprint $table) {
-            //
+            $table->bigInteger('resource_id')->unsigned()->nullable();
+            $table->foreign('resource_id')->references('id')->on('resources')->onDelete('set null');
         });
     }
 

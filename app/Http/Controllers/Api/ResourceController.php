@@ -38,7 +38,7 @@ class ResourceController extends AbstractApiController
                 'media' => $resource->media,
                 'user_id' => $resource->user_id,
                 'last_update' => $resource->last_checked_at ? (new Carbon($resource->last_checked_at))->toDateTimeString() : NULL,
-                'latest_published' => $latestLink !== null ? $latestLink->original_published_at : null
+                'latest_published' => $latestLink !== NULL ? (new Carbon($latestLink->original_published_at))->toDateTimeString() : NULL
             ];
         }
 

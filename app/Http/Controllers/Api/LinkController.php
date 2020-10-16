@@ -51,21 +51,21 @@ class LinkController extends AbstractApiController
                         'status'=> 'exist'
                     ];
                 } else {
-                    $user = Auth::user();
-                    $link = $user->links()->create([
+        
+                    $link = Link::create([
                         'title' => $item['title'],
                         'url'  => $cleanedUrl,
                         'slug'  => generateSlug($item['title'], new Link),
                         'body'  => $item['description'],
                         'tags'  => $item['tags'] ?? '',
-                        'owner'  => $item['owner'] ?? '',
+                        'owner'  => ($item['owner'] != '' && $item['owner'] != '-' ) ? $item['owner'] : $rss->title,
                         'media'  => $rss->media,
                         'user_id' => $rss->user_id,
                         'resource_id' => $rss->id,
-                        'original_published_at'  => $item['publishDate'] ?? Carbon::now(),
-                    ]);
+                        'original_published_at'  => $item['pubDate'] ?? Carbon::now(),
+                    ]);  
                   
-                    if($link &&){
+                    if($link){
                         $status = [
                             'link'=>$item['link'],
                             'status'=> 'success'
