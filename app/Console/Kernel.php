@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     {
         //DB backup and clean 
         $schedule->command('backup:clean')->weekly();
-        $schedule->command('backup:run --only-db')->twiceDaily(12, 24)->timezone('Asia/Singapore');
+        $schedule->command('backup:run --only-db')->twiceDaily(1, 13)->timezone('Asia/Singapore');
     }
 
     /**
