@@ -17,11 +17,11 @@
     <meta name="twitter:title" content="@yield('title')">
     <meta name="twitter:url" content="https://pulo.dev">
     <meta name="twitter:description" content="@yield('desc')">
-    <meta name="twitter:image:src" content="@yield('img', 'https://pulo.dev/img/pulodev-card.png')">
+    <meta name="twitter:image:src" content="@yield('img', 'https://ik.imagekit.io/pulodev/pulodev-card_ovGTz2WNu8S.png')">
 
     <meta property="og:title" content="@yield('title')" />
     <meta property="og:description" content="@yield('desc')" />
-    <meta property="og:image" content="@yield('img', 'https://pulo.dev/img/pulodev-card.png')">
+    <meta property="og:image" content="@yield('img', 'https://ik.imagekit.io/pulodev/pulodev-card_ovGTz2WNu8S.png')">
 
     @yield("metaextra")
 
@@ -59,7 +59,7 @@
         <div class="container">
         <div class="navbar-brand has-background-primary">
             <a class="navbar-item" href="/">
-            <img src="/img/logo-text-white.png" alt="logo pulodev">
+            <img src="https://ik.imagekit.io/pulodev/logo-text-white_nO4dn6hwTz5Q.png" alt="logo pulodev">
             </a>
 
             <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
