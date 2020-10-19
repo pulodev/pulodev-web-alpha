@@ -53,13 +53,13 @@ PuloDev @if($type != ''){{$type}} {{$query}}@endif adalah kumpulan konten @if($t
                 <a href="/">waktu submit</a>
             </p> <br>
             @endif
-
+            <ul id="timeline">
             @forelse ($links as $link)
-                <x-linkCard :link="$link" />
+                <li class="box"><x-linkCard :link="$link" /></li>
             @empty
-                <p>Oops. Mohon maaf konten ini masih kosong</p>    
+                <li>Oops. Mohon maaf konten ini masih kosong</li>    
             @endforelse
-
+            </ul>
             <div>
                 {{ $links->links('pagination.default') }}
             </div>
