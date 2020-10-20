@@ -1,4 +1,5 @@
 import InfiniteScroll from './infinite-scroll.js';
+import {Workbox} from 'workbox-window';
 
 window.$ = function $(el) {
     return (el.charAt(0) == "#")
@@ -98,3 +99,10 @@ function getCookie(name) {
     var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
     if (match) return match[2];
   }
+
+
+if ('serviceWorker' in navigator) {
+  const wb = new Workbox('/service-worker.js');
+
+  wb.register();
+}
