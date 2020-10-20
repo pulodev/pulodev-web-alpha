@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Link;
 use Illuminate\Http\Request;
+use App\Http\Resources\LinkCollection;
 
 class PageController extends Controller
 {
@@ -48,7 +49,7 @@ class PageController extends Controller
         
         $links = $links->orderBy('created_at', 'desc')->paginate(15);
         if($request->type==='json')
-            return response()->json($links);
+            return new LinkCollection($links);
         else
             return view('welcome', compact('links', 'type', 'query'));
     }

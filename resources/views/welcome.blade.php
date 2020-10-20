@@ -60,9 +60,11 @@ PuloDev @if($type != ''){{$type}} {{$query}}@endif adalah kumpulan konten @if($t
                 <li>Oops. Mohon maaf konten ini masih kosong</li>    
             @endforelse
             </ul>
+            <noscript>
             <div>
                 {{ $links->links('pagination.default') }}
             </div>
+            </noscript>
         </div>
 
         <div class="column">

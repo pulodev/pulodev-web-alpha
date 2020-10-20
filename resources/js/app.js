@@ -1,10 +1,3 @@
-/*
-TODO:
-* remove unnecessary field from link data
-* fix pagenation
-* make sure pagination work without JavaScript
-*/
-
 import InfiniteScroll from './infinite-scroll.js';
 
 window.$ = function $(el) {
@@ -23,7 +16,7 @@ window.onload = () =>{
 
 function initInfiniteScroll(){
     let page = 1;
-    let lastPage = null;
+    let lastPage = 999;
     const container = $('#timeline');
     const root = $('#main-container');
 
@@ -31,16 +24,16 @@ function initInfiniteScroll(){
     infScroll.getItems = async function(){
         const fragment = document.createDocumentFragment();
         
-        if(lastPage===page){
+        if(lastPage<=page){
             infScroll.stop();
         } else {
             page++;
             const contents = await getContents(page);
             if(contents.data){
-                lastPage = parseInt(contents.last_page);
+                lastPage = parseInt(contents.meta.last_page);
                 for (let i = 0; i < contents.data.length; i++) {
                     const link = contents.data[i];
-                    const item = renderItem(link.url,link.title,link.user.username,link.user.avatar_url,link.created_at,link.user.fullname);
+                    const item = renderItem(link.url,link.title,link.user.username,link.user.avatar_url,link.published_diff,link.user.fullname,link.media);
                     fragment.appendChild(item);
                 }
             }
