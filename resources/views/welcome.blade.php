@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@push('scripts')
+    <script src="/js/timeline.js" type="module"></script>
+@endpush
+
 @section('title')
 PuloDev -@if($type != '') {{$type}} {{$query}}@else Selamat Datang @endif
 @endsection
