@@ -6,11 +6,9 @@ export default class InfiniteScroll {
         this.getItems = () =>{};
         this.isLoading = false;
         this.observer = null;
+        this.observing = false;
     }
 
-    stop(){
-        this.observer.observe(this.triggerElement);
-    }
 
     start(){
         const options = {
@@ -23,6 +21,7 @@ export default class InfiniteScroll {
               this.trigger(entries,observer);
           }, options);
           this.observer.observe(this.triggerElement);
+          this.observing = true;
           console.log('infinite scroll ready...');
     }
 
@@ -35,7 +34,8 @@ export default class InfiniteScroll {
                 this.observer.unobserve(this.triggerElement);
                 this.containerElement.append(await this.getItems());
                 this.triggerElement = this.containerElement.lastElementChild;
-                this.observer.observe(this.triggerElement);
+                if(this.observing)
+                    this.observer.observe(this.triggerElement);
                 this.isLoading = false;
             }
         }

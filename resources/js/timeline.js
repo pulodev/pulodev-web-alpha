@@ -12,11 +12,15 @@ function initInfiniteScroll(){
 
     const infScroll = new InfiniteScroll(root,container);
     infScroll.getItems = async function(){
+        const loadingBar=document.querySelector('#loading-bar');
+        
         const fragment = document.createDocumentFragment();
         
         if(lastPage<=page){
-            infScroll.stop();
+            console.log('Observer stop');
+            infScroll.observing = false;
         } else {
+            loadingBar.className='loading';
             page++;
             const contents = await getContents(page);
             if(contents.data){
@@ -27,7 +31,9 @@ function initInfiniteScroll(){
                     fragment.appendChild(item);
                 }
             }
+            loadingBar.className='';
         }
+        
         return fragment;
     }
 
@@ -41,7 +47,7 @@ function renderItem(url,title,username,avatarUrl,timeAgo,fullName,type){
                 <article class="media">
                     <div class="media-left">
                         <figure class="image is-64x64 is-inline-block">
-                            <img class="is-rounded" alt="foto profil ${username}" src="${avatarUrl}">
+                            <img class="is-rounded" alt="foto profil ${username}" loading="lazy" src="${avatarUrl}">
                         </figure> 
                     </div>
                     
