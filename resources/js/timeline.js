@@ -27,7 +27,7 @@ function initInfiniteScroll(){
                 lastPage = parseInt(contents.meta.last_page);
                 for (let i = 0; i < contents.data.length; i++) {
                     const link = contents.data[i];
-                    const item = renderItem(link.url,link.title,link.user.username,link.user.avatar_url,link.published_diff,link.user.fullname,link.media);
+                    const item = renderItem(link.slug,link.title,link.user.username,link.user.avatar_url,link.published_diff,link.user.fullname,link.media);
                     fragment.appendChild(item);
                 }
             }
@@ -40,10 +40,10 @@ function initInfiniteScroll(){
     infScroll.start();
 }
 
-function renderItem(url,title,username,avatarUrl,timeAgo,fullName,type){
+function renderItem(slug,title,username,avatarUrl,timeAgo,fullName,type){
     const item = document.createElement('li');
         item.innerHTML=`
-            <a href="${url}">
+            <a href="/link/${slug}">
                 <article class="media">
                     <div class="media-left">
                         <figure class="image is-64x64 is-inline-block">

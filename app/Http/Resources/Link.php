@@ -21,6 +21,7 @@ class Link extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'url' => $this->url,
             'slug' => $this->slug,
             'created_at' => $this->created_at,
             'orginal_published_at' => $this->original_published_at,
