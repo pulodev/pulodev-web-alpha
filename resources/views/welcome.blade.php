@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@push('scripts')
+    <script src="/js/timeline.js" type="module"></script>
+@endpush
+
 @section('title')
 PuloDev -@if($type != '') {{$type}} {{$query}}@else Selamat Datang @endif
 @endsection
@@ -53,16 +57,18 @@ PuloDev @if($type != ''){{$type}} {{$query}}@endif adalah kumpulan konten @if($t
                 <a href="/">waktu submit</a>
             </p> <br>
             @endif
-
+            <ul id="timeline">
             @forelse ($links as $link)
-                <x-linkCard :link="$link" />
+                <li class="box"><x-linkCard :link="$link" /></li>
             @empty
-                <p>Oops. Mohon maaf konten ini masih kosong</p>    
+                <li>Oops. Mohon maaf konten ini masih kosong</li>    
             @endforelse
-
+            </ul>
+            <noscript>
             <div>
                 {{ $links->links('pagination.default') }}
             </div>
+            </noscript>
         </div>
 
         <div class="column">
