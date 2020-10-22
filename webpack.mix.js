@@ -13,6 +13,7 @@ require('laravel-mix-workbox');
 mix.copyDirectory('resources/img', 'public/img');
 mix.copy('resources/manifest.webmanifest', 'public/manifest.webmanifest');
 mix.js('resources/js/timeline.js','public/js');
+mix.js('resources/js/intersection-observer.js','public/js');
 
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/css/app.sass', 'public/css')
