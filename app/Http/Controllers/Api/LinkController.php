@@ -10,6 +10,12 @@ use Illuminate\Http\Request;
 
 class LinkController extends AbstractApiController
 {
+
+    public function index($query)
+    {
+        
+    }
+
     /**
      * add new link
      *

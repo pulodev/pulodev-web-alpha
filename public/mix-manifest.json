@@ -1,5 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
+    "/js/intersection-observer.js": "/js/intersection-observer.js",
+    "/js/timeline.js": "/js/timeline.js",
     "/css/app.css": "/css/app.css",
     "/manifest.webmanifest": "/manifest.webmanifest"
 }
