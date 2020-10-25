@@ -17,7 +17,7 @@
                 @switch($link->media)
                     @case('tulisan')
                         @if ($link->thumbnail != '') 
-                            <img src="{{$link->thumbnail}}" alt="thumbnail {{$link->title}}">  
+                            <img data-src="{{$link->thumbnail}}" alt="thumbnail {{$link->title}}" width="100%" height="auto">  
                         @endif
                         @break
                     @case('podcast')
