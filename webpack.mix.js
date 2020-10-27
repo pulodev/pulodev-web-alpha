@@ -12,39 +12,20 @@ require('laravel-mix-workbox');
  */
 mix.copyDirectory('resources/img', 'public/img');
 mix.copy('resources/manifest.webmanifest', 'public/manifest.webmanifest');
+mix.js('resources/js/timeline.js','public/js');
+mix.js('resources/js/intersection-observer.js','public/js');
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/css/app.sass', 'public/css').generateSW({
-        // Do not precache images
-        exclude: [/\.(?:png|jpg|jpeg|svg)$/],
-
-        // Define runtime caching rules.
-        runtimeCaching: [{
-            // Match any request that ends with .png, .jpg, .jpeg or .svg.
-            urlPattern: /\.(?:png|jpg|jpeg|svg)$/,
-
-            // Apply a cache-first strategy.
-            handler: 'CacheFirst',
-
-            options: {
-                // Use a custom cache name.
-                cacheName: 'images',
-
-                // Only cache 10 images.
-                expiration: {
-                    maxEntries: 10,
-                },
-            },
-        }],
-
-        skipWaiting: true
+    .sass('resources/css/app.sass', 'public/css')
+    .injectManifest({
+        swSrc: './resources/js/service-worker.js'
     });
 
-    mix.webpackConfig({
-        output: {
-          publicPath: ''
-        }
-      });
+mix.webpackConfig({
+    output: {
+        publicPath: ''
+    }
+    });
       
 
 
