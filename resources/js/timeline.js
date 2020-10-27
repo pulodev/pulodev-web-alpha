@@ -1,8 +1,8 @@
 import InfiniteScroll from './infinite-scroll.js';
-
-window.onload = () =>{
+import {$} from './helper.js';
+window.addEventListener('load', () =>{
     initInfiniteScroll();
-}
+});
 
 function initInfiniteScroll(){
     let page = 1;

@@ -107,16 +107,6 @@
                 @endif
             </div>
             </div>
-
-            <script>
-                document.addEventListener('DOMContentLoaded', () => {
-                    const navBurger = $('.navbar-burger')[0]
-                    navBurger.addEventListener('click', function() {
-                            navBurger.classList.toggle('is-active');
-                            $('#nav-menu').classList.toggle('is-active');
-                    })
-                });
-            </script>
         </nav>
         <div id="main-container">
             <main>
