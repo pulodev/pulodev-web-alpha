@@ -42,4 +42,8 @@ return [
         'redirect' => env('APP_URL') . '/login/github/callback',
     ],
 
+    'elasticsearch' => [
+        'host' => env('ELASTICSEARCH_HOST'),
+        'enabled' => env('ELASTICSEARCH_ENABLED', false),
+    ],
 ];

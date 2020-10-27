@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use OpenGraph;
 use Carbon\Carbon;
 use App\Models\Link;
+use App\Articles\ArticlesRepository;
+use App\Repositories\Interfaces\LinkRepository;
 use App\Rules\MinimalWords;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +16,16 @@ use Illuminate\Support\Facades\Http;
 
 class LinkController extends Controller
 {
-    
+    /**
+     * @var LinkRepository
+     */
+    private $linkRepository;
+
+    public function __construct(LinkRepository $linkRepository)
+    {
+        $this->linkRepository = $linkRepository;
+    }
+
     public function create()
     {
         return view('link.create');
@@ -24,7 +36,7 @@ class LinkController extends Controller
         $linkInput = $this->checkFullUrl($request->url);
 
         //check if exists
-        if(Link::where('url', cleanUrl($linkInput))->exists()) 
+        if (Link::where('url', cleanUrl($linkInput))->exists())
             return response()->json(['status' => 'EXISTS', 'msg' => 'link sudah ada'], 403);
 
         $data =  OpenGraph::fetch($linkInput, true);
@@ -32,8 +44,8 @@ class LinkController extends Controller
         //get thumbnail
         $thumbnail = '';
         $thumbnailPossibleMeta = ['image', 'twitter:image', 'twitter:image:src'];
-        foreach($thumbnailPossibleMeta as $meta) {
-            if(isset($data[$meta]) && $data[$meta] != ''){
+        foreach ($thumbnailPossibleMeta as $meta) {
+            if (isset($data[$meta]) && $data[$meta] != '') {
                 $thumbnail = $data[$meta];
                 break;
             }
@@ -61,7 +73,7 @@ class LinkController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {        
+    {
         $request->validate([
             'url' => 'required|unique:links,url,NULL,id,deleted_at,NULL',
             'title' => ['required', 'max:255', new MinimalWords(2)],
@@ -69,8 +81,8 @@ class LinkController extends Controller
             'tags' => 'required',
         ]);
 
-        $user = Auth::user();    
-        
+        $user = Auth::user();
+
         $link = $user->links()->create([
             'title' => $request->title,
             'url'  => cleanUrl($request->url),
@@ -82,7 +94,7 @@ class LinkController extends Controller
             'thumbnail' => $request->thumbnail,
             'draft' => Auth::user()->isAdmin() ? false : true, //if admin auto publish
             'original_published_at'  => $request->original_published_at ?? Carbon::now(),
-        ]);  
+        ]);
 
         //change session token
         $request->session()->regenerateToken();
@@ -97,7 +109,7 @@ class LinkController extends Controller
      */
     public function show(Link $link)
     {
-        if(!$link->exists())
+        if (!$link->exists())
             abort(404);
 
         return view('link.show', compact('link'));
@@ -106,11 +118,17 @@ class LinkController extends Controller
     public function search(Request $request)
     {
         $querySearch = $request->input('query');
+        $filter = $request->input('filter');
 
-        $links = Link::whereRaw('MATCH (title, body) AGAINST (?)' , array($querySearch))
-                     ->where('draft', 0)->orderBy('id', 'desc')->get();
+        $links = $this->linkRepository->search($querySearch);
 
-        return view('link.search', compact('links', 'querySearch'));
+        if ($filter) {
+            $links['content'] = Arr::where($links['content'], function ($link, $key) use ($filter) {
+                return $link->media === $filter;
+            });
+        }
+
+        return view('link.search', compact('links', 'querySearch', 'filter'));
     }
 
     /**
@@ -121,7 +139,7 @@ class LinkController extends Controller
      */
     public function edit(Link $link)
     {
-        if(!$link->exists())
+        if (!$link->exists())
             abort(404);
 
         checkOwnership($link->user_id);
@@ -138,11 +156,11 @@ class LinkController extends Controller
      */
     public function update(Request $request, Link $link)
     {
-        if(!$link->exists())
+        if (!$link->exists())
             abort(404);
 
         $request->validate([
-            'url' => 'required|unique:links,url,'.$link->id.',id,deleted_at,NULL',
+            'url' => 'required|unique:links,url,' . $link->id . ',id,deleted_at,NULL',
             'title' => ['required', 'max:255', new MinimalWords(2)],
             'body' => ['required', new MinimalWords(5)],
             'tags' => 'required',
@@ -150,8 +168,6 @@ class LinkController extends Controller
 
         checkOwnership($link->user->id);
 
-        $user = Auth::user();    
-        
         $link->update([
             'title' => $request->title,
             'url'  => cleanUrl($request->url),
@@ -161,7 +177,7 @@ class LinkController extends Controller
             'owner'  => $request->owner,
             'draft' => ($request->draft == true) ? true : false,
             'original_published_at'  => $request->original_published_at ?? $link->original_published_at,
-        ]);  
+        ]);
 
         //change session token
         $request->session()->regenerateToken();
@@ -176,9 +192,9 @@ class LinkController extends Controller
      */
     public function destroy(Link $link)
     {
-        if(!$link->exists())
+        if (!$link->exists())
             abort(404);
-        
+
         checkOwnership($link->user->id);
 
         $link->delete();
