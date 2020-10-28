@@ -120,4 +120,13 @@ export default async () => ([{
         isProduction && (await import('rollup-plugin-terser')).terser()
       ]
     }
-  },]);
+  },{
+    input: 'resources/js/search-filter.js',
+    output: {
+      file: 'public/js/search-filter.js',
+      format: 'iife',
+      plugins: [
+        isProduction && (await import('rollup-plugin-terser')).terser()
+      ]
+    }
+  }]);

@@ -4,6 +4,10 @@
 @section('desc', 'Mencari konten di PuloDev')
 @section('content')
 
+@push('scripts')
+    <script src="/js/search-filter.js" type="module"></script>
+@endpush
+
 @php $isAggregationsExist = count($links['aggregations']) > 0; @endphp
 
 <section class="hero">
@@ -38,40 +42,13 @@
         </div>
         <div class="{{ $isAggregationsExist ? 'column' : 'is-hidden' }}">
             <h3>Pilih media</h3>
+            <section id="search-filter-media">
             @foreach ($links['aggregations'] as $media)
-            <a class="tag {{ $filter === $media ? 'is-primary' : '' }} " onclick="onClickFilterBy('{{ $media }}')">{{ $media }}</a>   
+            <a class="tag {{ $filter === $media ? 'is-primary' : '' }}" media="{{ $media }}">{{ $media }}</a>   
             @endforeach
+            </section>
         </div>
     </div>
 </div>
-
-<script>
-    function onClickFilterBy(media) {
-        const url = window.location.href.split('?')[0];
-        let currentFilterVal = getUrlParamValue('filter');
-        let query = getUrlParamValue('query');
-        let urlParams = `query=${query}`;
-
-        if(currentFilterVal !== media) {
-            urlParams += `&filter=${media}`;
-        }
-        
-        window.location = `${url}?${urlParams}`;
-    }
-
-    function getUrlParamValue(param) {
-        let urlParams = window.location.href.split('?')[1];
-
-        if(urlParams) {
-            let keyValue = urlParams.split('&').filter(key => key.includes(param));
-            
-            if (keyValue.length > 0) {
-                return keyValue[0].split('=')[1];
-            }
-        }
-
-        return null;
-    }
-</script>
 
 @endsection
