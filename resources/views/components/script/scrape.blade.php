@@ -1,4 +1,4 @@
-<script type="module">
+<script>
 
 let scraped = false
 

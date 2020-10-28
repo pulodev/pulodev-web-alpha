@@ -1,4 +1,4 @@
-<a href='/link/{{$link->slug}}'>
+<a class="box" href='/link/{{$link->slug}}'>
     <article class="media">
         <div class="media-left">
             <x-avatar :user="$link->user"/>

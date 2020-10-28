@@ -40,8 +40,7 @@
     @endif
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" type="module"></script>
-    @stack('scripts')
+    <script src="{{ asset('js/app.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -73,50 +72,56 @@
 </head>
 
 <body>
-    <div id="base-container">
-        <nav class="navbar is-info" role="navigation" aria-label="main navigation">
-            <div class="container">
-            <div class="navbar-brand has-background-primary">
-                <a class="navbar-item" href="/">
-                <img src="https://ik.imagekit.io/pulodev/logo-text-white_nO4dn6hwTz5Q.png" alt="logo pulodev">
-                </a>
+    <nav class="navbar is-info" role="navigation" aria-label="main navigation">
+        <div class="container">
+        <div class="navbar-brand has-background-primary">
+            <a class="navbar-item" href="/">
+            <img src="https://ik.imagekit.io/pulodev/logo-text-white_nO4dn6hwTz5Q.png" alt="logo pulodev">
+            </a>
 
-                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
-            </div>
-
-            <div class="navbar-menu" id="nav-menu">
-                @if (!Auth::guest())
-                    <div class="navbar-start">   
-                        <a class="navbar-item" href="/{{'@'.Auth::user()->username}}">Profil</a>
-                        <a class="navbar-item" href='/link/create'>Link Baru +</a>
-                        <a class="navbar-item" href='/resource/create'>RSS Baru +</a>
-                    </div>
-
-                    <div class="navbar-end">
-                        <a class="navbar-item" href="/logout">Logout</a>
-                    </div>
-                @else
-                    <div class="navbar-end">
-                        <a class="navbar-item" href="/register">Daftar</a>
-                        <a class="navbar-item" href="/login">Masuk</a>
-                    </div>
-                @endif
-            </div>
-            </div>
-        </nav>
-        <div id="main-container">
-            <main>
-                @yield('content')
-            </main>
-
-            <footer>
-                @include('layouts.footer')
-            </footer>
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
         </div>
-    </div>
+
+        <div class="navbar-menu" id="nav-menu">
+            @if (!Auth::guest())
+                <div class="navbar-start">   
+                    <a class="navbar-item" href="/{{'@'.Auth::user()->username}}">Profil</a>
+                    <a class="navbar-item" href='/link/create'>Link Baru +</a>
+                    <a class="navbar-item" href='/resource/create'>RSS Baru +</a>
+                </div>
+
+                <div class="navbar-end">
+                    <a class="navbar-item" href="/logout">Logout</a>
+                </div>
+            @else
+                <div class="navbar-end">
+                    <a class="navbar-item" href="/register">Daftar</a>
+                    <a class="navbar-item" href="/login">Masuk</a>
+                </div>
+            @endif
+        </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const navBurger = $('.navbar-burger')[0]
+                navBurger.addEventListener('click', function() {
+                        navBurger.classList.toggle('is-active');
+                        $('#nav-menu').classList.toggle('is-active');
+                })
+            });
+        </script>
+    </nav>
+
+    <main>
+        @yield('content')
+    </main>
+
+    <footer>
+        @include('layouts.footer')
+    </footer>
 </body>
-</html>

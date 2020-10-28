@@ -4,31 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\Link;
 use Illuminate\Http\Request;
-use App\Http\Resources\LinkCollection;
 
 class PageController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        return $this->renderLinkView($request); 
+        return $this->renderLinkView();
     }
 
-    public function filterMedia(Request $request, $media)
+    public function filterMedia($media)
     {
-        return $this->renderLinkView($request, 'media', $media);
+        return $this->renderLinkView('media', $media);
     }
 
-    public function filterTag(Request $request, $tag)
+    public function filterTag($tag)
     {
-        return $this->renderLinkView($request, 'tag', $tag);
+        return $this->renderLinkView('tag', $tag);
     }
 
-    public function filterTime(Request $request, $query)
+    public function filterTime($query)
     {
-        return $this->renderLinkView($request, 'order', $query);
+        return $this->renderLinkView('order', $query);
     }
 
-    public function renderLinkView($request, $type = '', $query = '')
+    public function renderLinkView($type = '', $query = '')
     {
         $links = Link::with('user')->where('draft', 0);
 
@@ -48,10 +47,7 @@ class PageController extends Controller
         }
         
         $links = $links->orderBy('created_at', 'desc')->paginate(15);
-        if($request->type==='json')
-            return new LinkCollection($links);
-        else
-            return view('welcome', compact('links', 'type', 'query'));
+        return view('welcome', compact('links', 'type', 'query'));
     }
 
     public function info($page)
