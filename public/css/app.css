@@ -1,1 +1,27 @@
-body{background:#fafafa}.container{width:80%;max-width:1000px;width:95%}
+body {
+  background: #fafafa;
+  overscroll-behavior: none; }
+
+.container {
+  max-width: 1000px; }
+
+#base-container {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 3.25rem auto; }
+
+#main-container {
+  overflow-y: auto;
+  padding: 0 1rem;
+  content-visibility: auto; }
+
+.box a {
+  color: #4a4a4a; }
+
+#loading-bar {
+  text-align: center;
+  line-height: 4rem;
+  display: none; }
+
+#loading-bar.loading {
+  display: block; }
