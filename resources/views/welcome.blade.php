@@ -48,7 +48,7 @@ PuloDev @if($type != ''){{$type}} {{$query}}@endif adalah kumpulan konten @if($t
 
 <div class="container">
     <div class="columns mt-1">
-        <div class="column is-four-fifths">
+        <div class="column is-two-thirds">
             
             @if($type != 'tag' && $type != 'media')
             <p> 

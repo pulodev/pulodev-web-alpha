@@ -1,22 +1,24 @@
 <article class="media">
-    <div class="media-left">
-        <x-avatar :user="$link->user"/>
-    </div>
-    
     <div class="media-content">
-        <div class="content">
-            <small class="is-size-7">
-                @if(!empty($link->owner) && $link->owner != '-')  {{$link->owner}} - @endif
-                {{$link->original_published_at->diffForHumans()}} 
-            </small> 
+        <div class="level is-mobile mb-2">
+            <div class="level-left">
+                <x-avatar :user="$link->user"/> 
+                <small class="is-size-7 ml-2">
+                    @if(!empty($link->owner) && $link->owner != '-') <strong> {{$link->owner}} </strong> · @endif
+                    {{$link->original_published_at->diffForHumans()}}  <br>
+                    <span>Dimasukkan oleh {{$link->user->fullname .' @'.$link->user->username }}</span>
+                </small>  
+                </div>
+        </div>
 
-            <h2 class="mt-1 is-size-4"> <a href="{{$link->url}}" target="_blank"> {{$link->title}} </a></h2>
+        <div class="content">
+            <h2 class="is-size-4 mb-1"> <a href="{{$link->url}}" target="_blank"> {{$link->title}} </a></h2>
             <p>{{cutText($link->body, 150)}}</p>
             
             @switch($link->media)
                 @case('tulisan')
                     @if ($link->thumbnail != '') 
-                        <img data-src="{{$link->thumbnail}}" alt="thumbnail {{$link->title}}" width="100%" height="auto">  
+                        <img src="{{$link->thumbnail}}" alt="thumbnail {{$link->title}}" width="100%" height="auto">  
                     @endif
                     @break
                 @case('podcast')
@@ -36,8 +38,6 @@
 
 
             <p class="is-size-7">
-                <span>Dimasukkan oleh: {{$link->user->fullname .' @'.$link->user->username }}</span>
-                    <br><br>
                 <span class="tag is-info is-light"> {{$link->media}} </span>
                 <x-tags :tags="$link->tags" /> 
             </p>
