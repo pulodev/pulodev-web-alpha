@@ -106,7 +106,7 @@
                     lastPage = parseInt(contents.meta.last_page);
                     for (let i = 0; i < contents.data.length; i++) {
                         const link = contents.data[i];
-                        const item = renderItem(link.slug,link.title,link.user.username,link.user.avatar_url,link.published_diff,link.user.fullname,link.media);
+                        const item = renderItem(link);
                         fragment.appendChild(item);
                     }
                 }
@@ -119,35 +119,67 @@
         infScroll.start();
     }
 
-    function renderItem(slug,title,username,avatarUrl,timeAgo,fullName,type){
+    function getLinkPlayer(link) {
+        console.log('thumbnail : ' + link.title + ' - ' +  link.thumbnail);
+        switch (link.media) {
+            case 'tulisan':
+                if (link.thumbnail != null) {
+                    console.log('there');
+                    return `<img src="${link.thumbnail}" alt="thumbnail ${link.title}" width="100%" height="auto">`  
+                }  else {
+                    console.log('thumbnail not null, but: ' + typeof link.thumbnail);
+                } 
+                break;
+            case 'podcast':
+                if ((link.url.indexOf('https://anchor.fm') != -1) || (link.url.indexOf('https://anchor.fm') != -1)) {
+                    const anchorLink = link.url.replace('episodes', 'embed/episodes'); 
+                    return `<iframe src="${anchorLink}" height="102px" width="100%" frameborder="0" scrolling="no"></iframe>`
+                }
+                break;
+            case 'video':
+                if ((link.url.indexOf('https://youtube.com') != -1) || (link.url.indexOf('https://www.youtube.com') != -1)) {
+                    const youtubeLink = link.url.replace('watch?v=', 'embed/');
+                    return `<iframe width = "100%" height = "315" src = "${youtubeLink}" frameborder = "0" allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe >`
+                }
+                break;    
+            default:
+                return '';
+        }
+    }
+
+
+    function renderItem(link){
+
+        const linkPlayer = getLinkPlayer(link);
+
         const item = document.createElement('li');
             item.innerHTML=`
-            <a href="/link/${slug}">
-                <article class="media">
-                    <div class="media-left">
-                        <figure class="image is-64x64 is-inline-block">
-                            <img class="is-rounded" alt="foto profil ${username}" loading="lazy" src="${avatarUrl}">
-                        </figure> 
-                    </div>
-                    
-                    <div class="media-content">
-                        <div class="content">
-                            <small class="is-size-7">
-                                ${timeAgo}
-                            </small> 
-
-                            <p class="is-size-4 mb-1"><strong>${title}</strong></p>
-
-                            <p class="is-size-7">
-                                <span>Dimasukkan oleh: ${fullName} @${username}</span>
-                                    <br><br>
-                                <span class="tag is-info is-light"> ${type} </span>
-                                
-                            </p>
+            <article class="media">
+                <div class="media-content">
+                    <div class="level is-mobile mb-2">
+                        <div class="level-left">
+                            <figure class="image is-32x32 is-inline-block">
+                            <img class="is-rounded" alt="foto profil ${link.user.username}" loading="lazy" src="${link.user.avatar_url}">
+                            </figure> 
+                            <small class="is-size-7 ml-2">
+                                <strong> ${(link.owner != null) ? link.owner : ''} · </strong>  ${link.published_diff} <br>
+                                <span>Dimasukkan oleh: ${link.user.fullname} @${link.user.username}</span>
+                            </small>  
                         </div>
                     </div>
-                </article>
-            </a>`;
+
+                    <div class="content">
+                        <h2 class="is-size-4 mb-1"> <a href="${link.url}" target="_blank"> ${link.title} </a></h2>
+                        <p>${link.body.substring(0, 150)}</p>
+
+                        ${linkPlayer ?? ''}
+
+                        <p class="is-size-7">
+                            <span class="tag is-info is-light"> ${link.media} </span>
+                        </p>
+                    </div>
+                </div>
+            </article>`;
             item.className = 'box';
             return item;
     }
