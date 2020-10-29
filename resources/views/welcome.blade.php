@@ -83,7 +83,7 @@ PuloDev @if($type != ''){{$type}} {{$query}}@endif adalah kumpulan konten @if($t
 
             <p>Pilih Tag/Kategori</p>
             <input type="search" class="input" id="tag-query" placeholder="contoh: javascript">
-            <div class="button is-small" onclick="filterTag()">Submit</div>
+            <div class="button is-small" id="filterTag">Submit</div>
 
             <br><br>
 
@@ -94,8 +94,10 @@ PuloDev @if($type != ''){{$type}} {{$query}}@endif adalah kumpulan konten @if($t
             <a href='/media/web' class="tag">Web</a>
             <a href='/media/podcast' class="tag">Podcast</a>
 
-            <script>
-                function filterTag() { window.location.href = "/tag/" + $('#tag-query').value  }
+            <script type="module">
+                document.getElementById('filterTag').addEventListener('click', function(){
+                    window.location.href = "/tag/" + document.getElementById('tag-query').value
+                })
             </script>
         </div>
     </div>    
