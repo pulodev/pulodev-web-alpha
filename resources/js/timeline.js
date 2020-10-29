@@ -94,7 +94,7 @@ function renderItem(link){
                         <h2 class="is-size-4 mb-1"> <a href="${link.url}" target="_blank"> ${link.title} </a></h2>
                         <p>${link.body.substring(0, 150)}</p>
 
-                        ${linkPlayer ?? ''}
+                        ${(linkPlayer != undefined) ? linkPlayer : ''}
 
                         <p class="is-size-7">
                             <span class="tag is-info is-light"> ${link.media} </span>
