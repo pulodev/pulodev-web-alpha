@@ -28,7 +28,7 @@
                     @csrf
                    
                     <x-form.input id="url" label="URL" name="url" type="url" placeholder="Masukkan URL di sini" required/>
-                    <a class="button is-info is-light" id="check-btn">Cek</a>
+                    <button class="button is-info is-light" id="check-btn">Cek</button>
 
                     <div class="is-hidden" id="complete-form">
                         <p class="my-2">*Boleh memodifikasi data di bawah</p>

@@ -3,6 +3,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import { injectManifest } from 'rollup-plugin-workbox';
 import copy from 'rollup-plugin-copy';
+import terser from 'rollup-plugin-terser';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -58,7 +59,7 @@ export default async () => ([{
       commonjs({
         include: 'node_modules/**'
       }),
-      isProduction && (await import('rollup-plugin-terser')).terser(),
+      isProduction && terser(),
       injectManifest({
         swSrc: 'resources/js/service-worker.js',
         swDest: 'public/service-worker.js',
@@ -81,7 +82,7 @@ export default async () => ([{
       file: 'public/js/infinite-scroll.js',
       format: 'esm',
       plugins: [
-        isProduction && (await import('rollup-plugin-terser')).terser()
+        isProduction && terser(),
       ]
     }
   }, {
@@ -90,7 +91,7 @@ export default async () => ([{
       file: 'public/js/intersection-observer.js',
       format: 'iife',
       plugins: [
-        isProduction && (await import('rollup-plugin-terser')).terser()
+        isProduction && terser(),
       ]
     }
   }, {
@@ -99,7 +100,7 @@ export default async () => ([{
       file: 'public/js/timeline.js',
       format: 'iife',
       plugins: [
-        isProduction && (await import('rollup-plugin-terser')).terser()
+        isProduction && terser(),
       ]
     }
   },{
@@ -108,7 +109,7 @@ export default async () => ([{
       file: 'public/js/helper.js',
       format: 'esm',
       plugins: [
-        isProduction && (await import('rollup-plugin-terser')).terser()
+        isProduction && terser(),
       ]
     }
   },{
@@ -117,7 +118,7 @@ export default async () => ([{
       file: 'public/js/create-link.js',
       format: 'iife',
       plugins: [
-        isProduction && (await import('rollup-plugin-terser')).terser()
+        isProduction && terser(),
       ]
     }
   },]);

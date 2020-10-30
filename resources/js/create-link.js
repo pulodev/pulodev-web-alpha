@@ -1,5 +1,7 @@
 import {$, postJSON} from './helper.js';
 
+let scraped = false;
+
 function scrape() {
     const url = $('#url').value;
 
@@ -26,7 +28,11 @@ function scrape() {
         })
         .catch(function (error) {
             console.error(error);
-            $('#check-btn').innerText = 'Mohon maaf, ada masalah';
+            if(scraped)
+                document.querySelector('button.is-primary').innerText = 'Mohon maaf, ada masalah';
+            else 
+                $('#check-btn').innerText = 'Mohon maaf, ada masalah';
+
         })
 }
 
