@@ -23,7 +23,8 @@
         "rap2hpoutre/laravel-log-viewer": "^1.7",
         "shweshi/opengraph": "^1.0",
         "spatie/laravel-backup": "^6.11",
-        "stevebauman/purify": "^3.0"
+        "stevebauman/purify": "^3.0",
+        "elasticsearch/elasticsearch": "^7.9"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",

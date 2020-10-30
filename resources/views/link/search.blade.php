@@ -4,6 +4,12 @@
 @section('desc', 'Mencari konten di PuloDev')
 @section('content')
 
+@push('scripts')
+    <script src="/js/search-filter.js" type="module"></script>
+@endpush
+
+@php $isAggregationsExist = count($links['aggregations']) > 0; @endphp
+
 <section class="hero">
     <div class="hero-body">
         <div class="container has-text-centered">
@@ -26,11 +32,23 @@
 </section>
 
 <div class="container">
-    @forelse ($links as $link)
-        <x-linkCard :link="$link" />
-    @empty
-        <p>Oops. Mohon maaf pencarian ini tidak ditemukan</p>    
-    @endforelse
+    <div class="columns mt-1">
+        <div class="column {{ $isAggregationsExist ? 'is-four-fifths' : '' }}">
+            @forelse ($links['content'] as $link)
+            <x-linkCard :link="$link" />
+            @empty
+                <p>Oops. Mohon maaf pencarian ini tidak ditemukan</p>    
+            @endforelse
+        </div>
+        <div class="{{ $isAggregationsExist ? 'column' : 'is-hidden' }}">
+            <h3>Pilih media</h3>
+            <section id="search-filter-media">
+            @foreach ($links['aggregations'] as $media)
+            <a class="tag {{ $filter === $media ? 'is-primary' : '' }}" media="{{ $media }}">{{ $media }}</a>   
+            @endforeach
+            </section>
+        </div>
+    </div>
 </div>
 
 @endsection

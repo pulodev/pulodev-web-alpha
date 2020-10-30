@@ -44,6 +44,19 @@ services:
     networks:
       - pulodev
 
+  elasticsearch:
+    image: elasticsearch:7.9.2
+    container_name: pulodev-es
+    environment:
+      - DISCOVERY.TYPE=single-node
+      - BOOTSTRAP.MEMORY_LOCK=true
+    ports:
+      - 9200:9200
+    volumes:
+      - ./docker-compose/esdata:/usr/share/elasticsearch/data
+    networks:
+      - pulodev
+
 networks:
   pulodev:
     driver: bridge
