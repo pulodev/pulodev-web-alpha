@@ -1,8 +1,8 @@
 import InfiniteScroll from './infinite-scroll.js';
-
-window.onload = () =>{
+import {$} from './helper.js';
+window.addEventListener('load', () =>{
     initInfiniteScroll();
-}
+});
 
 function initInfiniteScroll(){
     let page = 1;
@@ -12,36 +12,42 @@ function initInfiniteScroll(){
 
     const infScroll = new InfiniteScroll(root,container);
     infScroll.getItems = async function(){
+        const loadingBar=document.querySelector('#loading-bar');
+        
         const fragment = document.createDocumentFragment();
         
         if(lastPage<=page){
-            infScroll.stop();
+            console.log('Observer stop');
+            infScroll.observing = false;
         } else {
+            loadingBar.className='loading';
             page++;
             const contents = await getContents(page);
             if(contents.data){
                 lastPage = parseInt(contents.meta.last_page);
                 for (let i = 0; i < contents.data.length; i++) {
                     const link = contents.data[i];
-                    const item = renderItem(link.url,link.title,link.user.username,link.user.avatar_url,link.published_diff,link.user.fullname,link.media);
+                    const item = renderItem(link.slug,link.title,link.user.username,link.user.avatar_url,link.published_diff,link.user.fullname,link.media);
                     fragment.appendChild(item);
                 }
             }
+            loadingBar.className='';
         }
+        
         return fragment;
     }
 
     infScroll.start();
 }
 
-function renderItem(url,title,username,avatarUrl,timeAgo,fullName,type){
+function renderItem(slug,title,username,avatarUrl,timeAgo,fullName,type){
     const item = document.createElement('li');
         item.innerHTML=`
-            <a href="${url}">
+            <a href="/link/${slug}">
                 <article class="media">
                     <div class="media-left">
                         <figure class="image is-64x64 is-inline-block">
-                            <img class="is-rounded" alt="foto profil ${username}" src="${avatarUrl}">
+                            <img class="is-rounded" alt="foto profil ${username}" loading="lazy" src="${avatarUrl}">
                         </figure> 
                     </div>
                     

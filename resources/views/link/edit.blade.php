@@ -6,6 +6,10 @@
 
 @section('content')
 
+@push('scripts')
+    <script src="/js/create-link.js" type="module"></script>
+@endpush
+
 <section class="hero">
     <div class="hero-body">
         <div class="container has-text-centered">
@@ -24,8 +28,8 @@
                     @csrf
                     @method('PUT')
                    
-                <x-form.input :object="$link" label="URL" name="url" type="url" placeholder="Masukkan URL di sini" required/>
-                    <a class="button is-info is-light" onclick="scrape()" id="check-btn">Cek</a>
+                <x-form.input :object="$link" id="url" label="URL" name="url" type="url" placeholder="Masukkan URL di sini" required/>
+                    <a class="button is-info is-light" id="check-btn">Cek</a>
 
                     <div class="is-hidden" id="complete-form">
                         <p class="my-2">*Boleh memodifikasi data di bawah</p>
@@ -56,8 +60,6 @@
                         <button class="button is-primary is-fullwidth">Update</button>
                         </div>
                     </div>
-
-                    @include('components.script.scrape')
                 </form>   
             </div>
         </div>
