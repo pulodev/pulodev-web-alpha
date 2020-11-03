@@ -3,7 +3,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import { injectManifest } from 'rollup-plugin-workbox';
 import copy from 'rollup-plugin-copy';
-import terser from 'rollup-plugin-terser';
+import {terser} from 'rollup-plugin-terser';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -22,8 +22,6 @@ const sass = (files,outputPath) => {
                 if(!error){
                   // No errors during the compilation, write this result on the disk
                   const cssFile = sassFile.replace('.sass','.css').substr(sassFile.lastIndexOf('/')+1);
-                  
-                 
                   await fs.writeFile(`./${outputPath}/${cssFile}`, result.css, function(err){
                     if(!err){
                       console.log(`${cssFile} written to disk`);
@@ -42,7 +40,7 @@ const sass = (files,outputPath) => {
     }
 
 
-export default async () => ([{
+export default [{
     input: 'resources/js/app.js',
     plugins: [
       sass(['resources/css/app.sass'],'public/css'),
@@ -82,7 +80,7 @@ export default async () => ([{
       file: 'public/js/infinite-scroll.js',
       format: 'esm',
       plugins: [
-        isProduction && terser(),
+        isProduction && terser()
       ]
     }
   }, {
@@ -91,7 +89,7 @@ export default async () => ([{
       file: 'public/js/intersection-observer.js',
       format: 'iife',
       plugins: [
-        isProduction && terser(),
+        isProduction && terser()
       ]
     }
   }, {
@@ -100,7 +98,7 @@ export default async () => ([{
       file: 'public/js/timeline.js',
       format: 'iife',
       plugins: [
-        isProduction && terser(),
+        isProduction && terser()
       ]
     }
   },{
@@ -109,7 +107,7 @@ export default async () => ([{
       file: 'public/js/helper.js',
       format: 'esm',
       plugins: [
-        isProduction && terser(),
+        isProduction && terser()
       ]
     }
   },{
@@ -118,7 +116,7 @@ export default async () => ([{
       file: 'public/js/create-link.js',
       format: 'iife',
       plugins: [
-        isProduction && terser(),
+        isProduction && terser()
       ]
     }
-  },]);
+  }];
