@@ -24,13 +24,13 @@
                 @case('podcast')
                     @if((strpos($link->url, 'https://anchor.fm') !== false) || (strpos($link->url, 'https://www.anchor.fm') !== false))
                         @php $anchorLink = str_replace('episodes', 'embed/episodes', $link->url) @endphp
-                        <iframe src="{{$anchorLink}}" height="102px" width="100%" frameborder="0" scrolling="no"></iframe>
+                        <iframe loading="lazy" src="{{$anchorLink}}" height="102px" width="100%" frameborder="0" scrolling="no"></iframe>
                     @endif
                     @break
                 @case('video')
                     @if((strpos($link->url, 'https://youtube.com') !== false) || (strpos($link->url, 'https://www.youtube.com') !== false))
                         @php $youtubeLink = str_replace('watch?v=', 'embed/', $link->url) @endphp
-                        <iframe width="100%" height="315" src="{{$youtubeLink}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe loading="lazy" width="100%" height="315" src="{{$youtubeLink}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     @endif
                     @break    
                 @default

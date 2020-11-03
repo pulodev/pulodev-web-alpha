@@ -54,13 +54,13 @@ function getLinkPlayer(link) {
         case 'podcast':
             if ((link.url.indexOf('https://anchor.fm') != -1) || (link.url.indexOf('https://anchor.fm') != -1)) {
                 const anchorLink = link.url.replace('episodes', 'embed/episodes') 
-                return `<iframe src="${anchorLink}" height="102px" width="100%" frameborder="0" scrolling="no"></iframe>`
+                return `<iframe loading="lazy" src="${anchorLink}" height="102px" width="100%" frameborder="0" scrolling="no"></iframe>`
             }
             break;
         case 'video':
             if ((link.url.indexOf('https://youtube.com') != -1) || (link.url.indexOf('https://www.youtube.com') != -1)) {
                 const youtubeLink = link.url.replace('watch?v=', 'embed/')
-                return `<iframe width = "100%" height = "315" src = "${youtubeLink}" frameborder = "0" allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe >`
+                return `<iframe loading="lazy" width="100%" height = "315" src = "${youtubeLink}" frameborder = "0" allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe >`
             }
             break;    
         default:
