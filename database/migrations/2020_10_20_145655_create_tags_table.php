@@ -18,7 +18,6 @@ class CreateTagsTable extends Migration
             $table->string('name', 50)->unique();
             $table->integer('lft')->unsigned()->nullable();
             $table->integer('rgt')->unsigned()->nullable();
-            $table->timestamps();
         });
     }
 

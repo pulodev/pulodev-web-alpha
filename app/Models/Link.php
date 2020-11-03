@@ -11,22 +11,54 @@ class Link extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = ['id'];
+    protected $fillable = [
+        'title',
+        'url',
+        'slug',	
+        'body',
+        'media',	
+        'thumbnail',
+        'tags',
+        'owner',	
+        'draft',	
+        'user_id',
+        'original_published_at',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'resource_id'
+    ];
     protected $dates = ['original_published_at'];
+    protected $tag_list;
+
+    protected static function linktag($link)
+    {
+        foreach($link->tag_list as $tag){
+            $tagModel = Tag::where('name',$tag)->firstOrCreate(['name'=>$tag]);
+            $linkTag = new LinkTag();
+            $linkTag->link_id = $link->id;
+            $linkTag->tag_id = $tagModel->id;
+            $linkTag->save();
+        }
+    }
 
     protected static function booted()
     {
-        static::saved(function ($link) {
-            App\Models\LinkTag::where('link_id',$link->id)->delete();
-
-            foreach($link->tags_list as $tag){
-                $tagModel = App\Models\Tag::where('name',$tag)->firstOrCreate(['name'=>$tag]);
-
-                $linkTag = new App\Models\LinkTag();
-                $linkTag->link_id = $link->id;
-                $linkTag->tag_id = $tagModel->id;
-                $linkTag->save();
-            }
+        static::saved(function ($link) 
+        {
+            LinkTag::where('link_id',$link->id)->delete();
+            static::linktag($link);
+            
         });
+
+        static::updated(function ($link) 
+        {
+            static::linktag($link);
+        });
+    }
+    public function getTagsAttribute()
+    {
+        return implode(', ',$this->tags()->pluck('name')->all());
     }
 
     public function setTagsAttribute($value)
@@ -34,9 +66,7 @@ class Link extends Model
         if(is_string($value)){
             $value = preg_split("/[\s,]+/", $value);
         }
-
-        $this->attributes['tag_list'] = $value;
-        
+        $this->tag_list = $value;
     }
 
     /**
@@ -61,6 +91,6 @@ class Link extends Model
 
     public function tags()
     {
-        return $this->belongsToMany('App\Models\Tag');
+        return $this->belongsToMany('App\Models\Tag','link_tags','link_id','tag_id');
     }
 }

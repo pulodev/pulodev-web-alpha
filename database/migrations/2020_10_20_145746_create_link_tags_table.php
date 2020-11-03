@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\Link;
+use Illuminate\Support\Facades\DB;
 
 class CreateLinkTagsTable extends Migration
 {
@@ -15,13 +15,37 @@ class CreateLinkTagsTable extends Migration
     public function up()
     {
         Schema::create('link_tags', function (Blueprint $table) {
-            $table->foreign('link_id')->references('id')->on('link')->onDelete('delete');
-            $table->foreign('tag_id')->references('id')->on('tag')->onDelete('delete');
+            $table->bigInteger('link_id')->unsigned()->nullable();
+            $table->bigInteger('tag_id')->unsigned()->nullable();
+            $table->foreign('link_id')->references('id')->on('links')->onDelete('cascade');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+            $table->index(['link_id', 'tag_id']);
         });
-        $links = Link::findAll();
-        foreach($links as $link){
-            $link->tag
+
+        
+        $links = DB::select('select * from `links`');
+        $tagLinks = [];
+        foreach ($links as $link) {
+            $tags = explode(',',$link->tags);
+            foreach($tags as $tag){
+                $tag = trim($tag);
+                if(!empty($tag)){
+                    DB::table('tags')->insertOrIgnore(['name'=>$tag]);
+                    $tagItem = DB::table('tags')->select('id','name')->where('name',$tag)->first();
+                    $tagLinks[] = [
+                        'link_id'=> $link->id,
+                        'tag_id'=> $tagItem->id
+                    ];
+                }
+            }
+            
         }
+
+        DB::table('link_tags')->insert($tagLinks);
+
+        // Schema::table('links', function (Blueprint $table) {
+        //     $table->dropColumn('tags');
+        // });
 
     }
 
