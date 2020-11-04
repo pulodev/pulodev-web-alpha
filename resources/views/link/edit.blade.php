@@ -39,8 +39,9 @@
                         <x-form.textarea :object="$link" label="Ringkasan" name="body"/>
 
                         <x-form.input :object="$link" label="Waktu publish konten" name="original_published_at" type="date" />
+                        <input type="hidden" id="data_published_at" value="{{ \Carbon\Carbon::parse($link->original_published_at)->format('Y-m-d') }}" />
                         <script>
-                            $('#original_published_at').value = "{{ \Carbon\Carbon::parse($link->original_published_at)->format('Y-m-d') }}"
+                            document.getElementById('original_published_at').value = document.getElementById("data_published_at").value
                         </script>
 
                         <x-form.input :object="$link" label="Tag" name="tags" placeholder="php, javascript, html" required/>

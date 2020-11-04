@@ -11,5 +11,5 @@
 
 {{-- check media from db --}}
 @isset($object)
-    <script> $('#media-{{$object->media}}').checked = true </script>    
+    <script> document.getElementById('media-{{$object->media}}').checked = true </script>    
 @endisset
