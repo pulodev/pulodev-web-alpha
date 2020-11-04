@@ -40,27 +40,19 @@ function initInfiniteScroll(){
     infScroll.start();
 }
 
-function getLinkPlayer(link) {
+function getMediaPlayer(link) {
     switch (link.media) {
-        case 'tulisan':
-            if (link.thumbnail != null) 
-                return `<img src="${link.thumbnail}" alt="thumbnail ${link.title}" width="100%" height="auto">`  
-            break;
-        case 'podcast':
-            if ((link.url.indexOf('https://anchor.fm') != -1) || (link.url.indexOf('https://anchor.fm') != -1)) {
-                const anchorLink = link.url.replace('episodes', 'embed/episodes') 
-                return `<iframe loading="lazy" src="${anchorLink}" height="102px" width="100%" frameborder="0" scrolling="no"></iframe>`
-            }
-            break;
-        case 'video':
-            if ((link.url.indexOf('https://youtube.com/playlist') != -1) || link.url.indexOf('https://www.youtube.com/playlist') != -1) {
-                let youtubeLink = link.url.replace('/playlist?list=', '/embed/videoseries?list=')
-                return `<iframe loading="lazy" width="100%" height="315" src="${youtubeLink}" frameborder = "0" allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe >`
-            } else if ((link.url.indexOf('https://youtube.com') != -1) || link.url.indexOf('https://www.youtube.com') != -1) {
-                let youtubeLink = link.url.replace('watch?v=', 'embed/')
-                return `<iframe loading="lazy" width="100%" height="315" src="${youtubeLink}" frameborder = "0" allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe >`
-            }
-            break;    
+        case('tulisan'):
+            return `<a class="button my-2" href="${link.url}"> Baca Artikel</a>`
+        break;
+        case ('podcast'):
+            return `<div class="button is-large is-rounded is-success"
+                        onclick="playMedia('${link.url}', this)"> Dengar Podcast </div>`
+        break;
+        case ('video'):
+            return `<div class="button is-large is-rounded is-danger"
+                        onclick="playMedia('${link.url}', this)"> Nonton Video </div>`
+        break;
         default:
             return '';
             break;
@@ -69,8 +61,7 @@ function getLinkPlayer(link) {
 
 
 function renderItem(link){
-
-    const linkPlayer = getLinkPlayer(link);
+    const mediaPlayer = getMediaPlayer(link);
 
     const item = document.createElement('li');
         item.innerHTML=`
@@ -92,7 +83,14 @@ function renderItem(link){
                         <h2 class="is-size-4 mb-1"> <a href="${link.url}" target="_blank"> ${link.title} </a></h2>
                         <p>${link.body.substring(0, 150)}</p>
 
-                        ${(linkPlayer != undefined) ? linkPlayer : ''}
+                        <div class="media-player is-${link.media} ${(link.thumbnail) ? 'has-thumbnail' : 'no-thumbnail'}">
+                           ${(link.thumbnail != null) 
+                                 ? `<img lazy="loading" src="${link.thumbnail}" alt="thumbnail ${link.title}" width="100%" height="auto">`  
+                                 : ''
+                            }
+                        
+                            ${(mediaPlayer != undefined) ? mediaPlayer : ''}
+                        </div>
 
                         <p class="is-size-7">
                             <span class="tag is-info is-light"> ${link.media} </span>

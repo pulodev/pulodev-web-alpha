@@ -18,6 +18,19 @@ body {
 .box a {
   color: #4a4a4a; }
 
+.media-player {
+  position: relative; }
+  .media-player.is-video img, .media-player.is-podcast img {
+    opacity: 0.8; }
+  .media-player.is-video.has-thumbnail .button, .media-player.is-podcast.has-thumbnail .button {
+    position: absolute;
+    top: 35%;
+    left: 25%; }
+  .media-player:hover img {
+    opacity: 1; }
+  .media-player.no-thumbnail {
+    margin: 10px 0; }
+
 #loading-bar {
   text-align: center;
   line-height: 4rem;
