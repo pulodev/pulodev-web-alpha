@@ -1,6 +1,9 @@
 /node_modules
 /docker-compose/data/*
-/public
+/public/hot
+/public/storage
+/public/css
+/public/js
 /storage/*.key
 /vendor
 .env
@@ -10,4 +13,3 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-package-lock.json
