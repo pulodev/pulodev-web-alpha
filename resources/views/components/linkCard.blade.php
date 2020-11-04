@@ -28,10 +28,14 @@
                     @endif
                     @break
                 @case('video')
-                    @if((strpos($link->url, 'https://youtube.com') !== false) || (strpos($link->url, 'https://www.youtube.com') !== false))
+                    @if((strpos($link->url, 'https://youtube.com/playlist') !== false) || (strpos($link->url, 'https://www.youtube.com/playlist') !== false))    
+                        @php $youtubeLink = str_replace('/playlist?list=', '/embed/videoseries?list=', $link->url) @endphp
+                        <iframe loading="lazy" width="100%" height="315" src="{{$youtubeLink}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    @elseif((strpos($link->url, 'https://youtube.com') !== false) || (strpos($link->url, 'https://www.youtube.com') !== false))
                         @php $youtubeLink = str_replace('watch?v=', 'embed/', $link->url) @endphp
                         <iframe loading="lazy" width="100%" height="315" src="{{$youtubeLink}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     @endif
+                    
                     @break    
                 @default
             @endswitch

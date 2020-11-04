@@ -41,15 +41,10 @@ function initInfiniteScroll(){
 }
 
 function getLinkPlayer(link) {
-    console.log('thumbnail : ' + link.title + ' - ' +  link.thumbnail);
     switch (link.media) {
         case 'tulisan':
-            if (link.thumbnail != null) {
-                console.log('there')
+            if (link.thumbnail != null) 
                 return `<img src="${link.thumbnail}" alt="thumbnail ${link.title}" width="100%" height="auto">`  
-            }  else {
-                console.log('thumbnail not null, but: ' + typeof link.thumbnail)
-            } 
             break;
         case 'podcast':
             if ((link.url.indexOf('https://anchor.fm') != -1) || (link.url.indexOf('https://anchor.fm') != -1)) {
@@ -58,9 +53,12 @@ function getLinkPlayer(link) {
             }
             break;
         case 'video':
-            if ((link.url.indexOf('https://youtube.com') != -1) || (link.url.indexOf('https://www.youtube.com') != -1)) {
-                const youtubeLink = link.url.replace('watch?v=', 'embed/')
-                return `<iframe loading="lazy" width="100%" height = "315" src = "${youtubeLink}" frameborder = "0" allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe >`
+            if ((link.url.indexOf('https://youtube.com/playlist') != -1) || link.url.indexOf('https://www.youtube.com/playlist') != -1) {
+                let youtubeLink = link.url.replace('/playlist?list=', '/embed/videoseries?list=')
+                return `<iframe loading="lazy" width="100%" height="315" src="${youtubeLink}" frameborder = "0" allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe >`
+            } else if ((link.url.indexOf('https://youtube.com') != -1) || link.url.indexOf('https://www.youtube.com') != -1) {
+                let youtubeLink = link.url.replace('watch?v=', 'embed/')
+                return `<iframe loading="lazy" width="100%" height="315" src="${youtubeLink}" frameborder = "0" allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe >`
             }
             break;    
         default:
