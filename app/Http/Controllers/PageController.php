@@ -37,8 +37,8 @@ class PageController extends Controller
                 $links = $links->where('media', $query);
                 break;     
             case 'tag':
-                $links = $links->where('tags', 'like' , '%'.str_replace('-', ' ', $query).'%')
-                               ->orWhere('tags', 'like' , '%'.$query.'%');
+                $links = $links->tags()->where('name', 'like' , '%'.str_replace('-', ' ', $query).'%')
+                               ->orWhere('name', 'like' , '%'.$query.'%');
                 break;     
             case 'order':
                 $links = $links->orderBy('original_published_at', 'desc');
