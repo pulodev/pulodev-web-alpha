@@ -51,9 +51,7 @@ function showCompleteForm() {
 $('form')[0].addEventListener('submit', function(evt){
     evt.preventDefault()
 
-    if (scraped == false)
-        scrape();
-    else
+    if (scraped == true)
         $('form')[0].submit();
 })
 
@@ -62,9 +60,9 @@ window.onload = () =>{
     if(linkUrl.value !==''){
         showCompleteForm() ;
         scraped = true;
+    } else{
+        $('#check-btn').addEventListener('click',(e)=>{
+            scrape();
+        });
     }
-
-    $('#check-btn').addEventListener('click',(e)=>{
-        scrape();
-    });
 };
