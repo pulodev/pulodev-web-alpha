@@ -4,17 +4,16 @@ import commonjs from '@rollup/plugin-commonjs';
 import { injectManifest } from 'rollup-plugin-workbox';
 import copy from 'rollup-plugin-copy';
 import {terser} from 'rollup-plugin-terser';
-
 const isProduction = process.env.NODE_ENV === 'production';
 
 const sass = (files,outputPath) => {
       return {
-        name: 'copy',
-        ['buildEnd']: async () =>{
-          
+        name: 'copy-sass',
+        async buildStart(){
           const sassCSS = require('node-sass');
           const fs = require('fs');
           files.forEach(sassFile => {
+            this.addWatchFile(sassFile);
             sassCSS.render({
                 file:sassFile,
                 outFile: outputPath,
@@ -40,7 +39,8 @@ const sass = (files,outputPath) => {
     }
 
 
-export default [{
+export default [
+  {
     input: 'resources/js/app.js',
     plugins: [
       sass(['resources/css/app.sass'],'public/css'),
