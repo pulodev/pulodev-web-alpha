@@ -26,12 +26,12 @@
                         <a class="button my-2" href="{{$link->url}}">Baca Artikel</a>
                         @break
                     @case('podcast')
-                        <div class="button is-large is-rounded is-success" 
-                            onclick="playMedia('{{$link->url}}', this)">Dengar Podcast</div>
+                        <a class="button is-large is-rounded is-success media" 
+                        href="{{$link->url}}">Dengar Podcast</a>
                         @break
                     @case('video')
-                        <div class="button is-large is-rounded is-danger"
-                            onclick="playMedia('{{$link->url}}', this)">Nonton Video</div>
+                        <a class="button is-large is-rounded is-danger media"
+                        href="{{$link->url}}">Nonton Video</a>
                         @break
                     @default                    
                 @endswitch
