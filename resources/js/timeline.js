@@ -61,7 +61,7 @@ function getMediaPlayer(link) {
                         onclick="playMedia('${link.url}', this)"> Dengar Podcast </a>`
         break;
         case ('video'):
-            return `<a class="button is-large is-rounded is-danger" href="${link.url}"
+            return `<a class="button is-large is-rounded is-danger"
                         onclick="playMedia('${link.url}', this)"> Nonton Video </a>`
         break;
         default:
