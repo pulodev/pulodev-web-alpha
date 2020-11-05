@@ -57,12 +57,12 @@ function getMediaPlayer(link) {
             return `<a class="button my-2" href="${link.url}"> Baca Artikel</a>`
         break;
         case ('podcast'):
-            return `<div class="button is-large is-rounded is-success"
-                        onclick="playMedia('${link.url}', this)"> Dengar Podcast </div>`
+            return `<a class="button is-large is-rounded is-success media"
+                        href="${link.url}"> Dengar Podcast </a>`
         break;
         case ('video'):
-            return `<div class="button is-large is-rounded is-danger"
-                        onclick="playMedia('${link.url}', this)"> Nonton Video </div>`
+            return `<a class="button is-large is-rounded is-danger media" 
+                        href="${link.url}"> Nonton Video </a>`
         break;
         default:
             return '';

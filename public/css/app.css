@@ -25,7 +25,9 @@ body {
   .media-player.is-video.has-thumbnail .button, .media-player.is-podcast.has-thumbnail .button {
     position: absolute;
     top: 35%;
-    left: 25%; }
+    left: 50%;
+    margin-left: -35%;
+    width: 70%; }
   .media-player:hover img {
     opacity: 1; }
   .media-player.no-thumbnail {
