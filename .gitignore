@@ -5,6 +5,7 @@ public/*
 !public/index.php
 !public/robots.txt
 !/public/.htaaccess
+storage/*.key
 .env
 .env.backup
 .phpunit.result.cache
