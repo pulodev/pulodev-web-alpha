@@ -13,9 +13,16 @@ services:
     working_dir: /var/www/
     volumes:
       - ./:/var/www
+      - ./docker-compose/php/ini:/usr/local/etc/php
     networks:
       - pulodev
-
+  adminer:
+    image: adminer
+    restart: always
+    networks:
+      - pulodev
+    ports:
+      - 8080:8080
   db:
     image: mysql:5.7
     container_name: pulodev-db
