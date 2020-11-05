@@ -37,17 +37,19 @@ class PageController extends Controller
                 $links = $links->where('media', $query);
                 break;     
             case 'tag':
-                $links = $links->tags()->where('name', 'like' , '%'.str_replace('-', ' ', $query).'%')
-                               ->orWhere('name', 'like' , '%'.$query.'%');
+                $links = $links->leftJoin('link_tags','links.id','=','link_tags.link_id')
+                    ->leftJoin('tags','link_tags.tag_id','=','tags.id')
+                    ->where('tags.name', 'like' , '%'.str_replace('-', ' ', $query).'%')
+                    ->orWhere('tags.name', 'like' , '%'.$query.'%');
                 break;     
             case 'order':
-                $links = $links->orderBy('original_published_at', 'desc');
+                $links = $links->orderBy('links.original_published_at', 'desc');
                 break;             
             default: 
                 break;
         }
         
-        $links = $links->orderBy('created_at', 'desc')->paginate(15);
+        $links = $links->orderBy('links.created_at', 'desc')->paginate(15);
         if($request->type==='json')
             return new LinkCollection($links);
         else
