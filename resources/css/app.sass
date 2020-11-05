@@ -18,6 +18,22 @@ body
 .box a
     color:#4a4a4a
 
+.media-player
+    position: relative
+    &.is-video, &.is-podcast
+        img
+            opacity: 0.8
+        &.has-thumbnail
+            .button
+                position: absolute
+                top: 35%
+                left: 25%
+    &:hover    
+        img
+            opacity: 1
+    &.no-thumbnail
+        margin: 10px 0
+
 #loading-bar
     text-align: center
     line-height: 4rem

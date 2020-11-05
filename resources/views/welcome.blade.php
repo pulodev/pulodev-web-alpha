@@ -2,6 +2,29 @@
 
 @push('scripts')
     <script src="/js/timeline.js" type="module"></script>
+    <script>
+    function playMedia(url, item) {
+        item.classList.add('is-loading')
+        let player = '';
+
+        if ((url.indexOf('https://anchor.fm') != -1) || (url.indexOf('https://anchor.fm') != -1)) {
+            const anchorLink = url.replace('episodes', 'embed/episodes');
+            player = `<iframe src="${anchorLink}" height="102px" width="100%" frameborder="0" scrolling="no"></iframe>`;
+        }
+        else if ((url.indexOf('https://youtube.com/playlist') != -1) || url.indexOf('https://www.youtube.com/playlist') != -1) {
+            let youtubeLink = url.replace('/playlist?list=', '/embed/videoseries?list=');
+            player = `<iframe width="100%" height="315" src="${youtubeLink}" frameborder = "0" allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        } else if ((url.indexOf('https://youtube.com') != -1) || url.indexOf('https://www.youtube.com') != -1) {
+            let youtubeLink = url.replace('watch?v=', 'embed/');
+            player = `<iframe width="100%" height="315" src="${youtubeLink}" frameborder = "0" allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        } else {
+            //for now just redirect to original source
+            window.location.href = url;
+        }
+
+        setTimeout(function(){ item.parentElement.innerHTML = player; }, 1000);
+    }
+    </script>
 @endpush
 
 @section('title')
