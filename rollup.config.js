@@ -111,6 +111,15 @@ export default [
       ]
     }
   },{
+    input: 'resources/js/content-card.js',
+    output: {
+      file: 'public/js/content-card.js',
+      format: 'esm',
+      plugins: [
+        isProduction && terser()
+      ]
+    }
+  },{
     input: 'resources/js/create-link.js',
     output: {
       file: 'public/js/create-link.js',

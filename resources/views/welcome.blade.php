@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @push('scripts')
+    <script src="/js/content-card.js" type="module"></script>
     <script src="/js/timeline.js" type="module"></script>
 @endpush
 

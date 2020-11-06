@@ -1,4 +1,5 @@
 import InfiniteScroll from './infinite-scroll.js';
+
 import {$} from './helper.js';
 window.addEventListener('load', () =>{
     initInfiniteScroll();
@@ -8,7 +9,7 @@ window.addEventListener('load', () =>{
             e.preventDefault();
             const href = el.getAttribute('href');
             playMedia(href,el);
-        })
+        });
     });
     document.getElementById('filterTag').addEventListener('click', function(){
         window.location.href = "/tag/" + document.getElementById('tag-query').value;
@@ -76,39 +77,19 @@ function renderItem(link){
 
     const item = document.createElement('li');
         item.innerHTML=`
-            <article class="media">
-                <div class="media-content">
-                    <div class="level is-mobile mb-2">
-                        <div class="level-left">
-                            <figure class="image is-32x32 is-inline-block">
-                            <img class="is-rounded" alt="foto profil ${link.user.username}" loading="lazy" src="${link.user.avatar_url}">
-                            </figure> 
-                            <small class="is-size-7 ml-2">
-                                <strong> ${(link.owner != null) ? link.owner : ''} · </strong>  ${link.published_diff} <br>
-                                <span>Dimasukkan oleh: ${link.user.fullname} @${link.user.username}</span>
-                            </small>  
-                        </div>
-                    </div>
-
-                    <div class="content">
-                        <h2 class="is-size-4 mb-1"> <a href="${link.url}" target="_blank"> ${link.title} </a></h2>
-                        <p>${link.body.substring(0, 150)}</p>
-
-                        <div class="media-player is-${link.media} ${(link.thumbnail) ? 'has-thumbnail' : 'no-thumbnail'}">
-                           ${(link.thumbnail != null) 
-                                 ? `<img lazy="loading" src="${link.thumbnail}" alt="thumbnail ${link.title}" width="100%" height="auto">`  
-                                 : ''
-                            }
-                        
-                            ${(mediaPlayer != undefined) ? mediaPlayer : ''}
-                        </div>
-
-                        <p class="is-size-7">
-                            <span class="tag is-info is-light"> ${link.media} </span>
-                        </p>
-                    </div>
-                </div>
-            </article>`;
+            <content-card
+                username="${link.user.username}"
+                fullname="${link.user.fullname}"
+                avatar_url="${link.user.avatar_url}"
+                owner="${link.owner}"
+                published_diff="${link.published_diff}"
+                url="${link.url}"
+                title="${link.title}"
+                body="${link.body}"
+                thumbnail="${link.thumbnail!==null?link.thumbnail:''}"
+                media="${link.media}"
+            ></content-card>
+            `;
         item.className = 'box';
         return item;
 }
