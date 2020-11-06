@@ -44,8 +44,8 @@ export default class ContentCard extends HTMLElement{
     }
   
     disconnectedCallback() {
-        this.querySelector('button').removeEventListener('click', this.close);
-        this.querySelector('.overlay').removeEventListener('click', this.close);
+        if(['tulisan','podcast','video'].includes(this.media))
+            this.querySelector('a.media').removeEventListener('click');
     }  
 
     playMedia(e) {
@@ -80,10 +80,10 @@ export default class ContentCard extends HTMLElement{
                 mediaPlayer = `<a class="media button my-2" href="${this.url}"> Baca Artikel</a>`;
                 break;
             case ('podcast'):
-                mediaPlayer = `<a class="media button is-large is-rounded is-success" onclick="playMedia('${this.url}', this)"> Dengar Podcast </a>`;
+                mediaPlayer = `<a class="media button is-large is-rounded is-success"> Dengar Podcast </a>`;
                 break;
             case ('video'):
-                mediaPlayer = `<a class="media button is-large is-rounded is-danger" onclick="playMedia('${this.url}', this)"> Nonton Video </a>`;
+                mediaPlayer = `<a class="media button is-large is-rounded is-danger"> Nonton Video </a>`;
                 break;
             default:
                 mediaPlayer = '';
