@@ -31,6 +31,8 @@
                 <div class="button is-light is-info" onclick="publishDraft()">Publish Draft</div>
             </div>
 
+            {{-- temporary use axios  --}}
+            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
             <script>
                 //===================================================
                 //=========== SELECT CONTENT =======================

@@ -18,6 +18,8 @@
         <h3 class="is-size-3">Masih Draft({{count($draftResources)}})</h3>
 
         <hr>
+        {{-- temporary use axios  --}}
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script>
             function accept(res_id) {
                 axios.get('/admin/rss/verify/' + res_id)

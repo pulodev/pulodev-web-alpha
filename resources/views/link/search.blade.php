@@ -4,6 +4,10 @@
 @section('desc', 'Mencari konten di PuloDev')
 @section('content')
 
+@push('scripts')
+    <script src="/js/timeline.js" type="module"></script>
+@endpush
+
 <section class="hero">
     <div class="hero-body">
         <div class="container has-text-centered">
